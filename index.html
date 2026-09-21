@@ -56,6 +56,52 @@
       padding: 0 1.25rem;
     }
 
+    /* Top Admin Bar (Only active in editor/localhost) */
+    .admin-top-bar {
+      display: none;
+      background: #0d1527;
+      border-bottom: 1px solid #1e293b;
+      padding: 0.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      font-size: 0.8rem;
+    }
+    .admin-top-bar.active {
+      display: block;
+    }
+    .admin-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+    .admin-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .admin-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 8px #38bdf8;
+      display: inline-block;
+    }
+    .admin-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
     /* Header */
     .site-header {
       border-bottom: 1px solid var(--border-subtle);
@@ -64,6 +110,9 @@
       position: sticky;
       top: 0;
       z-index: 50;
+    }
+    .admin-top-bar.active ~ .site-header {
+      top: 2.75rem;
     }
     .header-inner {
       display: flex;
@@ -129,10 +178,18 @@
       background-color: var(--bg-surface-hover);
       border-color: var(--border-hover);
     }
+    .btn-emerald {
+      background-color: var(--emerald);
+      color: #fff;
+      border: none;
+    }
+    .btn-emerald:hover {
+      background-color: #059669;
+    }
     .btn-sm {
-      height: 32px;
-      padding: 0 0.75rem;
-      font-size: 0.8rem;
+      height: 30px;
+      padding: 0 0.7rem;
+      font-size: 0.775rem;
     }
     .btn-outline {
       background: transparent;
@@ -377,6 +434,62 @@
       width: 1em;
     }
 
+    /* Modal Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-box {
+      background: #10141e;
+      border: 1px solid #313e59;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8);
+      color: #f0f4fc;
+    }
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #1f2738;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.875rem;
+    }
+    .form-input {
+      width: 100%;
+      background: #090c12;
+      border: 1px solid #1f2738;
+      border-radius: 6px;
+      padding: 8px 10px;
+      color: #fff;
+      font-family: inherit;
+    }
+    .form-input:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
     /* Empty state */
     .empty-state {
       text-align: center;
@@ -403,6 +516,21 @@
   </style>
 </head>
 <body>
+
+  <!-- Top Admin Bar (Always visible in ModManager.exe & local preview) -->
+  <div id="admin-top-bar" class="admin-top-bar">
+    <div class="container admin-bar-inner">
+      <div class="admin-status">
+        <span class="admin-dot"></span>
+        <span>MOD YÖNETİCİSİ AKTİF</span>
+      </div>
+      <div class="admin-btn-group">
+        <button type="button" id="top-btn-add" class="btn btn-sm btn-primary">➕ Yeni Mod Ekle</button>
+        <button type="button" id="top-btn-refresh" class="btn btn-sm btn-secondary">🔄 Yenile</button>
+        <button type="button" id="top-btn-push" class="btn btn-sm btn-emerald">🚀 GitHub'a Canlıya Al</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Site Header -->
   <header class="site-header">
@@ -455,6 +583,94 @@
 
   </main>
 
+  <!-- Mod Editor Modal -->
+  <div id="mod-editor-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-heading" style="font-size:1.15rem;font-weight:700;margin:0;">➕ Yeni Mod Ekle</h3>
+        <button id="modal-close-btn" style="background:transparent;border:none;color:#94a3b8;font-size:1.5rem;cursor:pointer;line-height:1;">&times;</button>
+      </div>
+      <form id="mod-edit-form" class="modal-body">
+        <input type="hidden" id="f-id" />
+        
+        <div>
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Mod Başlığı:</label>
+          <input type="text" id="f-title" required class="form-input" placeholder="Örn: PES 2021 Discord Rich Presence" />
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Sürüm:</label>
+            <input type="text" id="f-version" class="form-input" placeholder="v1.0.11" />
+          </div>
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Küçük Resim / İkon:</label>
+            <div style="display:flex;gap:6px;">
+              <input type="text" id="f-icon" class="form-input" style="font-size:11px;" placeholder="./assets/images/icons/..." />
+              <button type="button" id="btn-pick-img" class="btn btn-sm btn-secondary" style="white-space:nowrap;font-size:11px;">📁 Gözat</button>
+            </div>
+            <select id="preset-icon-select" class="form-input" style="margin-top:5px;padding:4px 6px;font-size:11px;">
+              <option value="">⚡ Hazır İkon Seç...</option>
+              <option value="./assets/images/projects/pes2021-icon.svg">🎮 PES 2021 / Futbol</option>
+              <option value="./assets/images/icons/minecraft.svg">⛏️ Minecraft (Creeper)</option>
+              <option value="./assets/images/icons/minecraft-cube.svg">📦 Minecraft (Çimen Blok)</option>
+              <option value="./assets/images/icons/minecraft-pickaxe.svg">⛏️ Minecraft (Elmas Kazma)</option>
+              <option value="./assets/images/icons/discord.svg">💬 Discord Clyde</option>
+              <option value="./assets/images/icons/steam.svg">💨 Steam</option>
+              <option value="./assets/images/icons/gamepad.svg">🕹️ Gamepad / Konsol</option>
+              <option value="./assets/images/icons/lua.svg">🌙 Lua Modülü</option>
+              <option value="./assets/images/icons/python.svg">🐍 Python</option>
+              <option value="./assets/images/icons/csharp.svg">⚡ C# / .NET</option>
+              <option value="./assets/images/icons/plugin.svg">🔌 Eklenti / Plugin</option>
+              <option value="./assets/images/icons/tools.svg">🛠️ Araçlar / Wrench</option>
+              <option value="./assets/images/icons/terminal.svg">💻 Terminal</option>
+              <option value="./assets/images/icons/windows.svg">🪟 Windows</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Açıklama (Türkçe):</label>
+          <textarea id="f-tagline-tr" rows="2" class="form-input" style="resize:vertical;" placeholder="Modun ne yaptığını kısaca anlatın..."></textarea>
+        </div>
+
+        <div>
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Açıklama (İngilizce):</label>
+          <textarea id="f-tagline-en" rows="2" class="form-input" style="resize:vertical;" placeholder="Brief description in English..."></textarea>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">İndirme Linki (.zip):</label>
+            <input type="url" id="f-download" class="form-input" placeholder="https://github.com/.../release.zip" />
+          </div>
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">GitHub Linki:</label>
+            <input type="url" id="f-github" class="form-input" placeholder="https://github.com/..." />
+          </div>
+        </div>
+
+        <div>
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Kurulum Satırı (sider.ini / config):</label>
+          <input type="text" id="f-install" class="form-input" style="color:#79c0ff;font-family:var(--font-mono);" placeholder='lua.module = "discord_rpc.lua"' />
+        </div>
+
+        <div>
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Etiketler (Virgülle ayırın):</label>
+          <input type="text" id="f-tags" class="form-input" placeholder="PES 2021, Sider 7, Discord RPC" />
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:12px;border-top:1px solid #1f2738;">
+          <button type="button" id="btn-delete-mod" style="display:none;background:#ef4444;border:none;color:#fff;padding:7px 12px;border-radius:6px;cursor:pointer;font-weight:600;">🗑️ Bu Modu Sil</button>
+          <div style="display:flex;gap:8px;margin-left:auto;">
+            <button type="button" id="btn-cancel-modal" class="btn btn-secondary">İptal</button>
+            <button type="submit" class="btn btn-emerald">💾 Kaydet</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -468,6 +684,7 @@
     import { applyLanguage, getLanguage, setLanguage, t } from './assets/js/i18n.js';
 
     let allMods = [];
+    const isEditor = window.pywebview || location.hostname === '127.0.0.1' || location.hostname === 'localhost' || location.protocol === 'file:';
 
     // Fallback data in case of file:// protocol restriction on fetch
     const fallbackMods = [
@@ -564,8 +781,8 @@
           </a>
         ` : '';
 
-        // Edit button if in PyWebView manager
-        const editBtn = (window.pywebview && window.pywebview.api) ? `
+        // Edit button always visible when in editor/localhost
+        const editBtn = isEditor ? `
           <button type="button" class="btn btn-sm btn-outline btn-edit-mod" data-id="${escapeHTML(m.id)}" style="color: var(--amber); border-color: rgba(245, 158, 11, 0.4);">
             ✏️ Düzenle
           </button>
@@ -674,7 +891,7 @@
         });
       });
 
-      // Wire up edit buttons for PyWebView
+      // Wire up edit buttons
       document.querySelectorAll('.btn-edit-mod').forEach(btn => {
         btn.addEventListener('click', () => {
           const modId = btn.getAttribute('data-id');
@@ -689,6 +906,174 @@
     function escapeHTML(str) {
       if (typeof str !== 'string') return '';
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
+    // Modal & Editor Handlers
+    function setupEditor() {
+      const modal = document.getElementById('mod-editor-modal');
+      const topBar = document.getElementById('admin-top-bar');
+
+      if (isEditor && topBar) {
+        topBar.classList.add('active');
+      }
+
+      window.openModEditorModal = function(mod = null) {
+        if (!modal) return;
+        modal.style.display = 'flex';
+        if (mod) {
+          document.getElementById('modal-heading').textContent = '✏️ Mod Düzenle: ' + mod.title;
+          document.getElementById('f-id').value = mod.id || '';
+          document.getElementById('f-title').value = mod.title || '';
+          document.getElementById('f-version').value = mod.version || '';
+          document.getElementById('f-icon').value = mod.icon || '';
+          document.getElementById('f-tagline-tr').value = mod.tagline_tr || '';
+          document.getElementById('f-tagline-en').value = mod.tagline_en || '';
+          document.getElementById('f-download').value = mod.download_url || '';
+          document.getElementById('f-github').value = mod.github_url || '';
+          document.getElementById('f-install').value = mod.install_code || '';
+          document.getElementById('f-tags').value = (mod.tags || []).join(', ');
+          document.getElementById('btn-delete-mod').style.display = 'inline-block';
+        } else {
+          document.getElementById('modal-heading').textContent = '➕ Yeni Mod Ekle';
+          document.getElementById('mod-edit-form').reset();
+          document.getElementById('f-id').value = '';
+          document.getElementById('f-icon').value = './assets/images/projects/pes2021-icon.svg';
+          document.getElementById('btn-delete-mod').style.display = 'none';
+        }
+      };
+
+      const closeModal = () => { if (modal) modal.style.display = 'none'; };
+      const closeBtn = document.getElementById('modal-close-btn');
+      const cancelBtn = document.getElementById('btn-cancel-modal');
+      if (closeBtn) closeBtn.onclick = closeModal;
+      if (cancelBtn) cancelBtn.onclick = closeModal;
+
+      // Preset icon change
+      const presetSelect = document.getElementById('preset-icon-select');
+      if (presetSelect) {
+        presetSelect.onchange = (e) => {
+          if (e.target.value) {
+            document.getElementById('f-icon').value = e.target.value;
+          }
+        };
+      }
+
+      // Image picker button
+      const pickBtn = document.getElementById('btn-pick-img');
+      if (pickBtn) {
+        pickBtn.onclick = async () => {
+          if (window.pywebview && window.pywebview.api) {
+            const res = await window.pywebview.api.pick_image();
+            if (res.success && res.path) {
+              document.getElementById('f-icon').value = res.path;
+            }
+          } else {
+            const path = prompt('Resim dosya yolunu girin (örn: ./assets/images/icons/minecraft.svg):', './assets/images/icons/');
+            if (path) document.getElementById('f-icon').value = path;
+          }
+        };
+      }
+
+      // Form submit
+      const form = document.getElementById('mod-edit-form');
+      if (form) {
+        form.onsubmit = async (e) => {
+          e.preventDefault();
+          const idVal = document.getElementById('f-id').value.trim();
+          const titleVal = document.getElementById('f-title').value.trim();
+          const tagsArr = document.getElementById('f-tags').value.split(',').map(s => s.trim()).filter(Boolean);
+
+          const modObj = {
+            id: idVal || titleVal.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            title: titleVal,
+            version: document.getElementById('f-version').value.trim(),
+            updated: new Date().toISOString().split('T')[0],
+            icon: document.getElementById('f-icon').value.trim() || './assets/images/projects/pes2021-icon.svg',
+            tagline_tr: document.getElementById('f-tagline-tr').value.trim(),
+            tagline_en: document.getElementById('f-tagline-en').value.trim(),
+            download_url: document.getElementById('f-download').value.trim(),
+            github_url: document.getElementById('f-github').value.trim(),
+            install_code: document.getElementById('f-install').value.trim(),
+            tags: tagsArr,
+            hotkeys: [],
+            features_tr: [],
+            features_en: []
+          };
+
+          if (window.pywebview && window.pywebview.api) {
+            const res = await window.pywebview.api.save_mod(modObj);
+            if (res.success) {
+              closeModal();
+              loadMods();
+            } else {
+              alert('Hata: ' + res.error);
+            }
+          } else {
+            // Local fallback simulation
+            const idx = allMods.findIndex(m => m.id === modObj.id);
+            if (idx >= 0) allMods[idx] = modObj;
+            else allMods.unshift(modObj);
+            closeModal();
+            renderMods();
+          }
+        };
+      }
+
+      // Delete mod
+      const delBtn = document.getElementById('btn-delete-mod');
+      if (delBtn) {
+        delBtn.onclick = async () => {
+          const idVal = document.getElementById('f-id').value.trim();
+          if (!idVal) return;
+          if (confirm('Bu modu silmek istediğinize emin misiniz?')) {
+            if (window.pywebview && window.pywebview.api) {
+              const res = await window.pywebview.api.delete_mod(idVal);
+              if (res.success) {
+                closeModal();
+                loadMods();
+              } else {
+                alert('Hata: ' + res.error);
+              }
+            } else {
+              allMods = allMods.filter(m => m.id !== idVal);
+              closeModal();
+              renderMods();
+            }
+          }
+        };
+      }
+
+      // Top bar button actions
+      const topAddBtn = document.getElementById('top-btn-add');
+      if (topAddBtn) topAddBtn.onclick = () => window.openModEditorModal();
+
+      const topRefreshBtn = document.getElementById('top-btn-refresh');
+      if (topRefreshBtn) topRefreshBtn.onclick = () => loadMods();
+
+      const topPushBtn = document.getElementById('top-btn-push');
+      if (topPushBtn) {
+        topPushBtn.onclick = async () => {
+          if (window.pywebview && window.pywebview.api) {
+            topPushBtn.textContent = '⏳ Gönderiliyor...';
+            topPushBtn.disabled = true;
+            try {
+              const res = await window.pywebview.api.publish_github();
+              if (res.success) {
+                alert('✅ ' + res.message);
+              } else {
+                alert('❌ Hata: ' + res.error);
+              }
+            } catch(e) {
+              alert('❌ Hata: ' + e);
+            } finally {
+              topPushBtn.textContent = '🚀 GitHub\'a Canlıya Al';
+              topPushBtn.disabled = false;
+            }
+          } else {
+            alert('Bu özellik ModManager.exe uygulaması içinden çalışır.');
+          }
+        };
+      }
     }
 
     // Initialize UI
@@ -714,6 +1099,7 @@
       const yearEl = document.getElementById('current-year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+      setupEditor();
       loadMods();
     });
 
