@@ -1,4 +1,6 @@
 HubManager.exe
+SiteViewer.exe
+*.exe
 build/
 dist/
 *.spec
