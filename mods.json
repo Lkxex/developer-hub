@@ -1,9 +1,11 @@
 [
   {
     "id": "pes2021-discord-rpc",
+    "type": "personal",
     "title": "PES 2021 Discord Rich Presence",
     "version": "v1.0.11",
     "updated": "2026-03-21",
+    "author": "Lkxex",
     "tagline_tr": "eFootball PES 2021 için Sider 7 tabanlı, sıfır FPS düşüşlü ve anlık skor bildirimli Discord RPC modu.",
     "tagline_en": "Sider 7 Lua module for eFootball PES 2021 with zero-GC memory and real-time Discord Rich Presence.",
     "icon": "./assets/images/projects/pes2021-icon.svg",
@@ -28,6 +30,126 @@
       "Zero-GC: Preallocated C buffers ensure zero micro-stutters.",
       "Live Match & Goals: Real-time score, stadium, team and goal events.",
       "Universal Compatibility: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
+    ]
+  },
+  {
+    "id": "sider-7",
+    "type": "community",
+    "title": "Sider 7 (PES 2021)",
+    "version": "v7.2.1",
+    "updated": "2024-05-10",
+    "author": "juce & nesa24",
+    "platform": "EvoWeb",
+    "platform_url": "https://evoweb.uk/threads/sider-7.84002/",
+    "icon": "./assets/images/icons/tools.svg",
+    "tags": ["PES 2021", "Hook Tool", "Lua", "EvoWeb", "Essential"],
+    "tagline_tr": "PES 2021 için tüm modların, Lua scriptlerinin ve stadyum/top sunucularının çalışmasını sağlayan vazgeçilmez hook aracı.",
+    "tagline_en": "The essential hook tool and Lua scripting engine powering all PES 2021 mods, overlays and servers.",
+    "features_tr": [
+      "Bellek içi dinamik yama yükleme (Orijinal CPK'ları bozmaz).",
+      "Gelişmiş LuaJIT modül desteği ve anlık oyun verisi okuma.",
+      "Gamepad ile oyun içi canlı menü kontrolü (Space tuşu / R3)."
+    ],
+    "features_en": [
+      "Dynamic in-memory asset replacement without touching CPK files.",
+      "Full LuaJIT scripting runtime with real-time match events.",
+      "In-game interactive overlay menu via keyboard or controller."
+    ]
+  },
+  {
+    "id": "virtuared-patch-2021",
+    "type": "community",
+    "title": "VirtuaRED.com Patch 2021",
+    "version": "v8.4 Final",
+    "updated": "2024-03-15",
+    "author": "VirtuaRED Team",
+    "platform": "EvoWeb / VirtuaRED",
+    "platform_url": "https://evoweb.uk/threads/virtuared-com-patch-2021.85408/",
+    "icon": "./assets/images/projects/pes2021-icon.svg",
+    "tags": ["PES 2021", "Mega Patch", "Stadiums", "Faces", "Licenses"],
+    "tagline_tr": "PES 2021 için 1000+ gerçek stadyum, binlerce yüksek kaliteli yüz ve tam lisans içeren en kapsamlı mega yama.",
+    "tagline_en": "The most complete all-in-one mega patch for PES 2021 with 1000+ real stadiums, faces and full licenses.",
+    "features_tr": [
+      "1000+ detaylı stadyum ve atmosfer paketi.",
+      "Tamamen güncellenmiş transferler, ligler ve gerçek formalar.",
+      "Gelişmiş skorboard, kupa ve giriş seremonisi sunucuları."
+    ],
+    "features_en": [
+      "1000+ authentic stadiums with realistic lighting and turf.",
+      "Completely licensed teams, competition logos and HD kits.",
+      "Custom broadcast scoreboard and trophy presentation servers."
+    ]
+  },
+  {
+    "id": "smoke-patch-football-life",
+    "type": "community",
+    "title": "SP Football Life",
+    "version": "FL24 / FL25",
+    "updated": "2025-01-20",
+    "author": "Dido & SmokePatch",
+    "platform": "Smoke-Patch",
+    "platform_url": "https://www.pessmokepatch.com/",
+    "icon": "./assets/images/icons/gamepad.svg",
+    "tags": ["PES 2021", "Standalone", "Career Mode", "Gameplay", "Faces"],
+    "tagline_tr": "PES 2021 motoru üzerine kurulu, tek kurulumla çalışan, bağımsız ve sürekli güncellenen futbol deneyimi.",
+    "tagline_en": "Standalone football game built on the PES 2021 engine with updated career mode, database and faces.",
+    "features_tr": [
+      "Tek tıkla kurulum; harici oyun sürümü gerektirmez.",
+      "Geliştirilmiş yapay zeka ve gerçekçi maç temposu.",
+      "Her sezon yenilenen transferler, genç yetenekler ve yüzler."
+    ],
+    "features_en": [
+      "All-in-one standalone installer; no base game needed.",
+      "Enhanced custom AI with realistic match pacing and physics.",
+      "Regular seasonal roster updates, wonderkids and facepacks."
+    ]
+  },
+  {
+    "id": "sodium-minecraft",
+    "type": "community",
+    "title": "Sodium (Minecraft)",
+    "version": "v0.5.11",
+    "updated": "2024-06-01",
+    "author": "CaffeineMC",
+    "platform": "Modrinth",
+    "platform_url": "https://modrinth.com/mod/sodium",
+    "icon": "./assets/images/icons/modrinth.svg",
+    "tags": ["Minecraft", "Optimization", "Fabric", "FPS Boost", "Modrinth"],
+    "tagline_tr": "Minecraft Fabric için modern OpenGL kullanan, FPS'i katlayan ve takılmaları yok eden devrimsel grafik optimizasyon modu.",
+    "tagline_en": "Revolutionary rendering engine for Minecraft Fabric that dramatically boosts FPS and eliminates micro-stutters.",
+    "features_tr": [
+      "Modern OpenGL render hattı ile %200 - %400'e varan FPS artışı.",
+      "Chunk yükleme ve CPU bellek kullanımında devasa optimizasyon.",
+      "Iris Shaders ile tam uyumlu shader desteği."
+    ],
+    "features_en": [
+      "Modern OpenGL pipeline delivering 200% - 400% FPS improvements.",
+      "Substantial chunk loading and CPU memory optimizations.",
+      "Seamless integration with Iris Shaders."
+    ]
+  },
+  {
+    "id": "create-minecraft",
+    "type": "community",
+    "title": "Create Mod (Minecraft)",
+    "version": "v0.5.1",
+    "updated": "2024-05-20",
+    "author": "simibubi",
+    "platform": "CurseForge",
+    "platform_url": "https://www.curseforge.com/minecraft/mc-mods/create",
+    "icon": "./assets/images/icons/curseforge.svg",
+    "tags": ["Minecraft", "Mechanics", "Automation", "Forge / Fabric", "CurseForge"],
+    "tagline_tr": "Minecraft'a dişliler, dönen miller, konveyör bantları ve trenlerle çalışan gerçekçi mekanik otomasyon getiren efsanevi mod.",
+    "tagline_en": "Legendary mechanical engineering mod for Minecraft with rotational power, conveyor belts, trains and contraptions.",
+    "features_tr": [
+      "Dönme torku ve kinetik enerjiye dayalı gerçekçi makineler.",
+      "Özelleştirilebilir tren hatları ve raylı ulaşım sistemleri.",
+      "Tamamen görsel, estetik ve fizik tabanlı fabrikalar kurma imkanı."
+    ],
+    "features_en": [
+      "Kinetic rotational power mechanics and kinetic stress systems.",
+      "Customizable functional trains and railway networks.",
+      "Aesthetic, physics-based automation without magical single-block machines."
     ]
   }
 ]

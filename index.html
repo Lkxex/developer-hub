@@ -247,6 +247,77 @@
       color: var(--text-muted);
     }
 
+    /* Tabs / Filter Navigation */
+    .tabs-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.1rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.38rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 120ms ease;
+      font-family: inherit;
+    }
+    .tab-btn:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .badge-type {
+      font-size: 0.685rem;
+      font-weight: 700;
+      padding: 0.12rem 0.45rem;
+      border-radius: 5px;
+      letter-spacing: 0.02em;
+    }
+    .badge-personal {
+      background: rgba(88, 101, 242, 0.15);
+      color: #7289da;
+      border: 1px solid rgba(88, 101, 242, 0.35);
+    }
+    .badge-community {
+      background: rgba(245, 158, 11, 0.14);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .badge-platform {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.725rem;
+      font-weight: 600;
+      padding: 0.12rem 0.45rem;
+      border-radius: 5px;
+    }
+    .mod-author-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .mod-author-row strong {
+      color: var(--text-secondary);
+    }
+
     /* Mods Grid / List */
     .mods-container {
       display: flex;
@@ -572,7 +643,14 @@
           <circle cx="11" cy="11" r="8"/>
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
-        <input type="search" id="mod-search" placeholder="Mod veya etiket ara... (Örn: PES, Sider, RPC)" data-i18n="search_placeholder" autocomplete="off" />
+        <input type="search" id="mod-search" placeholder="Mod, etiket veya oyun ara... (Örn: PES, Sider, Minecraft, RPC)" data-i18n="search_placeholder" autocomplete="off" />
+      </div>
+
+      <!-- Category / Type Filter Tabs -->
+      <div class="tabs-container" id="mod-tabs">
+        <button type="button" class="tab-btn active" data-tab="all" data-i18n="tab_all">Tümü</button>
+        <button type="button" class="tab-btn" data-tab="personal" data-i18n="tab_personal">⚡ Kendi Modlarım</button>
+        <button type="button" class="tab-btn" data-tab="community" data-i18n="tab_community">🌟 Popüler Topluluk Modları</button>
       </div>
     </section>
 
@@ -593,9 +671,34 @@
       <form id="mod-edit-form" class="modal-body">
         <input type="hidden" id="f-id" />
         
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Mod Türü:</label>
+            <select id="f-type" class="form-input">
+              <option value="personal">⚡ Kendi Modum (Geliştirici)</option>
+              <option value="community">🌟 Popüler Topluluk Modu</option>
+            </select>
+          </div>
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Geliştirici / Yazar:</label>
+            <input type="text" id="f-author" class="form-input" placeholder="Örn: Lkxex veya juce & nesa24" />
+          </div>
+        </div>
+
         <div>
           <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Mod Başlığı:</label>
           <input type="text" id="f-title" required class="form-input" placeholder="Örn: PES 2021 Discord Rich Presence" />
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Platform Adı (Opsiyonel):</label>
+            <input type="text" id="f-platform" class="form-input" placeholder="Örn: EvoWeb, Modrinth, CurseForge" />
+          </div>
+          <div style="flex:1;">
+            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Mod Sayfası URL (Opsiyonel):</label>
+            <input type="url" id="f-platform-url" class="form-input" placeholder="https://..." />
+          </div>
         </div>
 
         <div style="display:flex;gap:10px;">
@@ -743,18 +846,27 @@
       renderMods();
     }
 
+    let currentTab = 'all';
+
     function renderMods(filterQuery = '') {
       const container = document.getElementById('mods-container');
       const lang = getLanguage();
       const q = filterQuery.toLowerCase().trim();
 
       const filtered = allMods.filter(m => {
+        // Tab filtering
+        if (currentTab === 'personal' && m.type === 'community') return false;
+        if (currentTab === 'community' && m.type !== 'community') return false;
+
+        // Search query filtering
         if (!q) return true;
         const title = (m.title || '').toLowerCase();
         const tagTr = (m.tagline_tr || '').toLowerCase();
         const tagEn = (m.tagline_en || '').toLowerCase();
         const tags = (m.tags || []).join(' ').toLowerCase();
-        return title.includes(q) || tagTr.includes(q) || tagEn.includes(q) || tags.includes(q);
+        const author = (m.author || '').toLowerCase();
+        const platform = (m.platform || '').toLowerCase();
+        return title.includes(q) || tagTr.includes(q) || tagEn.includes(q) || tags.includes(q) || author.includes(q) || platform.includes(q);
       });
 
       if (filtered.length === 0) {
@@ -763,17 +875,41 @@
       }
 
       container.innerHTML = filtered.map(m => {
+        const isCommunity = m.type === 'community';
         const tagline = (lang === 'en' && m.tagline_en) ? m.tagline_en : m.tagline_tr;
         const features = (lang === 'en' && m.features_en) ? m.features_en : (m.features_tr || []);
         const hotkeys = m.hotkeys || [];
         const tagsHTML = (m.tags || []).map(tag => `<span class="tag-pill">${escapeHTML(tag)}</span>`).join('');
 
-        const evowebBtn = m.evoweb_url ? `
-          <a href="${escapeHTML(m.evoweb_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            ${t('btn_evoweb')}
-          </a>
+        const typeBadge = isCommunity 
+          ? `<span class="badge-type badge-community">${t('badge_community')}</span>` 
+          : `<span class="badge-type badge-personal">${t('badge_personal')}</span>`;
+
+        const authorRow = (m.author || m.platform) ? `
+          <div class="mod-author-row">
+            ${m.author ? `<span>${t('label_developer')} <strong>${escapeHTML(m.author)}</strong></span>` : ''}
+            ${m.platform ? `<span class="badge-platform">🌐 ${escapeHTML(m.platform)}</span>` : ''}
+          </div>
         ` : '';
+
+        // Primary & external buttons
+        let primaryBtn = '';
+        if (isCommunity && (m.platform_url || m.download_url)) {
+          const url = m.platform_url || m.download_url;
+          primaryBtn = `
+            <a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              ${t('btn_visit_mod')}
+            </a>
+          `;
+        } else if (m.download_url) {
+          primaryBtn = `
+            <a href="${escapeHTML(m.download_url)}" class="btn btn-sm btn-primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              ${t('btn_download_zip')}
+            </a>
+          `;
+        }
 
         const githubBtn = m.github_url ? `
           <a href="${escapeHTML(m.github_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
@@ -782,10 +918,10 @@
           </a>
         ` : '';
 
-        const downloadBtn = m.download_url ? `
-          <a href="${escapeHTML(m.download_url)}" class="btn btn-sm btn-primary">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            ${t('btn_download_zip')}
+        const evowebBtn = m.evoweb_url ? `
+          <a href="${escapeHTML(m.evoweb_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            ${t('btn_evoweb')}
           </a>
         ` : '';
 
@@ -793,6 +929,13 @@
         const editBtn = isEditor ? `
           <button type="button" class="btn btn-sm btn-outline btn-edit-mod" data-id="${escapeHTML(m.id)}" style="color: var(--amber); border-color: rgba(245, 158, 11, 0.4);">
             ✏️ Düzenle
+          </button>
+        ` : '';
+
+        const hasDetails = m.install_code || hotkeys.length > 0 || features.length > 0;
+        const toggleDetailsBtn = hasDetails ? `
+          <button type="button" class="btn btn-sm btn-outline toggle-details-btn" data-target="details-${escapeHTML(m.id)}">
+            ${t('btn_details_open')}
           </button>
         ` : '';
 
@@ -842,7 +985,9 @@
                 <div class="mod-title-row">
                   <h2 class="mod-title">${escapeHTML(m.title)}</h2>
                   ${m.version ? `<span class="badge-version">${escapeHTML(m.version)}</span>` : ''}
+                  ${typeBadge}
                 </div>
+                ${authorRow}
                 <p class="mod-tagline">${escapeHTML(tagline)}</p>
                 <div class="mod-tags">${tagsHTML}</div>
               </div>
@@ -850,21 +995,20 @@
 
             <div class="mod-actions-row">
               <div class="mod-btn-group">
-                ${downloadBtn}
+                ${primaryBtn}
                 ${githubBtn}
                 ${evowebBtn}
                 ${editBtn}
               </div>
-              <button type="button" class="btn btn-sm btn-outline toggle-details-btn" data-target="details-${escapeHTML(m.id)}">
-                ${t('btn_details_open')}
-              </button>
+              ${toggleDetailsBtn}
             </div>
 
+            ${hasDetails ? `
             <div class="mod-details" id="details-${escapeHTML(m.id)}">
               ${installHTML}
               ${hotkeysHTML}
               ${featuresHTML}
-            </div>
+            </div>` : ''}
           </article>
         `;
       }).join('');
@@ -931,6 +1075,10 @@
         if (mod) {
           document.getElementById('modal-heading').textContent = '✏️ Mod Düzenle: ' + mod.title;
           document.getElementById('f-id').value = mod.id || '';
+          document.getElementById('f-type').value = mod.type || 'personal';
+          document.getElementById('f-author').value = mod.author || '';
+          document.getElementById('f-platform').value = mod.platform || '';
+          document.getElementById('f-platform-url').value = mod.platform_url || '';
           document.getElementById('f-title').value = mod.title || '';
           document.getElementById('f-version').value = mod.version || '';
           document.getElementById('f-icon').value = mod.icon || '';
@@ -945,6 +1093,10 @@
           document.getElementById('modal-heading').textContent = '➕ Yeni Mod Ekle';
           document.getElementById('mod-edit-form').reset();
           document.getElementById('f-id').value = '';
+          document.getElementById('f-type').value = 'personal';
+          document.getElementById('f-author').value = '';
+          document.getElementById('f-platform').value = '';
+          document.getElementById('f-platform-url').value = '';
           document.getElementById('f-icon').value = './assets/images/projects/pes2021-icon.svg';
           document.getElementById('btn-delete-mod').style.display = 'none';
         }
@@ -993,6 +1145,10 @@
 
           const modObj = {
             id: idVal || titleVal.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            type: document.getElementById('f-type').value,
+            author: document.getElementById('f-author').value.trim(),
+            platform: document.getElementById('f-platform').value.trim(),
+            platform_url: document.getElementById('f-platform-url').value.trim(),
             title: titleVal,
             version: document.getElementById('f-version').value.trim(),
             updated: new Date().toISOString().split('T')[0],
@@ -1103,6 +1259,16 @@
           renderMods(e.target.value);
         });
       }
+
+      // Tab switching
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTab = btn.getAttribute('data-tab');
+          renderMods(searchInput ? searchInput.value : '');
+        });
+      });
 
       const yearEl = document.getElementById('current-year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
