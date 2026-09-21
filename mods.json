@@ -1,0 +1,33 @@
+[
+  {
+    "id": "pes2021-discord-rpc",
+    "title": "PES 2021 Discord Rich Presence",
+    "version": "v1.0.11",
+    "updated": "2026-03-21",
+    "tagline_tr": "eFootball PES 2021 için Sider 7 tabanlı, sıfır FPS düşüşlü ve anlık skor bildirimli Discord RPC modu.",
+    "tagline_en": "Sider 7 Lua module for eFootball PES 2021 with zero-GC memory and real-time Discord Rich Presence.",
+    "icon": "./assets/images/projects/pes2021-icon.svg",
+    "tags": ["PES 2021", "Sider 7", "LuaJIT", "Discord RPC", "Zero-GC"],
+    "download_url": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
+    "github_url": "https://github.com/Lkxex/pes2021-discord-rpc",
+    "evoweb_url": "https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/",
+    "install_code": "lua.module = \"discord_rpc.lua\"",
+    "hotkeys": [
+      { "key": "F5", "desc_tr": "Discord bağlantısını yeniler", "desc_en": "Reconnects Discord IPC" },
+      { "key": "PgUp / PgDn", "desc_tr": "Sider menüsünde gezinme", "desc_en": "Navigate Sider menu" },
+      { "key": "Delete", "desc_tr": "Açık / Kapalı değiştirir", "desc_en": "Toggle ON / OFF" }
+    ],
+    "features_tr": [
+      "Doğrudan Win32 IPC: Harici arka plan programı gerektirmez.",
+      "Zero-GC: Önceden ayrılmış C bellek tamponları ile sıfır FPS kaybı.",
+      "Canlı Maç & Gol: Takımlar, lig adı, anlık skor ve gol bildirimleri.",
+      "Geniş Yama Desteği: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
+    ],
+    "features_en": [
+      "Direct Win32 IPC: No external background executables needed.",
+      "Zero-GC: Preallocated C buffers ensure zero micro-stutters.",
+      "Live Match & Goals: Real-time score, stadium, team and goal events.",
+      "Universal Compatibility: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
+    ]
+  }
+]

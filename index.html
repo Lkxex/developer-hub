@@ -3,218 +3,405 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lkxex - Developer Hub &amp; Game Releases</title>
-  <meta name="description" content="Personal releases, game mods, Sider modules, and desktop utilities by Lkxex." />
-  <meta name="author" content="Lkxex" />
+  <title>Lkxex / Modlar &amp; Projeler</title>
+  <meta name="description" content="Lkxex - Oyun modları, Sider eklentileri ve performans odaklı araçlar." />
   
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Lkxex - Developer Hub" />
-  <meta property="og:description" content="Game mods, Sider modules, and performance-focused utilities." />
-  <meta property="og:image" content="./assets/images/projects/pes2021-rpc-cover.svg" />
-  
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-  
-  <link rel="stylesheet" href="./assets/css/variables.css" />
-  <link rel="stylesheet" href="./assets/css/main.css" />
-  <link rel="stylesheet" href="./assets/css/components.css" />
-  <link rel="stylesheet" href="./assets/css/project-detail.css" />
+  <link rel="icon" type="image/svg+xml" href="./assets/images/projects/pes2021-icon.svg" />
   
   <style>
-    /* Developer Hero - Clean & Authentic */
-    .hub-hero {
-      padding: 3.5rem 0 2.5rem;
-      border-bottom: 1px solid var(--border-subtle);
-      margin-bottom: 2.5rem;
+    :root {
+      --bg-base: #090c12;
+      --bg-surface: #10141e;
+      --bg-surface-elevated: #161c2b;
+      --bg-surface-hover: #1c2436;
+      --border-subtle: #1f2738;
+      --border-hover: #313e59;
+      --text-primary: #f0f4fc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #5865F2;
+      --accent-hover: #4752c4;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
     }
-    .hub-hero-container {
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
-      max-width: 780px;
+      -webkit-font-smoothing: antialiased;
     }
-    .hero-title {
-      font-size: 2.25rem;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Header */
+    .site-header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(9, 12, 18, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 3.75rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-accent {
+      color: var(--accent);
+    }
+    .brand-sub {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.85rem;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 120ms ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background-color: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+    }
+    .btn-secondary {
+      background-color: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+    .btn-secondary:hover {
+      background-color: var(--bg-surface-hover);
+      border-color: var(--border-hover);
+    }
+    .btn-sm {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    .btn-outline:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    /* Intro / Hero */
+    .intro-section {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 2rem;
+    }
+    .intro-title {
+      font-size: 2rem;
       font-weight: 800;
       letter-spacing: -0.03em;
-      line-height: 1.2;
-      color: var(--text-primary);
+      margin-bottom: 0.65rem;
     }
-    .hero-desc {
-      font-size: 1.05rem;
-      line-height: 1.65;
+    .intro-desc {
       color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
     }
-    .hero-actions-bar {
+    .search-box {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
       align-items: center;
-      margin-top: 0.5rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.55rem 0.9rem;
+      gap: 0.65rem;
+      transition: border-color 150ms ease;
     }
-
-    /* Spotlight Box for PES 2021 RPC */
-    .spotlight-box {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      margin-bottom: 3.5rem;
+    .search-box:focus-within {
+      border-color: var(--accent);
     }
-    .spotlight-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .spotlight-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      margin-top: 0.5rem;
-    }
-
-    /* Tabs */
-    .tabs-nav {
-      display: flex;
-      gap: 0.5rem;
-      border-bottom: 1px solid var(--border-subtle);
-      margin-bottom: 1.5rem;
-      overflow-x: auto;
-      padding-bottom: 1px;
-    }
-    .tab-button {
-      padding: 0.65rem 1.15rem;
+    .search-box input {
       background: transparent;
       border: none;
-      border-bottom: 2px solid transparent;
-      color: var(--text-secondary);
+      outline: none;
+      color: var(--text-primary);
       font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all var(--transition-fast);
+      width: 100%;
       font-family: inherit;
     }
-    .tab-button:hover {
-      color: var(--text-primary);
-    }
-    .tab-button.active {
-      color: var(--accent-discord);
-      border-bottom-color: var(--accent-discord);
-    }
-    .tab-panel {
-      display: none;
-    }
-    .tab-panel.active {
-      display: block;
+    .search-box input::placeholder {
+      color: var(--text-muted);
     }
 
-    /* Steps */
-    .install-step-card {
-      background-color: var(--bg-base);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 1.15rem 1.35rem;
-      margin-bottom: 0.85rem;
+    /* Mods Grid / List */
+    .mods-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
     }
-    .install-step-card h3 {
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
+    .mod-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+    .mod-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.4);
+    }
+
+    .mod-card-header {
+      display: flex;
+      gap: 1.15rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .mod-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+    .mod-header-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .mod-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.25rem;
+    }
+    .mod-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+    .badge-version {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--emerald);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+    }
+    .mod-tagline {
+      font-size: 0.925rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 0.65rem;
+    }
+    .mod-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .tag-pill {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+    }
+
+    /* Mod Actions */
+    .mod-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .mod-btn-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Mod Collapsible Detail */
+    .mod-details {
+      display: none;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px dashed var(--border-subtle);
+      animation: fadeIn 150ms ease;
+    }
+    .mod-details.open {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-block {
+      margin-bottom: 1rem;
+    }
+    .detail-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
     }
     .copy-box {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius-sm);
-      padding: 0.6rem 0.9rem;
-      margin-top: 0.6rem;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.55rem 0.85rem;
       font-family: var(--font-mono);
-      font-size: 0.875rem;
-      color: #58a6ff;
+      font-size: 0.85rem;
+      color: #79c0ff;
     }
-    .copy-btn {
-      background-color: var(--bg-surface-elevated);
-      border: 1px solid var(--border-default);
-      color: var(--text-primary);
-      padding: 0.3rem 0.7rem;
+    .hotkey-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.5rem;
+    }
+    .hotkey-item {
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.825rem;
+    }
+    .kbd {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--amber);
+      background: #1e2430;
+      border: 1px solid #323b4e;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
       font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      font-family: inherit;
     }
-    .copy-btn:hover {
-      background-color: var(--bg-surface-hover);
-      border-color: var(--text-secondary);
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .feature-list li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
     }
 
-    /* Key Grid */
-    .key-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.25rem;
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
     }
-    .key-card {
-      background-color: var(--bg-base);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 1.15rem;
+
+    /* Footer */
+    .site-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.5rem 0;
+      color: var(--text-muted);
+      font-size: 0.825rem;
     }
-    .kbd-badge {
-      display: inline-block;
-      padding: 0.15rem 0.5rem;
-      background-color: #161b22;
-      border: 1px solid #30363d;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #e3b341;
-      margin-bottom: 0.4rem;
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Site Navigation -->
+  <!-- Site Header -->
   <header class="site-header">
-    <div class="container nav-container">
-      <a href="./index.html" class="brand" aria-label="Lkxex Home">
-        <span class="brand-dot"></span>
-        <span>lkxex<span style="color: var(--text-muted); font-weight: normal;">.dev</span></span>
+    <div class="container header-inner">
+      <a href="./index.html" class="brand" aria-label="Lkxex Mods">
+        <span>lkxex<span class="brand-accent">.dev</span></span>
+        <span class="brand-sub" data-i18n="header_subtitle">/ Modlar &amp; Araçlar</span>
       </a>
 
-      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
-
-      <ul id="nav-links" class="nav-links">
-        <li><a href="./index.html" class="nav-link active" data-i18n="nav_home">Ana Sayfa</a></li>
-        <li><a href="#spotlight-section" class="nav-link" data-i18n="nav_projects">Projeler</a></li>
-        <li><a href="./projects.html" class="nav-link" data-i18n="catalog_title">Proje Kataloğu</a></li>
-        <li><a href="#about-section" class="nav-link" data-i18n="nav_about">Hakkımda</a></li>
-      </ul>
-
       <div class="nav-actions">
-        <!-- Language Switcher Button -->
-        <button type="button" id="lang-toggle-btn" class="btn btn-sm btn-outline" style="font-family: var(--font-mono); font-weight: 700; padding: 0.3rem 0.6rem;" title="Switch Language">
+        <button type="button" id="lang-toggle-btn" class="btn btn-sm btn-outline" style="font-family: var(--font-mono); font-weight: 700;" title="Switch Language">
           EN
         </button>
-
-        <a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-github" aria-label="GitHub Profile">
+        <a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary" aria-label="GitHub">
           <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
           </svg>
@@ -225,272 +412,298 @@
   </header>
 
   <!-- Main Content -->
-  <main class="site-main">
+  <main class="container">
     
-    <!-- Hero Section -->
-    <section class="hub-hero">
-      <div class="container hub-hero-container">
-        <h1 class="hero-title" data-i18n="hero_title">
-          Selam, ben <span style="color: var(--accent-discord);">Lkxex</span>.
-        </h1>
+    <!-- Intro Section -->
+    <section class="intro-section">
+      <h1 class="intro-title" data-i18n="intro_title">
+        Selam, ben <span style="color: #5865F2;">Lkxex</span>.
+      </h1>
+      <p class="intro-desc" data-i18n="intro_desc">
+        Oyunlar için düşük seviyeli modlar, Sider eklentileri ve performans odaklı araçlar geliştiriyorum. İndirme bağlantılarına ve kurulum bilgilerine buradan ulaşabilirsiniz.
+      </p>
 
-        <p class="hero-desc" data-i18n="hero_desc">
-          eFootball PES 2021 ve oyunlar için düşük seviyeli modlar, Sider eklentileri ve performans odaklı araçlar geliştiriyorum. Yayınladığım projelerin indirme bağlantılarına ve kaynak kodlarına buradan ulaşabilirsiniz.
-        </p>
-
-        <div class="hero-actions-bar">
-          <a href="#spotlight-section" class="btn btn-primary">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span data-i18n="btn_download_zip">v1.0.11 İndir (.zip)</span>
-          </a>
-          <a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="btn btn-github">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            <span data-i18n="btn_github">GitHub Profilim</span>
-          </a>
-          <a href="https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            <span data-i18n="btn_evoweb">EvoWeb Konusu</span>
-          </a>
-        </div>
+      <!-- Instant Search Filter -->
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: var(--text-muted);">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="search" id="mod-search" placeholder="Mod veya etiket ara... (Örn: PES, Sider, RPC)" data-i18n="search_placeholder" autocomplete="off" />
       </div>
     </section>
 
-    <!-- Flagship Spotlight Section: PES 2021 RPC Deep Dive -->
-    <section class="container" id="spotlight-section">
-      <div class="spotlight-box">
-        <!-- Spotlight Header -->
-        <div class="spotlight-header">
-          <div>
-            <span class="badge badge-category" style="margin-bottom: 0.6rem; display: inline-block;" data-i18n="sec_featured_title">Öne Çıkan Proje</span>
-            <h2 style="font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em;">
-              PES 2021 Discord Rich Presence <span style="font-size: 0.95rem; font-family: var(--font-mono); color: var(--accent-emerald); font-weight: 600;">v1.0.11</span>
-            </h2>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 680px; margin-top: 0.35rem;">
-              Sider 7 ve Win32 Named Pipe üzerinden çalışan sıfır gecikmeli, anlık skor ve gol bildirimli canlı Discord Rich Presence eklentisi.
-            </p>
-            <div class="spotlight-meta-row">
-              <span>🎮 PES 2021 / FL24 / FL25</span>
-              <span>⚙️ Sider 7 (LuaJIT FFI)</span>
-              <span>⚡ Zero-GC (Sıfır FPS Düşüşü)</span>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-            <a href="https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip" class="btn btn-primary">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span data-i18n="btn_download_zip">v1.0.11 İndir (.zip)</span>
-            </a>
-            <a href="https://github.com/Lkxex/pes2021-discord-rpc" target="_blank" rel="noopener noreferrer" class="btn btn-github">
-              <span data-i18n="btn_view_github">GitHub</span>
-            </a>
-            <a href="./project.html?id=pes2021-discord-rpc" class="btn btn-outline">
-              <span data-i18n="btn_details">Detaylı İncele</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Interactive Tabs for PES 2021 RPC -->
-        <div class="tabs-nav" role="tablist">
-          <button type="button" class="tab-button active" data-tab="tab-preview" data-i18n="tab_preview">Önizleme &amp; Ekran</button>
-          <button type="button" class="tab-button" data-tab="tab-install" data-i18n="tab_install">Kurulum (3 Adım)</button>
-          <button type="button" class="tab-button" data-tab="tab-controls" data-i18n="tab_controls">Kısayollar &amp; Özellikler</button>
-          <button type="button" class="tab-button" data-tab="tab-changelog" data-i18n="tab_changelog">Sürüm Notları</button>
-        </div>
-
-        <!-- Tab 1: Preview -->
-        <div id="tab-preview" class="tab-panel active">
-          <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); background-color: var(--bg-base);">
-            <img src="./assets/images/projects/pes2021-rpc-screen1.svg" alt="Sider 7 Overlay &amp; Discord RPC Preview" style="width: 100%; display: block;" />
-          </div>
-          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; text-align: center; font-family: var(--font-mono);">
-            * Sol: Oyun içi Sider 7 arayüzü (overlay_on) | Sağ: Discord masaüstü canlı oyuncu kartı
-          </p>
-        </div>
-
-        <!-- Tab 2: Quick Installation -->
-        <div id="tab-install" class="tab-panel">
-          <div class="install-step-card">
-            <h3 data-i18n="step1_title">1. Arşivi İndirin</h3>
-            <p data-i18n="step1_desc" style="font-size: 0.875rem;">En güncel v1.0.11 sürümünü (.zip) indirin ve içindeki dosyaları klasöre çıkartın.</p>
-          </div>
-
-          <div class="install-step-card">
-            <h3 data-i18n="step2_title">2. Sider Modüllerine Kopyalayın</h3>
-            <p data-i18n="step2_desc" style="font-size: 0.875rem;">discord_rpc.lua dosyasını ve mapping dosyalarını Sider 7 klasörünüzün içindeki modules/ dizinine atın.</p>
-            <div class="copy-box">
-              <span>&lt;sider_klasorunuz&gt;\modules\discord_rpc.lua</span>
-            </div>
-          </div>
-
-          <div class="install-step-card">
-            <h3 data-i18n="step3_title">3. sider.ini Dosyasına Ekleyin</h3>
-            <p data-i18n="step3_desc" style="font-size: 0.875rem;">sider.ini dosyasını açıp lua.module bölümünün altına şu satırı ekleyin:</p>
-            <div class="copy-box">
-              <span id="lua-code-snippet">lua.module = &quot;discord_rpc.lua&quot;</span>
-              <button type="button" class="copy-btn" id="copy-lua-btn" data-i18n="btn_copy">Kopyala</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 3: Controls & Features -->
-        <div id="tab-controls" class="tab-panel">
-          <div class="key-grid">
-            <div class="key-card">
-              <span class="kbd-badge">F5</span>
-              <h3 data-i18n="ctrl_f5_title">F5 Tuşu</h3>
-              <p data-i18n="ctrl_f5_desc" style="font-size: 0.85rem;">Discord oyundan sonra açıldıysa tek tuşla bağlantıyı anında yeniler.</p>
-            </div>
-
-            <div class="key-card">
-              <span class="kbd-badge">PgUp / PgDn</span>
-              <h3 data-i18n="ctrl_pg_title">PgUp / PgDn</h3>
-              <p data-i18n="ctrl_pg_desc" style="font-size: 0.85rem;">Sider 7 arayüzündeki ayar menüsünde yukarı/aşağı gezinmenizi sağlar.</p>
-            </div>
-
-            <div class="key-card">
-              <span class="kbd-badge">Delete</span>
-              <h3 data-i18n="ctrl_del_title">Delete Tuşu</h3>
-              <p data-i18n="ctrl_del_desc" style="font-size: 0.85rem;">Seçili ayarı (Discord Butonu, Görsel Hata Ayıklama) Açık/Kapalı yapar.</p>
-            </div>
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.75rem;">
-            <div class="install-step-card">
-              <h3 data-i18n="feat_zerogc_title" style="color: #58a6ff;">⚡ Zero-GC (Sıfır FPS Düşüşü)</h3>
-              <p data-i18n="feat_zerogc_desc" style="font-size: 0.85rem;">Önceden ayrılmış statik C bellek tamponları kullanır; maç esnasında oyun içi mikro takılma yapmaz.</p>
-            </div>
-
-            <div class="install-step-card">
-              <h3 data-i18n="feat_ipc_title" style="color: #58a6ff;">🔌 Doğrudan Win32 IPC</h3>
-              <p data-i18n="feat_ipc_desc" style="font-size: 0.85rem;">Harici bir arka plan .exe'si çalıştırmaz, doğrudan Discord'un yerel pipe hattına bağlanır.</p>
-            </div>
-
-            <div class="install-step-card">
-              <h3 data-i18n="feat_patches_title" style="color: #58a6ff;">🛡️ Tüm Yamalarla Uyumlu</h3>
-              <p data-i18n="feat_patches_desc" style="font-size: 0.85rem;">Football Life (FL24/FL25), SmokePatch, EvoWeb ve VirtuaRED ile kusursuz çalışır.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 4: Changelog -->
-        <div id="tab-changelog" class="tab-panel">
-          <div class="install-step-card">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
-              <h3 style="font-family: var(--font-mono); color: var(--text-primary);">v1.0.11</h3>
-              <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">2026-03-21</span>
-            </div>
-            <ul style="padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.35rem;">
-              <li>Sider 7 <code>overlay_on</code> ekranında canlı maç süresi ve gol olayı gösterimi eklendi.</li>
-              <li>Zero-GC statik bellek tamponları optimize edildi, arka plan bellek tüketimi düşürüldü.</li>
-              <li>F5 kısayol tuşu ile tek dokunuşla Discord IPC pipe bağlantı tazeleme eklendi.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="container" id="about-section" style="margin-bottom: 3.5rem;">
-      <div class="project-section-box" style="padding: 2rem;">
-        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-          <h2 style="font-size: 1.35rem;" data-i18n="sec_about_title">Hakkımda</h2>
-          <p style="font-size: 0.95rem; line-height: 1.65;" data-i18n="sec_about_desc">
-            Oyun modlama, bellek analizi (reverse-engineering) ve Windows için performans odaklı araçlar geliştiriyorum. Projelerimde sıfır gecikme (zero-latency) ve sıfır bellek çöpü (Zero-GC) standartlarına odaklanıyorum.
-          </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem;">
-            <span class="tag-pill">PES 2021 Modding</span>
-            <span class="tag-pill">Sider 7</span>
-            <span class="tag-pill">LuaJIT FFI</span>
-            <span class="tag-pill">Win32 Named Pipes</span>
-            <span class="tag-pill">Discord RPC</span>
-            <span class="tag-pill">C# / .NET</span>
-          </div>
-        </div>
-      </div>
+    <!-- Dynamic Mods Container -->
+    <section class="mods-container" id="mods-container">
+      <div class="empty-state">Modlar yükleniyor...</div>
     </section>
 
   </main>
 
-  <!-- Site Footer -->
+  <!-- Footer -->
   <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="brand" style="margin-bottom: 0.5rem;">
-            <span class="brand-dot"></span>
-            <span>lkxex<span style="color: var(--text-muted); font-weight: normal;">.dev</span></span>
-          </div>
-          <p style="font-size: 0.85rem; max-width: 380px;" data-i18n="footer_desc">
-            Lkxex - Oyun modları, Sider eklentileri ve masaüstü yazılımları.
-          </p>
-        </div>
-        <div>
-          <div class="footer-col-title" data-i18n="footer_nav">Menü</div>
-          <ul class="footer-links">
-            <li><a href="./index.html" class="footer-link" data-i18n="nav_home">Ana Sayfa</a></li>
-            <li><a href="#spotlight-section" class="footer-link" data-i18n="nav_projects">Projeler</a></li>
-            <li><a href="./projects.html" class="footer-link" data-i18n="catalog_title">Proje Kataloğu</a></li>
-            <li><a href="#about-section" class="footer-link" data-i18n="nav_about">Hakkımda</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-col-title" data-i18n="footer_links">Bağlantılar</div>
-          <ul class="footer-links">
-            <li><a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a></li>
-            <li><a href="https://github.com/Lkxex/pes2021-discord-rpc" target="_blank" rel="noopener noreferrer" class="footer-link">PES 2021 Discord RPC</a></li>
-            <li><a href="https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/" target="_blank" rel="noopener noreferrer" class="footer-link">EvoWeb Konusu</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>&copy; <span id="current-year">2026</span> Lkxex. <span data-i18n="footer_rights">Tüm hakları saklıdır.</span></span>
-        <span data-i18n="footer_static">Açık Kaynak &amp; Doğrudan Dağıtım</span>
-      </div>
+    <div class="container footer-inner">
+      <span data-i18n="footer_text">Lkxex • Açık Kaynak &amp; Doğrudan Dağıtım</span>
+      <span>&copy; <span id="current-year">2026</span> Lkxex</span>
     </div>
   </footer>
 
+  <!-- Core App Logic -->
   <script type="module">
-    import { initCommonUI } from './assets/js/app.js';
-    import { t } from './assets/js/i18n.js';
+    import { applyLanguage, getLanguage, setLanguage, t } from './assets/js/i18n.js';
 
-    document.addEventListener('DOMContentLoaded', () => {
-      initCommonUI();
+    let allMods = [];
 
-      // Tab switching logic for PES 2021 Spotlight
-      const tabButtons = document.querySelectorAll('.tab-button');
-      const tabPanels = document.querySelectorAll('.tab-panel');
+    // Fallback data in case of file:// protocol restriction on fetch
+    const fallbackMods = [
+      {
+        "id": "pes2021-discord-rpc",
+        "title": "PES 2021 Discord Rich Presence",
+        "version": "v1.0.11",
+        "updated": "2026-03-21",
+        "tagline_tr": "eFootball PES 2021 için Sider 7 tabanlı, sıfır FPS düşüşlü ve anlık skor bildirimli Discord RPC modu.",
+        "tagline_en": "Sider 7 Lua module for eFootball PES 2021 with zero-GC memory and real-time Discord Rich Presence.",
+        "icon": "./assets/images/projects/pes2021-icon.svg",
+        "tags": ["PES 2021", "Sider 7", "LuaJIT", "Discord RPC", "Zero-GC"],
+        "download_url": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
+        "github_url": "https://github.com/Lkxex/pes2021-discord-rpc",
+        "evoweb_url": "https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/",
+        "install_code": "lua.module = \"discord_rpc.lua\"",
+        "hotkeys": [
+          { "key": "F5", "desc_tr": "Discord bağlantısını yeniler", "desc_en": "Reconnects Discord IPC" },
+          { "key": "PgUp / PgDn", "desc_tr": "Sider menüsünde gezinme", "desc_en": "Navigate Sider menu" },
+          { "key": "Delete", "desc_tr": "Açık / Kapalı değiştirir", "desc_en": "Toggle ON / OFF" }
+        ],
+        "features_tr": [
+          "Doğrudan Win32 IPC: Harici arka plan programı gerektirmez.",
+          "Zero-GC: Önceden ayrılmış C bellek tamponları ile sıfır FPS kaybı.",
+          "Canlı Maç & Gol: Takımlar, lig adı, anlık skor ve gol bildirimleri.",
+          "Geniş Yama Desteği: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
+        ],
+        "features_en": [
+          "Direct Win32 IPC: No external background executables needed.",
+          "Zero-GC: Preallocated C buffers ensure zero micro-stutters.",
+          "Live Match & Goals: Real-time score, stadium, team and goal events.",
+          "Universal Compatibility: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
+        ]
+      }
+    ];
 
-      tabButtons.forEach(btn => {
+    async function loadMods() {
+      try {
+        const res = await fetch('./mods.json?t=' + Date.now());
+        if (res.ok) {
+          allMods = await res.json();
+        } else {
+          allMods = fallbackMods;
+        }
+      } catch (e) {
+        allMods = fallbackMods;
+      }
+      renderMods();
+    }
+
+    function renderMods(filterQuery = '') {
+      const container = document.getElementById('mods-container');
+      const lang = getLanguage();
+      const q = filterQuery.toLowerCase().trim();
+
+      const filtered = allMods.filter(m => {
+        if (!q) return true;
+        const title = (m.title || '').toLowerCase();
+        const tagTr = (m.tagline_tr || '').toLowerCase();
+        const tagEn = (m.tagline_en || '').toLowerCase();
+        const tags = (m.tags || []).join(' ').toLowerCase();
+        return title.includes(q) || tagTr.includes(q) || tagEn.includes(q) || tags.includes(q);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t('no_mods_found')}</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(m => {
+        const tagline = (lang === 'en' && m.tagline_en) ? m.tagline_en : m.tagline_tr;
+        const features = (lang === 'en' && m.features_en) ? m.features_en : (m.features_tr || []);
+        const hotkeys = m.hotkeys || [];
+        const tagsHTML = (m.tags || []).map(tag => `<span class="tag-pill">${escapeHTML(tag)}</span>`).join('');
+
+        const evowebBtn = m.evoweb_url ? `
+          <a href="${escapeHTML(m.evoweb_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            ${t('btn_evoweb')}
+          </a>
+        ` : '';
+
+        const githubBtn = m.github_url ? `
+          <a href="${escapeHTML(m.github_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            ${t('btn_github')}
+          </a>
+        ` : '';
+
+        const downloadBtn = m.download_url ? `
+          <a href="${escapeHTML(m.download_url)}" class="btn btn-sm btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            ${escapeHTML(m.version || '')} ${t('btn_download_zip')}
+          </a>
+        ` : '';
+
+        // Edit button if in PyWebView manager
+        const editBtn = (window.pywebview && window.pywebview.api) ? `
+          <button type="button" class="btn btn-sm btn-outline btn-edit-mod" data-id="${escapeHTML(m.id)}" style="color: var(--amber); border-color: rgba(245, 158, 11, 0.4);">
+            ✏️ Düzenle
+          </button>
+        ` : '';
+
+        const installHTML = m.install_code ? `
+          <div class="detail-block">
+            <div class="detail-label">${t('label_install')}</div>
+            <div class="copy-box">
+              <code>${escapeHTML(m.install_code)}</code>
+              <button type="button" class="btn btn-sm btn-secondary copy-btn" data-code="${escapeHTML(m.install_code)}">
+                ${t('btn_copy')}
+              </button>
+            </div>
+          </div>
+        ` : '';
+
+        const hotkeysHTML = hotkeys.length > 0 ? `
+          <div class="detail-block">
+            <div class="detail-label">${t('label_hotkeys')}</div>
+            <div class="hotkey-grid">
+              ${hotkeys.map(h => {
+                const desc = (lang === 'en' && h.desc_en) ? h.desc_en : h.desc_tr;
+                return `
+                  <div class="hotkey-item">
+                    <span class="kbd">${escapeHTML(h.key)}</span>
+                    <span>${escapeHTML(desc)}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        ` : '';
+
+        const featuresHTML = features.length > 0 ? `
+          <div class="detail-block" style="margin-bottom: 0;">
+            <div class="detail-label">${t('label_features')}</div>
+            <ul class="feature-list">
+              ${features.map(f => `<li>${escapeHTML(f)}</li>`).join('')}
+            </ul>
+          </div>
+        ` : '';
+
+        return `
+          <article class="mod-card" id="mod-${escapeHTML(m.id)}">
+            <div class="mod-card-header">
+              <img src="${escapeHTML(m.icon || './assets/images/projects/pes2021-icon.svg')}" alt="${escapeHTML(m.title)} icon" class="mod-icon" loading="lazy" />
+              <div class="mod-header-text">
+                <div class="mod-title-row">
+                  <h2 class="mod-title">${escapeHTML(m.title)}</h2>
+                  ${m.version ? `<span class="badge-version">${escapeHTML(m.version)}</span>` : ''}
+                </div>
+                <p class="mod-tagline">${escapeHTML(tagline)}</p>
+                <div class="mod-tags">${tagsHTML}</div>
+              </div>
+            </div>
+
+            <div class="mod-actions-row">
+              <div class="mod-btn-group">
+                ${downloadBtn}
+                ${githubBtn}
+                ${evowebBtn}
+                ${editBtn}
+              </div>
+              <button type="button" class="btn btn-sm btn-outline toggle-details-btn" data-target="details-${escapeHTML(m.id)}">
+                ${t('btn_details_open')}
+              </button>
+            </div>
+
+            <div class="mod-details" id="details-${escapeHTML(m.id)}">
+              ${installHTML}
+              ${hotkeysHTML}
+              ${featuresHTML}
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Wire up toggle details buttons
+      document.querySelectorAll('.toggle-details-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const targetTab = btn.getAttribute('data-tab');
-          tabButtons.forEach(b => b.classList.remove('active'));
-          tabPanels.forEach(p => p.classList.remove('active'));
-          btn.classList.add('active');
-          const panel = document.getElementById(targetTab);
-          if (panel) panel.classList.add('active');
+          const targetId = btn.getAttribute('data-target');
+          const panel = document.getElementById(targetId);
+          if (panel) {
+            const isOpen = panel.classList.toggle('open');
+            btn.textContent = isOpen ? t('btn_details_close') : t('btn_details_open');
+          }
         });
       });
 
-      // Copy Lua code button
-      const copyBtn = document.getElementById('copy-lua-btn');
-      const codeSnippet = document.getElementById('lua-code-snippet');
-      if (copyBtn && codeSnippet) {
-        copyBtn.addEventListener('click', () => {
-          navigator.clipboard.writeText(codeSnippet.textContent).then(() => {
-            copyBtn.textContent = t('btn_copied');
-            copyBtn.style.backgroundColor = 'var(--accent-emerald)';
-            copyBtn.style.color = '#fff';
+      // Wire up copy buttons
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const code = btn.getAttribute('data-code');
+          navigator.clipboard.writeText(code).then(() => {
+            const origText = btn.textContent;
+            btn.textContent = t('btn_copied');
+            btn.style.backgroundColor = 'var(--emerald)';
+            btn.style.color = '#fff';
             setTimeout(() => {
-              copyBtn.textContent = t('btn_copy');
-              copyBtn.style.backgroundColor = '';
-              copyBtn.style.color = '';
-            }, 2000);
+              btn.textContent = origText;
+              btn.style.backgroundColor = '';
+              btn.style.color = '';
+            }, 1800);
           });
         });
+      });
+
+      // Wire up edit buttons for PyWebView
+      document.querySelectorAll('.btn-edit-mod').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modId = btn.getAttribute('data-id');
+          const targetMod = allMods.find(m => m.id === modId);
+          if (targetMod && window.openModEditorModal) {
+            window.openModEditorModal(targetMod);
+          }
+        });
+      });
+    }
+
+    function escapeHTML(str) {
+      if (typeof str !== 'string') return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
+    // Initialize UI
+    document.addEventListener('DOMContentLoaded', () => {
+      applyLanguage();
+
+      const langBtn = document.getElementById('lang-toggle-btn');
+      if (langBtn) {
+        langBtn.addEventListener('click', () => {
+          const cur = getLanguage();
+          setLanguage(cur === 'tr' ? 'en' : 'tr');
+          renderMods(document.getElementById('mod-search').value);
+        });
       }
+
+      const searchInput = document.getElementById('mod-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          renderMods(e.target.value);
+        });
+      }
+
+      const yearEl = document.getElementById('current-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      loadMods();
     });
+
+    // Make reload available for external manager
+    window.reloadMods = loadMods;
   </script>
 </body>
 </html>
