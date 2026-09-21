@@ -1,8 +1,8 @@
 {
   "id": "pes2021-discord-rpc",
   "title": "PES 2021 Discord Rich Presence",
-  "tagline": "eFootball PES 2021 için Discord üzerinde anlık maç, takım ve skor durumunu gösteren Rich Presence eklentisi.",
-  "tagline_en": "Discord Rich Presence tool for eFootball PES 2021 displaying live match stats, teams, and score on your profile.",
+  "tagline": "eFootball PES 2021 için Sider 7 tabanlı, sıfır bellek sızıntılı ve doğrudan IPC bağlantılı Discord Rich Presence modu.",
+  "tagline_en": "Sider 7 module for eFootball PES 2021 providing real-time Discord Rich Presence via direct Win32 IPC with zero memory garbage.",
   "category": "Tools",
   "type": "Application",
   "status": "Active",
@@ -10,7 +10,7 @@
   "featured": true,
   "releaseDate": "2024-05-10",
   "updatedDate": "2026-03-21",
-  "tags": ["PES 2021", "Discord", "RPC", "C#", "eFootball", "Windows"],
+  "tags": ["PES 2021", "Sider 7", "LuaJIT", "Discord RPC", "Win32 IPC", "C#", "Windows"],
   "coverImage": "./assets/images/projects/pes2021-rpc-cover.svg",
   "links": {
     "github": "https://github.com/Lkxex/pes2021-discord-rpc",
@@ -18,46 +18,52 @@
     "demo": "",
     "docs": "https://github.com/Lkxex/pes2021-discord-rpc#readme"
   },
-  "summary": "PES 2021 Discord Rich Presence (RPC), eFootball PES 2021 oynarken Discord profilinizde oynadığınız modu, ev sahibi ve deplasman takımlarını, anlık skoru ve maç süresini canlı olarak gösteren hafif bir Windows masaüstü aracıdır.",
-  "summary_en": "PES 2021 Discord Rich Presence (RPC) is a lightweight Windows desktop application that displays your current game mode, home and away teams, live match score, and elapsed time directly on your Discord profile while playing eFootball PES 2021.",
+  "summary": "eFootball PES 2021 oynarken Discord profilinizde oynadığınız ligi, takımları, canlı skoru, uzatma dakikalarını ve gol bildirimlerini sıfır gecikmeyle gösterir. Sider 7 ve LuaJIT FFI altyapısıyla doğrudan Windows Named Pipe (\\.\\pipe\\discord-ipc-*) üzerinden çalışır. Sabit C bellek tamponları sayesinde oyun içi takılma (stutter) veya FPS düşüşü yaşatmaz.",
+  "summary_en": "Displays your current league, match score, elapsed/added time, and goal events live on your Discord profile while playing eFootball PES 2021. Built on Sider 7 using LuaJIT FFI to communicate directly with Discord's Windows Named Pipe (\\.\\pipe\\discord-ipc-*). Uses preallocated static C buffers to ensure zero garbage collection and zero FPS impact.",
   "features": [
-    "Discord profilinde anlık takım isimleri, logoları ve skor entegrasyonu",
-    "Ana Menü, Dostluk Maçı, Ana Lig (Master League) ve Efsane Olun (BAL) mod desteği",
-    "Sistem tepsisinde (System Tray) ultra hafif çalışma ve otomatik oyun algılama",
-    "Tüm PES 2021 yamaları (FL24, SmokePatch, EvoWeb) ile tam uyumluluk",
-    "Otomatik başlama ve kapatma seçeneği"
+    "Doğrudan Win32 IPC (Named Pipe): Ekstra arka plan programı çalıştırmadan doğrudan Discord'a bağlanır",
+    "Zero-GC Bellek Mimarisi: Lua çöp toplayıcısını (GC) tetiklemez, maç sırasında takılma yapmaz",
+    "Sider 7 Oyun İçi Arayüzü: PgUp/PgDn ve Delete tuşlarıyla ayarları oyun içinden açıp kapatabilme",
+    "Anlık Gol Bildirimleri: Skor değiştiğinde Discord profilinde otomatik gol bildirimi (GOAAAL!)",
+    "Penaltı & Uzatma Desteği: 45+2', 90+4', uzatma devreleri (ET1, ET2) ve seri penaltı atışları (PK)",
+    "F5 Tek Tuşla Yenileme: Discord sonradan açılsa bile tek tuşla bağlantıyı anında yenileme",
+    "Geniş Yama Desteği: SP Football Life (FL24/FL25), SmokePatch, EvoWeb Patch ve VirtuaRED ile tam uyum"
   ],
   "features_en": [
-    "Real-time team names, club badges, and live score integration on Discord",
-    "Support for Exhibition, Master League, Become a Legend (BAL), and Main Menu modes",
-    "Ultra-lightweight system tray operation with automatic game detection",
-    "Full compatibility with all major PES 2021 patches (FL24, SmokePatch, EvoWeb)",
-    "Auto-start and auto-exit options"
+    "Direct Win32 IPC (Named Pipe): Communicates directly with Discord desktop without external wrapper apps",
+    "Zero-GC Memory Design: Uses preallocated FFI buffers to prevent garbage collection stutters in-game",
+    "In-Game Sider 7 Overlay: On-screen menu navigable via PgUp/PgDn and toggled with Delete",
+    "Dynamic Goal Alerts: Triggers immediate goal notifications (GOAAAL!) upon score changes",
+    "Extra Time & Penalty Tracking: Handles added minutes (45+2', 90+4'), extra time (ET1/ET2), and shootouts (PK)",
+    "One-Key Reconnect (F5): Re-establishes Discord IPC pipe instantly if Discord was opened after the game",
+    "Universal Patch Support: Tested and fully compatible with SP Football Life, SmokePatch, EvoWeb, and VirtuaRED"
   ],
   "requirements": {
-    "os": "Windows 10 / Windows 11 (64-bit)",
-    "game": "eFootball PES 2021 Season Update (Tüm yamalar desteklenir)",
-    "other": "Discord Masaüstü Uygulaması"
+    "game": "eFootball PES 2021 Season Update (veya SP Football Life)",
+    "sider": "Sider 7 (v7.1.4 veya üzeri)",
+    "os": "Windows 10 / 11 (64-bit)",
+    "discord": "Discord Masaüstü Uygulaması (Açık olmalıdır)"
   },
   "requirements_en": {
-    "os": "Windows 10 / Windows 11 (64-bit)",
-    "game": "eFootball PES 2021 Season Update (All patches supported)",
-    "other": "Discord Desktop App"
+    "game": "eFootball PES 2021 Season Update (or SP Football Life)",
+    "sider": "Sider 7 (v7.1.4 or higher)",
+    "os": "Windows 10 / 11 (64-bit)",
+    "discord": "Discord Desktop App (Running in background)"
   },
   "screenshots": [
     {
       "url": "./assets/images/projects/pes2021-rpc-screen1.svg",
-      "caption": "Discord profilinde canlı maç durumu ve skor görünümü",
-      "caption_en": "Live match status and score display on Discord profile"
+      "caption": "Sider 7 oyun içi overlay ve Discord profilindeki canlı görünüm",
+      "caption_en": "Sider 7 in-game overlay alongside live Discord user profile display"
     }
   ],
-  "installation": "1. v1.0.11 sürüm arşivini (.zip) indirin.\n2. Zip içeriğini bilgisayarınızda dilediğiniz bir klasöre çıkartın.\n3. PES 2021 açıkken uygulamayı çalıştırın.\n4. Discord profilinizdeki oyun durumunu kontrol edin.",
-  "installation_en": "1. Download the v1.0.11 release archive (.zip).\n2. Extract the archive contents into any folder on your PC.\n3. Launch the application while PES 2021 is running.\n4. Check your Discord profile for the live game activity.",
+  "installation": "1. v1.0.11 zip arşivini indirin ve açın.\n2. `discord_rpc.lua` dosyasını Sider 7 klasörünüzdeki `modules/` dizinine kopyalayın.\n3. `sider.ini` dosyasını açın ve `lua.module` listesine şu satırı ekleyin:\n   lua.module = \"discord_rpc.lua\"\n4. Oyunu Sider ile başlatın. Discord açıkken profiliniz otomatik olarak güncellenecektir.",
+  "installation_en": "1. Download and extract the v1.0.11 zip archive.\n2. Copy `discord_rpc.lua` into your Sider 7 `modules/` directory.\n3. Open `sider.ini` and add the following line under the lua.module section:\n   lua.module = \"discord_rpc.lua\"\n4. Launch the game via Sider. Your Discord profile will sync automatically.",
   "downloads": [
     {
       "name": "PES 2021 Discord RPC v1.0.11 (.zip)",
       "filename": "pes2021-discord-rpc-v1.0.11.zip",
-      "size": "Kaynak Kodu & Binary",
+      "size": "Source &amp; Release Archive",
       "version": "v1.0.11",
       "url": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
       "isDirect": true
@@ -68,12 +74,14 @@
       "version": "v1.0.11",
       "date": "2026-03-21",
       "changes": [
-        "Discord RPC bağlantı güncellemeleri yapıldı.",
-        "Takım adı algılama ve skor senkronizasyonu iyileştirildi."
+        "Sider 7 `overlay_on` ekranında canlı maç süresi ve gol olayı gösterimi eklendi.",
+        "Zero-GC statik bellek tamponları optimize edildi, arka plan bellek tüketimi düşürüldü.",
+        "F5 kısayol tuşu ile manuel IPC bağlantı yenileme mekanizması entegre edildi."
       ],
       "changes_en": [
-        "Discord RPC protocol connectivity updates.",
-        "Improved team name recognition and live score synchronization."
+        "Added live match timer and goal event display inside Sider 7 overlay.",
+        "Optimized zero-GC static memory buffers, eliminating micro-stutters during matches.",
+        "Integrated F5 one-key manual IPC pipe reconnection."
       ]
     }
   ]

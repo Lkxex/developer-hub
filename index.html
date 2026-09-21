@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Developer Hub - Games, Mods, Plugins &amp; Software</title>
-  <meta name="description" content="Personal game, mod, plugin, software projects distribution hub." />
+  <title>Lkxex - Game Mods &amp; Tools</title>
+  <meta name="description" content="Personal game mods, Sider 7 modules, and desktop utilities by Lkxex." />
   <meta name="author" content="Lkxex" />
   
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Developer Hub - Projects &amp; Software" />
-  <meta property="og:description" content="Personal games, tools, and open source projects." />
-  <meta property="og:image" content="./assets/images/avatar.svg" />
+  <meta property="og:title" content="Lkxex - Game Mods &amp; Tools" />
+  <meta property="og:description" content="Personal game mods, Sider 7 modules, and desktop utilities by Lkxex." />
+  <meta property="og:image" content="./assets/images/projects/pes2021-rpc-cover.svg" />
   
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   
@@ -23,18 +23,13 @@
   <!-- Site Navigation -->
   <header class="site-header">
     <div class="container nav-container">
-      <a href="./index.html" class="brand" aria-label="Home">
-        <div class="brand-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <polyline points="16 18 22 12 16 6"/>
-            <polyline points="8 6 2 12 8 18"/>
-          </svg>
-        </div>
-        <span>DEV<span class="brand-text-accent">HUB</span></span>
+      <a href="./index.html" class="brand" aria-label="Lkxex Home">
+        <span class="brand-dot"></span>
+        <span>lkxex<span style="color: var(--text-muted); font-weight: normal;">.dev</span></span>
       </a>
 
       <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="3" y1="12" x2="21" y2="12"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="18" x2="21" y2="18"/>
@@ -43,19 +38,18 @@
 
       <ul id="nav-links" class="nav-links">
         <li><a href="./index.html" class="nav-link active" data-i18n="nav_home">Ana Sayfa</a></li>
-        <li><a href="./projects.html" class="nav-link" data-i18n="nav_projects">Tüm Projeler</a></li>
-        <li><a href="./index.html#categories-section" class="nav-link" data-i18n="nav_categories">Kategoriler</a></li>
+        <li><a href="./projects.html" class="nav-link" data-i18n="nav_projects">Projeler</a></li>
         <li><a href="./index.html#about-section" class="nav-link" data-i18n="nav_about">Hakkımda</a></li>
       </ul>
 
       <div class="nav-actions">
         <!-- Language Switcher Button -->
-        <button type="button" id="lang-toggle-btn" class="btn btn-sm btn-outline" style="font-weight: 700; font-family: var(--font-mono); padding: 0.35rem 0.65rem;" title="Switch Language">
+        <button type="button" id="lang-toggle-btn" class="btn btn-sm btn-outline" style="font-family: var(--font-mono); font-weight: 700; padding: 0.3rem 0.6rem;" title="Switch Language">
           EN
         </button>
 
         <a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-github" aria-label="GitHub Profile">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
           </svg>
           GitHub
@@ -68,44 +62,40 @@
   <main class="site-main">
     
     <!-- Hero Section -->
-    <section class="container" style="margin-bottom: 4.5rem;">
-      <div style="max-width: 820px; display: flex; flex-direction: column; gap: 1.5rem;">
+    <section class="container" style="margin-bottom: 4rem;">
+      <div style="max-width: 760px; display: flex; flex-direction: column; gap: 1.25rem;">
         <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
-          <span class="badge badge-status-active" data-i18n="hero_status">● Aktif Geliştirici</span>
+          <span class="badge badge-status-active" data-i18n="hero_status">Aktif Geliştirici</span>
           <span class="tag-pill" id="total-projects-count">1 Proje</span>
         </div>
-        <h1 style="font-weight: 800; letter-spacing: -0.02em;" data-i18n="hero_title">
-          Oyun, mod, eklenti ve yazılım projeleri için <span style="color: var(--accent-emerald);">merkezi dağıtım platformu</span>.
+        <h1 style="font-weight: 800; letter-spacing: -0.025em; line-height: 1.2;" data-i18n="hero_title">
+          Oyun modları, Sider modülleri ve <span style="color: var(--accent-discord);">özel araçlar</span>.
         </h1>
-        <p style="font-size: 1.15rem; line-height: 1.6; color: var(--text-secondary);" data-i18n="hero_desc">
-          Geliştirdiğim bağımsız oyunlar, eklentiler, masaüstü araçları ve açık kaynak yazılımların güncel sürümlerine, kaynak kodlarına ve indirme bağlantılarına buradan ulaşabilirsiniz.
+        <p style="font-size: 1.05rem; line-height: 1.65; color: var(--text-secondary);" data-i18n="hero_desc">
+          Selam, ben Lkxex. eFootball PES 2021 ve çeşitli oyunlar için geliştirdiğim modlar, doğrudan IPC eklentileri ve araçların güncel sürümlerini, kaynak kodlarını ve indirme bağlantılarını buradan paylaşıyorum.
         </p>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 0.5rem;">
-          <a href="./projects.html" class="btn btn-lg btn-primary">
-            <span data-i18n="hero_btn_explore">Projeleri Keşfet</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.25rem;">
+          <a href="./projects.html" class="btn btn-primary">
+            <span data-i18n="hero_btn_explore">Projeleri İncele</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
-          <a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-github">
-            <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+          <a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="btn btn-github">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
             </svg>
-            <span data-i18n="hero_btn_github">GitHub'da Takip Et</span>
+            <span data-i18n="hero_btn_github">GitHub Profilim</span>
           </a>
         </div>
       </div>
     </section>
 
     <!-- Featured Projects Section -->
-    <section class="container" style="margin-bottom: 4.5rem;">
+    <section class="container" style="margin-bottom: 4rem;">
       <div class="section-header">
         <div class="section-title-wrap">
-          <h2 data-i18n="sec_featured_title">Öne Çıkan Projeler</h2>
-          <span class="section-subtitle" data-i18n="sec_featured_sub">Aktif olarak geliştirilen ve en son yayınlanan çalışmalarım</span>
+          <h2 data-i18n="sec_featured_title">Yayınlanan Projeler</h2>
+          <span class="section-subtitle" data-i18n="sec_featured_sub">Doğrudan indirilebilir ve kaynak kodu açık çalışmalarım</span>
         </div>
-        <a href="./projects.html?sort=featured" class="btn btn-sm btn-outline">
-          <span data-i18n="btn_see_all">Tümünü Gör</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </a>
       </div>
 
       <div id="featured-projects-grid" class="projects-grid">
@@ -115,55 +105,21 @@
       </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="container" id="categories-section" style="margin-bottom: 4.5rem;">
-      <div class="section-header">
-        <div class="section-title-wrap">
-          <h2 data-i18n="sec_cat_title">Proje Kategorileri</h2>
-          <span class="section-subtitle" data-i18n="sec_cat_sub">Geliştirme alanlarına göre ayrılmış projeler</span>
-        </div>
-      </div>
-
-      <div id="category-cards-grid" class="category-cards-grid">
-        <!-- Rendered dynamically -->
-      </div>
-    </section>
-
-    <!-- Recently Updated Projects Section -->
-    <section class="container" style="margin-bottom: 4.5rem;">
-      <div class="section-header">
-        <div class="section-title-wrap">
-          <h2 data-i18n="sec_recent_title">Son Güncellenenler</h2>
-          <span class="section-subtitle" data-i18n="sec_recent_sub">En son sürüm veya yama alan projeler</span>
-        </div>
-        <a href="./projects.html?sort=updated" class="btn btn-sm btn-outline">
-          <span data-i18n="btn_catalog">Kataloğu İncele</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </a>
-      </div>
-
-      <div id="recent-projects-grid" class="projects-grid">
-        <!-- Rendered dynamically -->
-      </div>
-    </section>
-
     <!-- About Section -->
     <section class="container" id="about-section">
-      <div class="project-section-box" style="padding: 2.5rem;">
-        <div style="display: grid; grid-template-columns: 100px 1fr; gap: 2rem; align-items: center;">
-          <img src="./assets/images/avatar.svg" alt="Lkxex Profile Avatar" style="width: 100px; height: 100px; border-radius: var(--radius-md);" />
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <h2 style="font-size: 1.5rem;" data-i18n="sec_about_title">Geliştirici Hakkında</h2>
-            <p style="font-size: 1rem; line-height: 1.6;" data-i18n="sec_about_desc">
-              Ben oyunlar, masaüstü yardımcı araçları, eklentiler ve açık kaynak yazılımlar üreten bağımsız bir yazılım geliştiricisiyim. Bu platform, geliştirdiğim projelerin en güncel sürümlerini, kullanım kılavuzlarını ve doğrudan indirme bağlantılarını güvenli ve şeffaf bir şekilde paylaşmak amacıyla oluşturuldu.
-            </p>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
-              <span class="tag-pill">C# / .NET</span>
-              <span class="tag-pill">Discord RPC API</span>
-              <span class="tag-pill">Game Modding &amp; Tools</span>
-              <span class="tag-pill">Desktop Utilities</span>
-              <span class="tag-pill">Modern Web / JavaScript</span>
-            </div>
+      <div class="project-section-box" style="padding: 2rem;">
+        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <h2 style="font-size: 1.35rem;" data-i18n="sec_about_title">Hakkımda</h2>
+          <p style="font-size: 0.975rem; line-height: 1.65;" data-i18n="sec_about_desc">
+            Oyun modlama, bellek analizi ve Windows araçları üzerine çalışan bağımsız bir geliştiriciyim. PES 2021 için Sider 7 ve LuaJIT FFI kullanarak oyunun performansını (FPS) düşürmeyen, arka planda sıfır gecikmeyle çalışan doğrudan IPC çözümleri üretiyorum.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem;">
+            <span class="tag-pill">PES 2021 Modding</span>
+            <span class="tag-pill">Sider 7</span>
+            <span class="tag-pill">LuaJIT FFI</span>
+            <span class="tag-pill">Win32 Named Pipes</span>
+            <span class="tag-pill">Discord RPC</span>
+            <span class="tag-pill">C# / .NET</span>
           </div>
         </div>
       </div>
@@ -176,25 +132,19 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <div class="brand" style="margin-bottom: 0.75rem;">
-            <div class="brand-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <polyline points="16 18 22 12 16 6"/>
-                <polyline points="8 6 2 12 8 18"/>
-              </svg>
-            </div>
-            <span>DEV<span class="brand-text-accent">HUB</span></span>
+          <div class="brand" style="margin-bottom: 0.5rem;">
+            <span class="brand-dot"></span>
+            <span>lkxex<span style="color: var(--text-muted); font-weight: normal;">.dev</span></span>
           </div>
-          <p style="font-size: 0.9rem; max-width: 380px;" data-i18n="footer_desc">
-            Kişisel oyun, mod, plugin ve araç projelerimin merkezi dağıtım ve dokümantasyon platformu.
+          <p style="font-size: 0.85rem; max-width: 380px;" data-i18n="footer_desc">
+            Kişisel oyun modları, Sider eklentileri ve masaüstü yazılımları.
           </p>
         </div>
         <div>
           <div class="footer-col-title" data-i18n="footer_nav">Navigasyon</div>
           <ul class="footer-links">
             <li><a href="./index.html" class="footer-link" data-i18n="nav_home">Ana Sayfa</a></li>
-            <li><a href="./projects.html" class="footer-link" data-i18n="nav_projects">Tüm Projeler</a></li>
-            <li><a href="./index.html#categories-section" class="footer-link" data-i18n="nav_categories">Kategoriler</a></li>
+            <li><a href="./projects.html" class="footer-link" data-i18n="nav_projects">Projeler</a></li>
             <li><a href="./index.html#about-section" class="footer-link" data-i18n="nav_about">Hakkımda</a></li>
           </ul>
         </div>
@@ -203,14 +153,13 @@
           <ul class="footer-links">
             <li><a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Profilim</a></li>
             <li><a href="https://github.com/Lkxex/pes2021-discord-rpc" target="_blank" rel="noopener noreferrer" class="footer-link">PES 2021 Discord RPC</a></li>
-            <li><a href="./projects.html?category=Tools" class="footer-link">Araçlar &amp; Programlar</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; <span id="current-year">2026</span> Lkxex (Developer Hub). <span data-i18n="footer_rights">Tüm hakları saklıdır.</span></span>
-        <span data-i18n="footer_static">Statik &amp; Açık Kaynak Dağıtım</span>
+        <span>&copy; <span id="current-year">2026</span> Lkxex. <span data-i18n="footer_rights">Tüm hakları saklıdır.</span></span>
+        <span data-i18n="footer_static">Doğrudan İndirilebilir &amp; Açık Kaynak</span>
       </div>
     </div>
   </footer>

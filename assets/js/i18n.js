@@ -1,33 +1,34 @@
 /**
  * Internationalization (i18n) Module
- * Detects system language (tr or en) with manual override support.
+ * Natural, developer-crafted bilingual dictionary (TR / EN)
+ * Auto-detects system language with manual toggle option.
  */
 
 const translations = {
   tr: {
     nav_home: "Ana Sayfa",
-    nav_projects: "Tüm Projeler",
+    nav_projects: "Projeler",
     nav_categories: "Kategoriler",
     nav_about: "Hakkımda",
-    hero_status: "● Aktif Geliştirici",
-    hero_title: "Oyun, mod, eklenti ve yazılım projeleri için <span style=\"color: var(--accent-emerald);\">merkezi dağıtım platformu</span>.",
-    hero_desc: "Geliştirdiğim bağımsız oyunlar, eklentiler, masaüstü araçları ve açık kaynak yazılımların güncel sürümlerine, kaynak kodlarına ve indirme bağlantılarına buradan ulaşabilirsiniz.",
-    hero_btn_explore: "Projeleri Keşfet",
-    hero_btn_github: "GitHub'da Takip Et",
-    sec_featured_title: "Öne Çıkan Projeler",
-    sec_featured_sub: "Aktif olarak geliştirilen ve en son yayınlanan çalışmalarım",
-    sec_cat_title: "Proje Kategorileri",
-    sec_cat_sub: "Geliştirme alanlarına göre ayrılmış projeler",
-    sec_recent_title: "Son Güncellenenler",
-    sec_recent_sub: "En son sürüm veya yama alan projeler",
-    sec_about_title: "Geliştirici Hakkında",
-    sec_about_desc: "Ben oyunlar, masaüstü yardımcı araçları, eklentiler ve açık kaynak yazılımlar üreten bağımsız bir yazılım geliştiricisiyim. Bu platform, geliştirdiğim projelerin en güncel sürümlerini, kullanım kılavuzlarını ve doğrudan indirme bağlantılarını güvenli ve şeffaf bir şekilde paylaşmak amacıyla oluşturuldu.",
-    footer_desc: "Kişisel oyun, mod, plugin ve araç projelerimin merkezi dağıtım ve dokümantasyon platformu.",
+    hero_status: "Aktif Geliştirici",
+    hero_title: "Oyun modları, Sider modülleri ve <span style=\"color: var(--accent-discord);\">özel araçlar</span>.",
+    hero_desc: "Selam, ben Lkxex. eFootball PES 2021 ve çeşitli oyunlar için geliştirdiğim modlar, doğrudan IPC eklentileri ve araçların güncel sürümlerini, kaynak kodlarını ve indirme bağlantılarını buradan paylaşıyorum.",
+    hero_btn_explore: "Projeleri İncele",
+    hero_btn_github: "GitHub Profilim",
+    sec_featured_title: "Yayınlanan Projeler",
+    sec_featured_sub: "Doğrudan indirilebilir ve kaynak kodu açık çalışmalarım",
+    sec_cat_title: "Kategoriler",
+    sec_cat_sub: "Çalışma alanlarına göre projeler",
+    sec_recent_title: "Son Güncellemeler",
+    sec_recent_sub: "En son sürüm ve yama alan projeler",
+    sec_about_title: "Hakkımda",
+    sec_about_desc: "Oyun modlama, bellek analizi ve Windows araçları üzerine çalışan bağımsız bir geliştiriciyim. PES 2021 için Sider 7 ve LuaJIT FFI kullanarak oyunun performansını (FPS) düşürmeyen, arka planda sıfır gecikmeyle çalışan doğrudan IPC çözümleri üretiyorum.",
+    footer_desc: "Kişisel oyun modları, Sider eklentileri ve masaüstü yazılımları.",
     footer_nav: "Navigasyon",
     footer_links: "Bağlantılar",
     footer_rights: "Tüm hakları saklıdır.",
-    footer_static: "Statik & Açık Kaynak Dağıtım",
-    btn_inspect: "İncele",
+    footer_static: "Doğrudan İndirilebilir & Açık Kaynak",
+    btn_inspect: "Detaylar & İndir",
     btn_see_all: "Tümünü Gör",
     btn_catalog: "Kataloğu İncele",
     btn_download: "İndir",
@@ -38,8 +39,8 @@ const translations = {
     btn_back_to_projects: "Tüm Projelere Dön",
     btn_reset: "Sıfırla",
     catalog_title: "Proje Kataloğu",
-    catalog_sub: "Yazılımlar, araçlar ve projeler arasında arama ve filtreleme yapın",
-    search_placeholder: "Proje adı, açıklama veya etiket ara... (Örn: PES 2021, Discord, RPC, C#)",
+    catalog_sub: "Tüm araçlar, modlar ve yazılımlar",
+    search_placeholder: "Proje adı veya etiket ara... (Örn: PES 2021, Discord, RPC, C#)",
     filter_category: "Kategori:",
     filter_type: "Tür:",
     filter_status: "Durum:",
@@ -51,25 +52,25 @@ const translations = {
     all_tags: "Tüm Etiketler",
     all_tab: "Tümü",
     sort_featured: "Öne Çıkanlar",
-    sort_newest: "En Yeni Eklenenler",
-    sort_updated: "Son Güncellenenler",
-    sort_alpha: "Alfabetik (A-Z)",
-    results_found: "proje bulundu",
+    sort_newest: "En Yeni",
+    sort_updated: "Son Güncellenen",
+    sort_alpha: "İsme Göre (A-Z)",
+    results_found: "proje listelendi",
     empty_title: "Aramanızla eşleşen proje bulunamadı",
-    empty_desc: "Arama kriterlerinizi veya seçtiğiniz filtreleri sıfırlayarak tekrar deneyebilirsiniz.",
-    empty_reset: "Filtreleri Sıfırla",
+    empty_desc: "Farklı bir arama terimi veya filtre seçmeyi deneyin.",
+    empty_reset: "Filtreleri Temizle",
     proj_about: "Proje Hakkında",
-    proj_features: "Öne Çıkan Özellikler",
-    proj_screenshots: "Ekran Görüntüleri",
-    proj_install: "Kurulum ve Kullanım",
-    proj_reqs: "Sistem / Çalışma Gereksinimleri",
-    proj_downloads: "İndirme Bağlantıları ve Dosyalar",
+    proj_features: "Teknik Özellikler & Detaylar",
+    proj_screenshots: "Önizleme & Ekran Görüntüleri",
+    proj_install: "Kurulum Talimatları",
+    proj_reqs: "Sistem ve Oyun Gereksinimleri",
+    proj_downloads: "İndirme Dosyaları",
     proj_changelog: "Sürüm Geçmişi (Changelog)",
     proj_info: "Proje Bilgileri",
     proj_tags: "Etiketler",
     spec_category: "Kategori",
     spec_type: "Tür",
-    spec_version: "Son Sürüm",
+    spec_version: "Sürüm",
     spec_status: "Durum",
     spec_released: "İlk Yayın",
     spec_updated: "Son Güncelleme",
@@ -82,28 +83,28 @@ const translations = {
   },
   en: {
     nav_home: "Home",
-    nav_projects: "All Projects",
+    nav_projects: "Projects",
     nav_categories: "Categories",
-    nav_about: "About Me",
-    hero_status: "● Active Developer",
-    hero_title: "Central distribution hub for <span style=\"color: var(--accent-emerald);\">games, mods, tools and software</span>.",
-    hero_desc: "Access the latest releases, source code, documentation, and direct download links for my independent games, applications, desktop utilities, and open-source projects.",
+    nav_about: "About",
+    hero_status: "Active Developer",
+    hero_title: "Game mods, Sider modules, and <span style=\"color: var(--accent-discord);\">custom utilities</span>.",
+    hero_desc: "Hey, I'm Lkxex. Here you'll find the latest releases, documentation, and downloads for my eFootball PES 2021 mods, direct IPC tools, and game utilities.",
     hero_btn_explore: "Explore Projects",
-    hero_btn_github: "Follow on GitHub",
-    sec_featured_title: "Featured Projects",
-    sec_featured_sub: "Actively maintained and highlighted creations",
-    sec_cat_title: "Project Categories",
-    sec_cat_sub: "Browse projects by development domains",
-    sec_recent_title: "Recently Updated",
-    sec_recent_sub: "Projects that recently received updates or patches",
-    sec_about_title: "About Developer",
-    sec_about_desc: "I am an independent developer building games, desktop tools, plugins, and open-source software. This platform serves as a central, safe, and transparent hub to share releases, documentation, and downloads directly.",
-    footer_desc: "Central distribution and documentation platform for personal games, mods, plugins, and tools.",
+    hero_btn_github: "GitHub Profile",
+    sec_featured_title: "Released Projects",
+    sec_featured_sub: "Open-source and directly downloadable creations",
+    sec_cat_title: "Categories",
+    sec_cat_sub: "Projects grouped by platform and domain",
+    sec_recent_title: "Recent Updates",
+    sec_recent_sub: "Projects that recently received new patches",
+    sec_about_title: "About Me",
+    sec_about_desc: "Independent developer working on game modding, reverse-engineering, and lightweight Windows tools. Using Sider 7 and LuaJIT FFI to craft direct-IPC integrations that deliver real-time data without causing FPS drops or memory bloat.",
+    footer_desc: "Personal game mods, Sider modules, and desktop utilities.",
     footer_nav: "Navigation",
     footer_links: "Links",
     footer_rights: "All rights reserved.",
-    footer_static: "Static & Open Source Distribution",
-    btn_inspect: "View Details",
+    footer_static: "Direct Download & Open Source",
+    btn_inspect: "Details & Download",
     btn_see_all: "View All",
     btn_catalog: "Browse Catalog",
     btn_download: "Download",
@@ -114,8 +115,8 @@ const translations = {
     btn_back_to_projects: "Back to All Projects",
     btn_reset: "Reset",
     catalog_title: "Project Catalog",
-    catalog_sub: "Search and filter through tools, apps, and software projects",
-    search_placeholder: "Search title, description or tag... (e.g., PES 2021, Discord, RPC, C#)",
+    catalog_sub: "Browse all tools, mods, and utilities",
+    search_placeholder: "Search by title or tag... (e.g., PES 2021, Discord, RPC, C#)",
     filter_category: "Category:",
     filter_type: "Type:",
     filter_status: "Status:",
@@ -130,27 +131,27 @@ const translations = {
     sort_newest: "Newest First",
     sort_updated: "Recently Updated",
     sort_alpha: "Alphabetical (A-Z)",
-    results_found: "projects found",
-    empty_title: "No projects match your criteria",
-    empty_desc: "Try resetting your search query or adjusting your filters.",
-    empty_reset: "Reset Filters",
-    proj_about: "About Project",
-    proj_features: "Key Features",
-    proj_screenshots: "Screenshots",
-    proj_install: "Installation & Usage",
-    proj_reqs: "System / Runtime Requirements",
+    results_found: "projects listed",
+    empty_title: "No projects match your search",
+    empty_desc: "Try searching for a different keyword or resetting your filters.",
+    empty_reset: "Clear Filters",
+    proj_about: "About the Project",
+    proj_features: "Features & Architecture",
+    proj_screenshots: "Preview & Screenshots",
+    proj_install: "Installation Guide",
+    proj_reqs: "System & Game Requirements",
     proj_downloads: "Downloads & Releases",
-    proj_changelog: "Changelog & Version History",
-    proj_info: "Project Information",
+    proj_changelog: "Version Changelog",
+    proj_info: "Project Overview",
     proj_tags: "Tags",
     spec_category: "Category",
     spec_type: "Type",
-    spec_version: "Latest Version",
+    spec_version: "Version",
     spec_status: "Status",
     spec_released: "Released",
     spec_updated: "Updated",
     not_found_title: "Project Not Found",
-    not_found_desc: "The requested project does not exist or has been moved.",
+    not_found_desc: "The requested project does not exist or has been removed.",
     not_found_btn_catalog: "Browse All Projects",
     not_found_btn_home: "Back to Home",
     updated_prefix: "Updated:",
@@ -158,11 +159,6 @@ const translations = {
   }
 };
 
-/**
- * Returns user language ('tr' or 'en')
- * 1. Checks localStorage if user manually chose
- * 2. Checks browser system language (navigator.language)
- */
 export function getLanguage() {
   const saved = localStorage.getItem('site_lang');
   if (saved === 'tr' || saved === 'en') {
@@ -187,9 +183,6 @@ export function t(key) {
   return (translations[lang] && translations[lang][key]) || translations['en'][key] || key;
 }
 
-/**
- * Applies translations to all elements with data-i18n attribute
- */
 export function applyLanguage(lang) {
   const currentLang = lang || getLanguage();
   document.documentElement.lang = currentLang;
@@ -206,13 +199,11 @@ export function applyLanguage(lang) {
     }
   });
 
-  // Update language toggle button text
   const langBtn = document.getElementById('lang-toggle-btn');
   if (langBtn) {
     langBtn.textContent = currentLang === 'tr' ? 'EN' : 'TR';
     langBtn.title = currentLang === 'tr' ? 'Switch to English' : 'Türkçe\'ye Geç';
   }
 
-  // Dispatch event for dynamic content
   window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: currentLang } }));
 }
