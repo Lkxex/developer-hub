@@ -1,64 +1,148 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
   <defs>
-    <linearGradient id="screenBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b0e17" />
-      <stop offset="100%" stop-color="#141828" />
+    <!-- Background Gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1017" />
+      <stop offset="100%" stop-color="#141724" />
     </linearGradient>
+
+    <!-- Discord Primary Gradient -->
+    <linearGradient id="discordBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5865F2" />
+      <stop offset="100%" stop-color="#4752C4" />
+    </linearGradient>
+
+    <!-- Goal Flash Gradient -->
+    <linearGradient id="goalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fee75c" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <!-- Subtle Shadows -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="800" height="450" fill="url(#screenBg)" />
+  <rect width="880" height="500" fill="url(#bg)" />
 
-  <!-- Outer Window Container -->
-  <rect x="30" y="20" width="740" height="410" rx="14" fill="#1e1f22" stroke="#2b2d31" stroke-width="2" />
-  
-  <!-- Window Titlebar with Dots -->
-  <rect x="30" y="20" width="740" height="38" rx="14" fill="#2b2d31" />
-  <circle cx="55" cy="39" r="6" fill="#ed4245" />
-  <circle cx="75" cy="39" r="6" fill="#fee75c" />
-  <circle cx="95" cy="39" r="6" fill="#57f287" />
-  <text x="400" y="44" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Discord User Profile — Rich Presence Preview</text>
+  <!-- Tactical Pitch Lines in Background -->
+  <g stroke="#ffffff" stroke-opacity="0.03" stroke-width="1.5">
+    <circle cx="440" cy="250" r="160" fill="none" />
+    <line x1="440" y1="0" x2="440" y2="500" />
+    <rect x="20" y="20" width="840" height="460" rx="16" fill="none" />
+  </g>
 
-  <!-- User Profile Card -->
-  <g transform="translate(180, 75)">
-    <!-- Discord Profile Box -->
-    <rect width="440" height="330" rx="12" fill="#232428" />
+  <!-- ================= LEFT: SIDER 7 IN-GAME LIVE OVERLAY ================= -->
+  <g transform="translate(40, 45)">
+    <!-- Terminal / Sider Box -->
+    <rect width="360" height="410" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1.5" filter="url(#cardShadow)" />
     
-    <!-- Profile Banner -->
-    <rect width="440" height="100" rx="12" fill="#5865f2" />
+    <!-- Header Bar -->
+    <rect width="360" height="38" rx="10" fill="#161b22" />
+    <rect y="28" width="360" height="10" fill="#161b22" />
+    <circle cx="22" cy="19" r="5" fill="#f85149" />
+    <circle cx="38" cy="19" r="5" fill="#e3b341" />
+    <circle cx="54" cy="19" r="5" fill="#3fb950" />
+    <text x="180" y="24" fill="#8b949e" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Sider 7 Overlay (overlay_on)</text>
 
-    <!-- Avatar with Online Status Indicator -->
-    <circle cx="65" cy="100" r="38" fill="#1e1f22" />
-    <circle cx="65" cy="100" r="34" fill="#2b2d31" />
-    <!-- Avatar Icon (Clyde mini) -->
-    <g transform="translate(47, 85) scale(0.15)">
-      <path d="M197.3 64.9C182.2 57.9 166.1 53 149.3 50.1c-2 3.6-4.4 8.5-6 12.4-18-2.7-35.8-2.7-53.5 0-1.7-3.9-4.1-8.8-6.2-12.4-16.7 2.9-32.8 7.9-47.9 14.8-30.8 45.9-39.2 90.7-35.1 134.8 20.4 15.1 39.9 24.2 59.3 30.2 4.8-6.6 9.1-13.6 12.8-21.1-7.1-2.7-13.9-6.1-20.2-10.3 1.7-1.2 3.4-2.5 5-3.8 38.6 17.8 80.3 17.8 118.5 0 1.6 1.3 3.3 2.6 5 3.8-6.4 4.2-13.1 7.6-20.2 10.3 3.7 7.5 8 14.6 12.8 21.1 19.4-6 39-15.1 59.4-30.2 4.9-51-7.6-95.6-35.2-134.8z" fill="#5865f2" />
+    <!-- Monospace Overlay Text (Exact Lua Output) -->
+    <g font-family="Consolas, 'Courier New', monospace" font-size="12" xml:space="preserve">
+      <text x="20" y="70" fill="#58a6ff" font-weight="bold">Discord RPC (direct IPC)</text>
+      <text x="20" y="92" fill="#8b949e">Status      : <tspan fill="#3fb950" font-weight="bold">Connected</tspan></text>
+      <text x="20" y="112" fill="#8b949e">Game State  : <tspan fill="#f0f6fc">In Match</tspan></text>
+      
+      <line x1="20" y1="124" x2="340" y2="124" stroke="#21262d" stroke-width="1" />
+
+      <text x="20" y="144" fill="#8b949e">Teams       : <tspan fill="#f0f6fc">Home (102) - Away (109)</tspan></text>
+      <text x="20" y="164" fill="#8b949e">Score       : <tspan fill="#f0f6fc" font-weight="bold">2 - 1</tspan></text>
+      <text x="20" y="184" fill="#8b949e">Time        : <tspan fill="#f0f6fc">74'</tspan></text>
+      <text x="20" y="204" fill="#8b949e">Period      : <tspan fill="#f0f6fc">2H</tspan></text>
+      <text x="20" y="226" fill="#8b949e">Event       : <tspan fill="#f59e0b" font-weight="bold">GOAAAL!!! Real Madrid</tspan></text>
+
+      <line x1="20" y1="242" x2="340" y2="242" stroke="#21262d" stroke-width="1" />
+
+      <text x="20" y="264" fill="#8b949e">--- SETTINGS --- (PgUp/PgDn | Del)</text>
+      <text x="20" y="290" fill="#58a6ff" font-weight="bold">&gt; Discord Button      : [ <tspan fill="#3fb950">ON</tspan> ]</text>
+      <text x="20" y="312" fill="#8b949e">  Visual Debug        : [ <tspan fill="#f85149">OFF</tspan> ]</text>
+
+      <!-- F5 Hint Box -->
+      <rect x="20" y="340" width="320" height="44" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" />
+      <text x="35" y="367" fill="#8b949e" font-size="11">Action      : <tspan fill="#e3b341">Press F5 to Refresh IPC</tspan></text>
     </g>
-    <circle cx="92" cy="126" r="10" fill="#232428" />
-    <circle cx="92" cy="126" r="8" fill="#23a55a" />
+  </g>
 
-    <!-- Username Area -->
-    <text x="120" y="125" fill="#f2f3f5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700">Lkxex</text>
-    <text x="120" y="142" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12">lkxex</text>
+  <!-- ================= RIGHT: AUTHENTIC DISCORD USER PROFILE ================= -->
+  <g transform="translate(440, 35)">
+    <!-- Discord Outer Window Card -->
+    <rect width="400" height="430" rx="14" fill="#232428" filter="url(#cardShadow)" stroke="#2b2d31" stroke-width="1" />
+    
+    <!-- Discord Banner -->
+    <rect width="400" height="110" rx="14" fill="#5865F2" />
 
-    <!-- Activity Box (Rich Presence) -->
-    <rect x="20" y="165" width="400" height="145" rx="8" fill="#111214" />
-    <text x="35" y="188" fill="#b5bac1" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="800" letter-spacing="0.5">PLAYING A GAME / OYUN OYNUYOR</text>
+    <!-- Avatar with Online Indicator -->
+    <circle cx="65" cy="110" r="38" fill="#232428" />
+    <circle cx="65" cy="110" r="33" fill="#1e1f22" />
+    <!-- Authentic Discord Clyde Mascot inside Avatar -->
+    <g transform="translate(47, 94) scale(0.15)">
+      <path d="M197.3 64.9C182.2 57.9 166.1 53 149.3 50.1c-2 3.6-4.4 8.5-6 12.4-18-2.7-35.8-2.7-53.5 0-1.7-3.9-4.1-8.8-6.2-12.4-16.7 2.9-32.8 7.9-47.9 14.8-30.8 45.9-39.2 90.7-35.1 134.8 20.4 15.1 39.9 24.2 59.3 30.2 4.8-6.6 9.1-13.6 12.8-21.1-7.1-2.7-13.9-6.1-20.2-10.3 1.7-1.2 3.4-2.5 5-3.8 38.6 17.8 80.3 17.8 118.5 0 1.6 1.3 3.3 2.6 5 3.8-6.4 4.2-13.1 7.6-20.2 10.3 3.7 7.5 8 14.6 12.8 21.1 19.4-6 39-15.1 59.4-30.2 4.9-51-7.6-95.6-35.2-134.8zM83.2 165.7c-11.8 0-21.6-10.9-21.6-24.1 0-13.3 9.5-24.1 21.6-24.1 12.1 0 21.9 10.9 21.6 24.1 0 13.3-9.5 24.1-21.6 24.1zm73.6 0c-11.8 0-21.6-10.9-21.6-24.1 0-13.3 9.5-24.1 21.6-24.1 12.1 0 21.9 10.9 21.6 24.1 0 13.3-9.5 24.1-21.6 24.1z" fill="#ffffff" />
+    </g>
+    <!-- Status Dot (Online Green) -->
+    <circle cx="92" cy="136" r="10" fill="#232428" />
+    <circle cx="92" cy="136" r="7" fill="#23a55a" />
 
-    <!-- Game Icon Square -->
-    <rect x="35" y="202" width="75" height="75" rx="10" fill="#0f1422" stroke="#5865f2" stroke-width="1.5" />
-    <!-- Game Icon Graphics -->
-    <text x="72" y="240" fill="#5865f2" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="900" text-anchor="middle">PES</text>
-    <text x="72" y="258" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" text-anchor="middle">2021</text>
-    <!-- Little Discord Badge on Image -->
-    <circle cx="102" cy="270" r="11" fill="#5865f2" />
-    <!-- Mini Clyde -->
-    <path d="M98 266c1.5-.7 3.1-1.2 4.8-1.5-.2.4-.4.9-.6 1.2-1.8-.3-3.6-.3-5.3 0-.2-.4-.4-.8-.6-1.2 1.7.3 3.3.8 4.8 1.5-3.1 4.6-3.9 9.1-3.5 13.5 2 1.5 4 2.4 5.9 3 .5-.7.9-1.4 1.3-2.1-.7-.3-1.4-.6-2-.9.2-.1.3-.2.5-.4 3.9 1.8 8 1.8 11.9 0 .2.1.3.3.5.4-.7.3-1.3.6-2 .9.4.7.8 1.4 1.3 2.1 1.9-.6 3.9-1.5 5.9-3 .4-4.4-.4-8.9-3.5-13.5z" fill="#ffffff" transform="translate(1, -2) scale(0.6)" />
+    <!-- Username & Tag -->
+    <text x="120" y="138" fill="#f2f3f5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700">Lkxex</text>
+    <text x="120" y="156" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">lkxex • PES 2021</text>
 
-    <!-- Rich Presence Details -->
-    <text x="125" y="222" fill="#f2f3f5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700">eFootball PES 2021</text>
-    <text x="125" y="242" fill="#dbdee1" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13">Real Madrid 3 - 1 Barcelona</text>
-    <text x="125" y="260" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12">Master League (78:45 elapsed)</text>
-    <text x="125" y="278" fill="#57f287" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600">● Live Discord Status Synced</text>
+    <!-- Activity Box (PLAYING A GAME) -->
+    <rect x="18" y="175" width="364" height="235" rx="8" fill="#111214" />
+    
+    <text x="32" y="196" fill="#b5bac1" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10.5" font-weight="800" letter-spacing="0.5">PLAYING A GAME</text>
+
+    <!-- Activity Body -->
+    <g transform="translate(32, 210)">
+      <!-- Large Asset: UEFA Champions League / PES Competition Logo -->
+      <rect width="68" height="68" rx="8" fill="#0f1422" stroke="#5865F2" stroke-width="1.5" />
+      <!-- Starball / Trophy Icon Representation -->
+      <polygon points="34,14 40,28 54,28 42,38 46,52 34,42 22,52 26,38 14,28 28,28" fill="#5865F2" />
+      <text x="34" y="60" fill="#ffffff" font-family="-apple-system, sans-serif" font-size="9" font-weight="900" text-anchor="middle">UCL</text>
+      
+      <!-- Small Asset: Home Team Crest (Real Madrid) with hover indicator -->
+      <circle cx="58" cy="58" r="13" fill="#1e1f22" stroke="#111214" stroke-width="2" />
+      <circle cx="58" cy="58" r="10" fill="#ffffff" />
+      <text x="58" y="62" fill="#1e1f22" font-family="sans-serif" font-size="8" font-weight="900" text-anchor="middle">RMA</text>
+
+      <!-- Details (from Lua: details = home.name home_score - away_score away.name) -->
+      <text x="80" y="15" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700">Real Madrid 2 - 1 Barcelona</text>
+
+      <!-- State Line (from Lua: state_line = match_event (frozen_str)) -->
+      <text x="80" y="34" fill="#fee75c" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700">GOAAAL!!! Real Madrid (74')</text>
+
+      <!-- Sub-State: Competition | Minute • 2H -->
+      <text x="80" y="52" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5">UEFA Champions League | 74' • 2H</text>
+
+      <!-- Live Timestamp (session_start) -->
+      <text x="80" y="68" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11">01:14:22 elapsed</text>
+    </g>
+
+    <!-- Lua's CACHED_BUTTONS_JSON Interactive Buttons -->
+    <g transform="translate(32, 298)">
+      <!-- Button 1: Download: Github -->
+      <rect width="336" height="34" rx="4" fill="#2b2d31" stroke="#35373c" stroke-width="1" />
+      <text x="168" y="22" fill="#f2f3f5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Download: Github</text>
+    </g>
+
+    <g transform="translate(32, 340)">
+      <!-- Button 2: Download: Evoweb -->
+      <rect width="336" height="34" rx="4" fill="#2b2d31" stroke="#35373c" stroke-width="1" />
+      <text x="168" y="22" fill="#f2f3f5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Download: Evoweb</text>
+    </g>
+
+    <g transform="translate(32, 390)">
+      <!-- Status Footer Pill -->
+      <text x="168" y="0" fill="#3fb950" font-family="monospace" font-size="10.5" font-weight="bold" text-anchor="middle">● DIRECT SIDER 7 IPC PIPELINE ACTIVE</text>
+    </g>
   </g>
 </svg>
