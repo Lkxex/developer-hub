@@ -4,39 +4,56 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Text;
+using System.Threading;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 namespace ModHubManager
 {
+    public class ModLink
+    {
+        public string title { get; set; }
+        public string url { get; set; }
+        public string icon { get; set; }
+    }
+
     public class ModItem
     {
         public string id { get; set; }
         public string type { get; set; }
+        public string game { get; set; }
         public string title { get; set; }
         public string version { get; set; }
         public string updated { get; set; }
         public string author { get; set; }
-        public string platform { get; set; }
-        public string platform_url { get; set; }
-        public string download_url { get; set; }
-        public string github_url { get; set; }
-        public string evoweb_url { get; set; }
         public string icon { get; set; }
-        public string install_code { get; set; }
         public string tagline_tr { get; set; }
         public string tagline_en { get; set; }
+        public string overview_tr { get; set; }
+        public string overview_en { get; set; }
+        public string download_url { get; set; }
+        public string install_code { get; set; }
         public List<string> tags { get; set; }
+        public List<string> requirements { get; set; }
+        public List<string> install_steps_tr { get; set; }
+        public List<string> install_steps_en { get; set; }
         public List<string> features_tr { get; set; }
         public List<string> features_en { get; set; }
+        public List<ModLink> links { get; set; }
 
         public ModItem()
         {
             type = "personal";
+            game = "eFootball PES 2021";
             tags = new List<string>();
+            requirements = new List<string>();
+            install_steps_tr = new List<string>();
+            install_steps_en = new List<string>();
             features_tr = new List<string>();
             features_en = new List<string>();
+            links = new List<ModLink>();
         }
     }
 
@@ -45,6 +62,9 @@ namespace ModHubManager
         private List<ModItem> allMods = new List<ModItem>();
         private string jsonPath = "mods.json";
         private ModItem currentSelected = null;
+        private HttpListener httpListener;
+        private Thread httpThread;
+        private const int Port = 54321;
 
         // UI Controls
         private TextBox txtSearch;
@@ -54,21 +74,24 @@ namespace ModHubManager
         private Button btnDelete;
 
         private ComboBox cmbType;
+        private TextBox txtGame;
         private TextBox txtId;
         private TextBox txtTitle;
         private TextBox txtVersion;
         private TextBox txtAuthor;
-        private TextBox txtPlatform;
-        private TextBox txtPlatformUrl;
         private TextBox txtDownloadUrl;
-        private TextBox txtGithubUrl;
-        private TextBox txtEvowebUrl;
         private TextBox txtInstallCode;
         private TextBox txtIcon;
         private Button btnBrowseIcon;
         private ComboBox cmbPresetIcon;
+
         private TextBox txtTaglineTr;
         private TextBox txtTaglineEn;
+        private TextBox txtOverviewTr;
+        private TextBox txtOverviewEn;
+        private TextBox txtRequirements;
+        private TextBox txtInstallStepsTr;
+        private TextBox txtLinks;
         private TextBox txtTags;
         private TextBox txtFeaturesTr;
         private TextBox txtFeaturesEn;
@@ -92,16 +115,19 @@ namespace ModHubManager
 
         public MainForm()
         {
-            this.Text = "Lkxex Mod Yöneticisi & Editör (Native C#)";
-            this.Size = new Size(1080, 780);
-            this.MinimumSize = new Size(950, 680);
+            this.Text = "Lkxex Mod Vitrini & Editör (Native C#)";
+            this.Size = new Size(1140, 820);
+            this.MinimumSize = new Size(980, 720);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(13, 17, 23);
-            this.ForeColor = Color.FromArgb(240, 246, 252);
+            this.BackColor = Color.FromArgb(9, 13, 22);
+            this.ForeColor = Color.FromArgb(241, 245, 249);
             this.Font = new Font("Segoe UI", 9.25f, FontStyle.Regular);
 
             BuildUI();
             LoadData();
+            StartHttpServer();
+
+            this.FormClosing += (s, e) => StopHttpServer();
         }
 
         private void BuildUI()
@@ -110,33 +136,33 @@ namespace ModHubManager
             Panel topBar = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 54,
-                BackColor = Color.FromArgb(22, 27, 34),
-                Padding = new Padding(12, 10, 12, 10)
+                Height = 56,
+                BackColor = Color.FromArgb(17, 24, 39),
+                Padding = new Padding(14, 11, 14, 11)
             };
 
             Label lblAppTitle = new Label
             {
-                Text = "⚡ Lkxex Hub Manager",
+                Text = "⚡ Lkxex Mod Vitrini & Editör",
                 ForeColor = Color.FromArgb(88, 101, 242),
                 Font = new Font("Segoe UI", 12f, FontStyle.Bold),
                 AutoSize = true,
-                Location = new Point(12, 14)
+                Location = new Point(14, 15)
             };
             topBar.Controls.Add(lblAppTitle);
 
-            btnPreviewSite = CreateButton("🌐 Sitede Önizle", Color.FromArgb(33, 38, 45), Color.FromArgb(240, 246, 252), 130, 32);
-            btnPreviewSite.Location = new Point(560, 10);
+            btnPreviewSite = CreateButton("🌐 Sitede Önizle (Local)", Color.FromArgb(26, 34, 52), Color.FromArgb(241, 245, 249), 175, 34);
+            btnPreviewSite.Location = new Point(540, 11);
             btnPreviewSite.Click += (s, e) => OpenSitePreview();
             topBar.Controls.Add(btnPreviewSite);
 
-            btnSave = CreateButton("💾 mods.json Kaydet", Color.FromArgb(35, 134, 54), Color.White, 160, 32);
-            btnSave.Location = new Point(700, 10);
+            btnSave = CreateButton("💾 mods.json Kaydet", Color.FromArgb(16, 185, 129), Color.White, 160, 34);
+            btnSave.Location = new Point(725, 11);
             btnSave.Click += (s, e) => SaveData(true);
             topBar.Controls.Add(btnSave);
 
-            btnPushGit = CreateButton("🚀 GitHub'a Gönder (Push)", Color.FromArgb(88, 101, 242), Color.White, 180, 32);
-            btnPushGit.Location = new Point(870, 10);
+            btnPushGit = CreateButton("🚀 GitHub'a Gönder (Push)", Color.FromArgb(88, 101, 242), Color.White, 190, 34);
+            btnPushGit.Location = new Point(895, 11);
             btnPushGit.Click += (s, e) => PushToGitHub();
             topBar.Controls.Add(btnPushGit);
 
@@ -146,14 +172,14 @@ namespace ModHubManager
             Panel statusBar = new Panel
             {
                 Dock = DockStyle.Bottom,
-                Height = 30,
-                BackColor = Color.FromArgb(22, 27, 34),
-                Padding = new Padding(12, 5, 12, 5)
+                Height = 32,
+                BackColor = Color.FromArgb(17, 24, 39),
+                Padding = new Padding(14, 6, 14, 6)
             };
             lblStatus = new Label
             {
-                Text = "Hazır",
-                ForeColor = Color.FromArgb(139, 148, 158),
+                Text = "Hazır • Sunucu: http://127.0.0.1:" + Port,
+                ForeColor = Color.FromArgb(148, 163, 184),
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleLeft
             };
@@ -164,33 +190,33 @@ namespace ModHubManager
             SplitContainer split = new SplitContainer
             {
                 Dock = DockStyle.Fill,
-                SplitterDistance = 330,
+                SplitterDistance = 340,
                 FixedPanel = FixedPanel.Panel1,
-                BackColor = Color.FromArgb(48, 54, 61)
+                BackColor = Color.FromArgb(30, 41, 61)
             };
             this.Controls.Add(split);
             split.BringToFront();
 
             // --- LEFT PANEL ---
             Panel leftPanel = split.Panel1;
-            leftPanel.BackColor = Color.FromArgb(13, 17, 23);
+            leftPanel.BackColor = Color.FromArgb(9, 13, 22);
             leftPanel.Padding = new Padding(12);
 
             Label lblListHeader = new Label
             {
                 Text = "📦 Mod Listesi",
                 Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 Dock = DockStyle.Top,
-                Height = 26
+                Height = 28
             };
             leftPanel.Controls.Add(lblListHeader);
 
             txtSearch = new TextBox
             {
                 Dock = DockStyle.Top,
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 BorderStyle = BorderStyle.FixedSingle,
                 Height = 26
             };
@@ -201,8 +227,8 @@ namespace ModHubManager
             {
                 Dock = DockStyle.Top,
                 DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 FlatStyle = FlatStyle.Flat
             };
             cmbTabFilter.Items.AddRange(new object[] { "Tümü (All Mods)", "⚡ Kendi Modlarım (Personal)", "🌟 Popüler Topluluk (Community)" });
@@ -216,11 +242,11 @@ namespace ModHubManager
             lstMods = new ListBox
             {
                 Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 BorderStyle = BorderStyle.FixedSingle,
                 DrawMode = DrawMode.OwnerDrawFixed,
-                ItemHeight = 44
+                ItemHeight = 46
             };
             lstMods.DrawItem += LstMods_DrawItem;
             lstMods.SelectedIndexChanged += LstMods_SelectedIndexChanged;
@@ -229,15 +255,15 @@ namespace ModHubManager
             Panel leftBottomBtns = new Panel
             {
                 Dock = DockStyle.Bottom,
-                Height = 42,
+                Height = 44,
                 Padding = new Padding(0, 8, 0, 0)
             };
-            btnAddNew = CreateButton("➕ Yeni Mod Ekle", Color.FromArgb(35, 134, 54), Color.White, 145, 32);
+            btnAddNew = CreateButton("➕ Yeni Mod Ekle", Color.FromArgb(16, 185, 129), Color.White, 150, 34);
             btnAddNew.Dock = DockStyle.Left;
             btnAddNew.Click += (s, e) => PrepareNewMod();
             leftBottomBtns.Controls.Add(btnAddNew);
 
-            btnDelete = CreateButton("🗑️ Sil", Color.FromArgb(218, 54, 51), Color.White, 80, 32);
+            btnDelete = CreateButton("🗑️ Sil", Color.FromArgb(220, 38, 38), Color.White, 80, 34);
             btnDelete.Dock = DockStyle.Right;
             btnDelete.Click += (s, e) => DeleteCurrentMod();
             leftBottomBtns.Controls.Add(btnDelete);
@@ -246,7 +272,7 @@ namespace ModHubManager
 
             // --- RIGHT PANEL (EDITOR FORM) ---
             Panel rightPanel = split.Panel2;
-            rightPanel.BackColor = Color.FromArgb(13, 17, 23);
+            rightPanel.BackColor = Color.FromArgb(9, 13, 22);
             rightPanel.AutoScroll = true;
             rightPanel.Padding = new Padding(16, 12, 24, 20);
 
@@ -261,11 +287,11 @@ namespace ModHubManager
             formTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
             formTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
 
-            // Row 1: Type & ID
+            // Row 1: Type & Game
             cmbType = CreateComboBox(new string[] { "personal: ⚡ Kendi Modum (Geliştirici)", "community: 🌟 Popüler Topluluk Modu" });
-            txtId = CreateTextBox("Örn: pes2021-discord-rpc");
+            txtGame = CreateTextBox("Örn: eFootball PES 2021 veya Minecraft");
             formTable.Controls.Add(CreateFieldGroup("Mod Türü (Category):", cmbType), 0, 0);
-            formTable.Controls.Add(CreateFieldGroup("Mod ID (Benzersiz Kısayol):", txtId), 1, 0);
+            formTable.Controls.Add(CreateFieldGroup("Oyun Adı (Game / Platform):", txtGame), 1, 0);
 
             // Row 2: Title & Version
             txtTitle = CreateTextBox("Örn: PES 2021 Discord Rich Presence");
@@ -273,50 +299,42 @@ namespace ModHubManager
             formTable.Controls.Add(CreateFieldGroup("Mod Başlığı (Title):", txtTitle), 0, 1);
             formTable.Controls.Add(CreateFieldGroup("Sürüm (Version):", txtVersion), 1, 1);
 
-            // Row 3: Author & Platform
+            // Row 3: ID & Author
+            txtId = CreateTextBox("Örn: pes2021-discord-rpc");
             txtAuthor = CreateTextBox("Örn: Lkxex veya juce & nesa24");
-            txtPlatform = CreateTextBox("Örn: EvoWeb, Modrinth, CurseForge, GitHub");
-            formTable.Controls.Add(CreateFieldGroup("Geliştirici / Yazar (Author):", txtAuthor), 0, 2);
-            formTable.Controls.Add(CreateFieldGroup("Platform Adı (Platform):", txtPlatform), 1, 2);
+            formTable.Controls.Add(CreateFieldGroup("Mod ID (Benzersiz Kısayol):", txtId), 0, 2);
+            formTable.Controls.Add(CreateFieldGroup("Geliştirici / Yazar (Author):", txtAuthor), 1, 2);
 
-            // Row 4: Platform URL & Download URL
-            txtPlatformUrl = CreateTextBox("https://evoweb.uk/... veya https://modrinth.com/...");
+            // Row 4: Download URL & Install Code
             txtDownloadUrl = CreateTextBox("https://github.com/.../release.zip");
-            formTable.Controls.Add(CreateFieldGroup("Mod Sayfası URL (Platform URL):", txtPlatformUrl), 0, 3);
-            formTable.Controls.Add(CreateFieldGroup("Doğrudan İndirme Linki (Download URL):", txtDownloadUrl), 1, 3);
-
-            // Row 5: GitHub URL & EvoWeb URL
-            txtGithubUrl = CreateTextBox("https://github.com/...");
-            txtEvowebUrl = CreateTextBox("https://evoweb.uk/threads/...");
-            formTable.Controls.Add(CreateFieldGroup("GitHub Depo Linki:", txtGithubUrl), 0, 4);
-            formTable.Controls.Add(CreateFieldGroup("EvoWeb / Forum Linki (Opsiyonel):", txtEvowebUrl), 1, 4);
-
-            // Row 6: Install Code & Icon Picker
             txtInstallCode = CreateTextBox("lua.module = \"discord_rpc.lua\"");
             txtInstallCode.Font = new Font("Consolas", 9f);
             txtInstallCode.ForeColor = Color.FromArgb(121, 192, 255);
+            formTable.Controls.Add(CreateFieldGroup("Doğrudan İndirme Linki (.zip):", txtDownloadUrl), 0, 3);
+            formTable.Controls.Add(CreateFieldGroup("Kurulum Satırı (sider.ini / config):", txtInstallCode), 1, 3);
 
+            // Row 5: Icon Picker & Preset
             Panel iconPanel = new Panel { Dock = DockStyle.Fill, Height = 56 };
             txtIcon = new TextBox
             {
                 Location = new Point(0, 0),
-                Width = 220,
+                Width = 230,
                 Height = 24,
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 BorderStyle = BorderStyle.FixedSingle
             };
-            btnBrowseIcon = CreateButton("📁 Gözat", Color.FromArgb(33, 38, 45), Color.FromArgb(240, 246, 252), 70, 24);
-            btnBrowseIcon.Location = new Point(226, 0);
+            btnBrowseIcon = CreateButton("📁 Gözat", Color.FromArgb(26, 34, 52), Color.FromArgb(241, 245, 249), 70, 24);
+            btnBrowseIcon.Location = new Point(236, 0);
             btnBrowseIcon.Click += (s, e) => BrowseImage();
 
             cmbPresetIcon = new ComboBox
             {
                 Location = new Point(0, 28),
-                Width = 296,
+                Width = 306,
                 DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 FlatStyle = FlatStyle.Flat
             };
             cmbPresetIcon.Items.AddRange(new object[] {
@@ -354,25 +372,38 @@ namespace ModHubManager
             iconPanel.Controls.Add(btnBrowseIcon);
             iconPanel.Controls.Add(cmbPresetIcon);
 
-            formTable.Controls.Add(CreateFieldGroup("Kurulum Satırı (sider.ini / config):", txtInstallCode), 0, 5);
-            formTable.Controls.Add(CreateFieldGroup("Küçük Resim / İkon (Icon):", iconPanel), 1, 5);
-
-            // Row 7: Tagline TR & Tagline EN
-            txtTaglineTr = CreateMultiTextBox(2, "Modun ne yaptığını kısaca anlatın (Türkçe)...");
-            txtTaglineEn = CreateMultiTextBox(2, "Brief description in English...");
-            formTable.Controls.Add(CreateFieldGroup("Açıklama (Türkçe):", txtTaglineTr), 0, 6);
-            formTable.Controls.Add(CreateFieldGroup("Açıklama (İngilizce):", txtTaglineEn), 1, 6);
-
-            // Row 8: Tags
             txtTags = CreateTextBox("PES 2021, Sider 7, Discord RPC, Zero-GC");
-            formTable.Controls.Add(CreateFieldGroup("Etiketler (Virgülle ayırın):", txtTags), 0, 7);
-            formTable.SetColumnSpan(formTable.GetControlFromPosition(0, 7), 2);
+            formTable.Controls.Add(CreateFieldGroup("Küçük Resim / İkon (Icon):", iconPanel), 0, 4);
+            formTable.Controls.Add(CreateFieldGroup("Etiketler (Virgülle ayırın):", txtTags), 1, 4);
 
-            // Row 9: Features TR & Features EN
+            // Row 6: Multi-Platform Links
+            txtLinks = CreateMultiTextBox(3, "Her satıra bir link: Başlık | URL | İkon (örn: EvoWeb | https://evoweb.uk/... | evoweb)");
+            formTable.Controls.Add(CreateFieldGroup("Harici Platform & Topluluk Linkleri (Çoklu Link):", txtLinks), 0, 5);
+            formTable.SetColumnSpan(formTable.GetControlFromPosition(0, 5), 2);
+
+            // Row 7: Tagline TR & EN
+            txtTaglineTr = CreateMultiTextBox(2, "Kart üzerinde görünecek kısa özet (Türkçe)...");
+            txtTaglineEn = CreateMultiTextBox(2, "Short tagline for the card (English)...");
+            formTable.Controls.Add(CreateFieldGroup("Kısa Özet (Türkçe):", txtTaglineTr), 0, 6);
+            formTable.Controls.Add(CreateFieldGroup("Kısa Özet (İngilizce):", txtTaglineEn), 1, 6);
+
+            // Row 8: Overview TR & EN
+            txtOverviewTr = CreateMultiTextBox(4, "Mod detay vitrininde görünecek ayrıntılı açıklama (Türkçe)...");
+            txtOverviewEn = CreateMultiTextBox(4, "Detailed overview for the showcase modal (English)...");
+            formTable.Controls.Add(CreateFieldGroup("Detaylı Genel Bakış (Türkçe):", txtOverviewTr), 0, 7);
+            formTable.Controls.Add(CreateFieldGroup("Detaylı Genel Bakış (İngilizce):", txtOverviewEn), 1, 7);
+
+            // Row 9: Requirements & Install Steps
+            txtRequirements = CreateTextBox("eFootball PES 2021 (Steam), Sider 7.1.4+ (Virgülle ayırın)");
+            txtInstallStepsTr = CreateMultiTextBox(3, "Her satıra bir kurulum adımı yazın (1, 2, 3 diye otomatik numaralandırılır)...");
+            formTable.Controls.Add(CreateFieldGroup("Gereksinimler (Requirements):", txtRequirements), 0, 8);
+            formTable.Controls.Add(CreateFieldGroup("Adım Adım Kurulum (Türkçe):", txtInstallStepsTr), 1, 8);
+
+            // Row 10: Features TR & EN
             txtFeaturesTr = CreateMultiTextBox(3, "Her satıra bir özellik maddesi yazın (Türkçe)...");
-            txtFeaturesEn = CreateMultiTextBox(3, "One feature bullet per line (English)...");
-            formTable.Controls.Add(CreateFieldGroup("Özellikler / Maddeler (Türkçe):", txtFeaturesTr), 0, 8);
-            formTable.Controls.Add(CreateFieldGroup("Özellikler / Maddeler (İngilizce):", txtFeaturesEn), 1, 8);
+            txtFeaturesEn = CreateMultiTextBox(3, "One feature highlight per line (English)...");
+            formTable.Controls.Add(CreateFieldGroup("Özellik Maddeleri (Türkçe):", txtFeaturesTr), 0, 9);
+            formTable.Controls.Add(CreateFieldGroup("Özellik Maddeleri (İngilizce):", txtFeaturesEn), 1, 9);
 
             rightPanel.Controls.Add(formTable);
         }
@@ -388,7 +419,7 @@ namespace ModHubManager
             Label lbl = new Label
             {
                 Text = labelText,
-                ForeColor = Color.FromArgb(139, 148, 158),
+                ForeColor = Color.FromArgb(148, 163, 184),
                 Font = new Font("Segoe UI", 8.5f, FontStyle.Bold),
                 Dock = DockStyle.Top,
                 Height = 18
@@ -403,8 +434,8 @@ namespace ModHubManager
         {
             return new TextBox
             {
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 BorderStyle = BorderStyle.FixedSingle,
                 Height = 24
             };
@@ -414,8 +445,8 @@ namespace ModHubManager
         {
             return new TextBox
             {
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 BorderStyle = BorderStyle.FixedSingle,
                 Multiline = true,
                 ScrollBars = ScrollBars.Vertical,
@@ -428,8 +459,8 @@ namespace ModHubManager
             ComboBox cb = new ComboBox
             {
                 DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.FromArgb(22, 27, 34),
-                ForeColor = Color.FromArgb(240, 246, 252),
+                BackColor = Color.FromArgb(17, 24, 39),
+                ForeColor = Color.FromArgb(241, 245, 249),
                 FlatStyle = FlatStyle.Flat
             };
             cb.Items.AddRange(items);
@@ -460,7 +491,7 @@ namespace ModHubManager
             if (mod == null) return;
 
             bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
-            Color bg = isSelected ? Color.FromArgb(30, 41, 59) : Color.FromArgb(22, 27, 34);
+            Color bg = isSelected ? Color.FromArgb(30, 41, 59) : Color.FromArgb(17, 24, 39);
             using (SolidBrush b = new SolidBrush(bg))
             {
                 e.Graphics.FillRectangle(b, e.Bounds);
@@ -470,7 +501,7 @@ namespace ModHubManager
             bool isComm = mod.type == "community";
             string typePill = isComm ? "TOPLULUK" : "KENDİ";
             Color pillBg = isComm ? Color.FromArgb(245, 158, 11) : Color.FromArgb(88, 101, 242);
-            Rectangle pillRect = new Rectangle(e.Bounds.Right - 74, e.Bounds.Top + 6, 66, 18);
+            Rectangle pillRect = new Rectangle(e.Bounds.Right - 76, e.Bounds.Top + 8, 68, 18);
             using (SolidBrush pb = new SolidBrush(pillBg))
             {
                 e.Graphics.FillRectangle(pb, pillRect);
@@ -484,25 +515,25 @@ namespace ModHubManager
                 }
             }
 
-            // Draw Title & Version
-            using (SolidBrush tb = new SolidBrush(Color.FromArgb(240, 246, 252)))
+            // Draw Title & Game
+            using (SolidBrush tb = new SolidBrush(Color.FromArgb(241, 245, 249)))
             {
                 using (Font tf = new Font("Segoe UI", 9.25f, FontStyle.Bold))
                 {
-                    e.Graphics.DrawString(mod.title ?? "Başlıksız", tf, tb, e.Bounds.Left + 8, e.Bounds.Top + 5);
+                    e.Graphics.DrawString(mod.title ?? "Başlıksız", tf, tb, e.Bounds.Left + 8, e.Bounds.Top + 6);
                 }
             }
-            using (SolidBrush sb = new SolidBrush(Color.FromArgb(139, 148, 158)))
+            using (SolidBrush sb = new SolidBrush(Color.FromArgb(148, 163, 184)))
             {
                 using (Font sf = new Font("Segoe UI", 8.25f, FontStyle.Regular))
                 {
-                    string sub = (mod.version ?? "") + (string.IsNullOrEmpty(mod.author) ? "" : " • " + mod.author);
-                    e.Graphics.DrawString(sub, sf, sb, e.Bounds.Left + 8, e.Bounds.Top + 24);
+                    string sub = (mod.game ?? "") + (string.IsNullOrEmpty(mod.version) ? "" : " • " + mod.version);
+                    e.Graphics.DrawString(sub, sf, sb, e.Bounds.Left + 8, e.Bounds.Top + 26);
                 }
             }
 
             // Bottom subtle divider
-            using (Pen p = new Pen(Color.FromArgb(33, 38, 45)))
+            using (Pen p = new Pen(Color.FromArgb(30, 41, 61)))
             {
                 e.Graphics.DrawLine(p, e.Bounds.Left, e.Bounds.Bottom - 1, e.Bounds.Right, e.Bounds.Bottom - 1);
             }
@@ -521,22 +552,34 @@ namespace ModHubManager
         private void PopulateForm(ModItem m)
         {
             cmbType.SelectedIndex = (m.type == "community") ? 1 : 0;
+            txtGame.Text = m.game ?? "";
             txtId.Text = m.id ?? "";
             txtTitle.Text = m.title ?? "";
             txtVersion.Text = m.version ?? "";
             txtAuthor.Text = m.author ?? "";
-            txtPlatform.Text = m.platform ?? "";
-            txtPlatformUrl.Text = m.platform_url ?? "";
             txtDownloadUrl.Text = m.download_url ?? "";
-            txtGithubUrl.Text = m.github_url ?? "";
-            txtEvowebUrl.Text = m.evoweb_url ?? "";
             txtInstallCode.Text = m.install_code ?? "";
             txtIcon.Text = m.icon ?? "";
             txtTaglineTr.Text = m.tagline_tr ?? "";
             txtTaglineEn.Text = m.tagline_en ?? "";
+            txtOverviewTr.Text = m.overview_tr ?? "";
+            txtOverviewEn.Text = m.overview_en ?? "";
             txtTags.Text = m.tags != null ? string.Join(", ", m.tags.ToArray()) : "";
+            txtRequirements.Text = m.requirements != null ? string.Join(", ", m.requirements.ToArray()) : "";
+            txtInstallStepsTr.Text = m.install_steps_tr != null ? string.Join(Environment.NewLine, m.install_steps_tr.ToArray()) : "";
             txtFeaturesTr.Text = m.features_tr != null ? string.Join(Environment.NewLine, m.features_tr.ToArray()) : "";
             txtFeaturesEn.Text = m.features_en != null ? string.Join(Environment.NewLine, m.features_en.ToArray()) : "";
+
+            // Format multi-links as: Title | URL | Icon
+            List<string> linkLines = new List<string>();
+            if (m.links != null)
+            {
+                foreach (var l in m.links)
+                {
+                    linkLines.Add(string.Format("{0} | {1} | {2}", l.title ?? "", l.url ?? "", l.icon ?? ""));
+                }
+            }
+            txtLinks.Text = string.Join(Environment.NewLine, linkLines.ToArray());
 
             lblStatus.Text = "Seçildi: " + m.title;
         }
@@ -546,22 +589,24 @@ namespace ModHubManager
             currentSelected = null;
             lstMods.ClearSelected();
             cmbType.SelectedIndex = 0;
+            txtGame.Text = "eFootball PES 2021";
             txtId.Text = "yeni-mod-" + DateTime.Now.ToString("HHmmss");
             txtTitle.Text = "";
             txtVersion.Text = "v1.0.0";
             txtAuthor.Text = "Lkxex";
-            txtPlatform.Text = "";
-            txtPlatformUrl.Text = "";
             txtDownloadUrl.Text = "";
-            txtGithubUrl.Text = "";
-            txtEvowebUrl.Text = "";
             txtInstallCode.Text = "";
             txtIcon.Text = "./assets/images/projects/pes2021-icon.svg";
             txtTaglineTr.Text = "";
             txtTaglineEn.Text = "";
+            txtOverviewTr.Text = "";
+            txtOverviewEn.Text = "";
             txtTags.Text = "";
+            txtRequirements.Text = "";
+            txtInstallStepsTr.Text = "";
             txtFeaturesTr.Text = "";
             txtFeaturesEn.Text = "";
+            txtLinks.Text = "Discord | https://discord.gg/ | discord" + Environment.NewLine + "GitHub | https://github.com/Lkxex | github";
             txtTitle.Focus();
             lblStatus.Text = "Yeni mod formu hazırlandı.";
         }
@@ -610,19 +655,18 @@ namespace ModHubManager
                         {
                             id = GetStr(dict, "id"),
                             type = GetStr(dict, "type", "personal"),
+                            game = GetStr(dict, "game", "eFootball PES 2021"),
                             title = GetStr(dict, "title"),
                             version = GetStr(dict, "version"),
                             updated = GetStr(dict, "updated"),
                             author = GetStr(dict, "author"),
-                            platform = GetStr(dict, "platform"),
-                            platform_url = GetStr(dict, "platform_url"),
                             download_url = GetStr(dict, "download_url"),
-                            github_url = GetStr(dict, "github_url"),
-                            evoweb_url = GetStr(dict, "evoweb_url"),
                             icon = GetStr(dict, "icon"),
                             install_code = GetStr(dict, "install_code"),
                             tagline_tr = GetStr(dict, "tagline_tr"),
-                            tagline_en = GetStr(dict, "tagline_en")
+                            tagline_en = GetStr(dict, "tagline_en"),
+                            overview_tr = GetStr(dict, "overview_tr"),
+                            overview_en = GetStr(dict, "overview_en")
                         };
 
                         if (dict.ContainsKey("tags"))
@@ -631,6 +675,30 @@ namespace ModHubManager
                             if (tList != null)
                             {
                                 foreach (object o in tList) m.tags.Add(o.ToString());
+                            }
+                        }
+                        if (dict.ContainsKey("requirements"))
+                        {
+                            ArrayList rList = dict["requirements"] as ArrayList;
+                            if (rList != null)
+                            {
+                                foreach (object o in rList) m.requirements.Add(o.ToString());
+                            }
+                        }
+                        if (dict.ContainsKey("install_steps_tr"))
+                        {
+                            ArrayList sList = dict["install_steps_tr"] as ArrayList;
+                            if (sList != null)
+                            {
+                                foreach (object o in sList) m.install_steps_tr.Add(o.ToString());
+                            }
+                        }
+                        if (dict.ContainsKey("install_steps_en"))
+                        {
+                            ArrayList sList = dict["install_steps_en"] as ArrayList;
+                            if (sList != null)
+                            {
+                                foreach (object o in sList) m.install_steps_en.Add(o.ToString());
                             }
                         }
                         if (dict.ContainsKey("features_tr"))
@@ -647,6 +715,26 @@ namespace ModHubManager
                             if (fEn != null)
                             {
                                 foreach (object o in fEn) m.features_en.Add(o.ToString());
+                            }
+                        }
+                        if (dict.ContainsKey("links"))
+                        {
+                            ArrayList lList = dict["links"] as ArrayList;
+                            if (lList != null)
+                            {
+                                foreach (object lo in lList)
+                                {
+                                    Dictionary<string, object> ld = lo as Dictionary<string, object>;
+                                    if (ld != null)
+                                    {
+                                        m.links.Add(new ModLink
+                                        {
+                                            title = GetStr(ld, "title"),
+                                            url = GetStr(ld, "url"),
+                                            icon = GetStr(ld, "icon")
+                                        });
+                                    }
+                                }
                             }
                         }
 
@@ -682,7 +770,7 @@ namespace ModHubManager
                 {
                     bool match = (m.title != null && m.title.ToLower().Contains(q)) ||
                                  (m.author != null && m.author.ToLower().Contains(q)) ||
-                                 (m.platform != null && m.platform.ToLower().Contains(q)) ||
+                                 (m.game != null && m.game.ToLower().Contains(q)) ||
                                  (m.id != null && m.id.ToLower().Contains(q));
                     if (!match) continue;
                 }
@@ -715,24 +803,35 @@ namespace ModHubManager
 
             target.id = modId;
             target.type = cmbType.SelectedIndex == 1 ? "community" : "personal";
+            target.game = txtGame.Text.Trim();
             target.title = txtTitle.Text.Trim();
             target.version = txtVersion.Text.Trim();
             target.updated = DateTime.Now.ToString("yyyy-MM-dd");
             target.author = txtAuthor.Text.Trim();
-            target.platform = txtPlatform.Text.Trim();
-            target.platform_url = txtPlatformUrl.Text.Trim();
             target.download_url = txtDownloadUrl.Text.Trim();
-            target.github_url = txtGithubUrl.Text.Trim();
-            target.evoweb_url = txtEvowebUrl.Text.Trim();
             target.install_code = txtInstallCode.Text.Trim();
             target.icon = txtIcon.Text.Trim();
             target.tagline_tr = txtTaglineTr.Text.Trim();
             target.tagline_en = txtTaglineEn.Text.Trim();
+            target.overview_tr = txtOverviewTr.Text.Trim();
+            target.overview_en = txtOverviewEn.Text.Trim();
 
             target.tags = new List<string>();
             foreach (string t in txtTags.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 target.tags.Add(t.Trim());
+            }
+
+            target.requirements = new List<string>();
+            foreach (string r in txtRequirements.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                target.requirements.Add(r.Trim());
+            }
+
+            target.install_steps_tr = new List<string>();
+            foreach (string s in txtInstallStepsTr.Text.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                target.install_steps_tr.Add(s.Trim());
             }
 
             target.features_tr = new List<string>();
@@ -745,6 +844,22 @@ namespace ModHubManager
             foreach (string f in txtFeaturesEn.Text.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries))
             {
                 target.features_en.Add(f.Trim());
+            }
+
+            // Parse Multi-Links: Title | URL | Icon
+            target.links = new List<ModLink>();
+            foreach (string line in txtLinks.Text.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length >= 2)
+                {
+                    target.links.Add(new ModLink
+                    {
+                        title = parts[0].Trim(),
+                        url = parts[1].Trim(),
+                        icon = parts.Length > 2 ? parts[2].Trim() : parts[0].Trim().ToLower()
+                    });
+                }
             }
 
             try
@@ -832,13 +947,98 @@ namespace ModHubManager
             }
         }
 
+        // Built-in Lightweight HTTP Server
+        private void StartHttpServer()
+        {
+            try
+            {
+                httpListener = new HttpListener();
+                httpListener.Prefixes.Add("http://127.0.0.1:" + Port + "/");
+                httpListener.Start();
+
+                httpThread = new Thread(ListenLoop) { IsBackground = true };
+                httpThread.Start();
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "HTTP Sunucu başlatılamadı: " + ex.Message;
+            }
+        }
+
+        private void StopHttpServer()
+        {
+            try
+            {
+                if (httpListener != null && httpListener.IsListening)
+                {
+                    httpListener.Stop();
+                    httpListener.Close();
+                }
+            }
+            catch { }
+        }
+
+        private void ListenLoop()
+        {
+            while (httpListener != null && httpListener.IsListening)
+            {
+                try
+                {
+                    HttpListenerContext ctx = httpListener.GetContext();
+                    ThreadPool.QueueUserWorkItem((state) => HandleRequest(ctx));
+                }
+                catch { break; }
+            }
+        }
+
+        private void HandleRequest(HttpListenerContext ctx)
+        {
+            try
+            {
+                string rawUrl = ctx.Request.Url.AbsolutePath;
+                if (rawUrl == "/" || string.IsNullOrEmpty(rawUrl)) rawUrl = "/index.html";
+
+                string relPath = rawUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
+                string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relPath);
+
+                if (File.Exists(fullPath))
+                {
+                    byte[] bytes = File.ReadAllBytes(fullPath);
+                    string ext = Path.GetExtension(fullPath).ToLower();
+                    string mime = "text/plain";
+                    if (ext == ".html" || ext == ".htm") mime = "text/html; charset=utf-8";
+                    else if (ext == ".js") mime = "text/javascript; charset=utf-8";
+                    else if (ext == ".json") mime = "application/json; charset=utf-8";
+                    else if (ext == ".css") mime = "text/css; charset=utf-8";
+                    else if (ext == ".svg") mime = "image/svg+xml";
+                    else if (ext == ".png") mime = "image/png";
+                    else if (ext == ".jpg" || ext == ".jpeg") mime = "image/jpeg";
+                    else if (ext == ".ico") mime = "image/x-icon";
+
+                    ctx.Response.ContentType = mime;
+                    ctx.Response.ContentLength64 = bytes.Length;
+                    ctx.Response.StatusCode = 200;
+                    ctx.Response.OutputStream.Write(bytes, 0, bytes.Length);
+                }
+                else
+                {
+                    ctx.Response.StatusCode = 404;
+                }
+            }
+            catch { }
+            finally
+            {
+                try { ctx.Response.OutputStream.Close(); } catch { }
+            }
+        }
+
         private void OpenSitePreview()
         {
             try
             {
-                string indexPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "index.html");
-                Process.Start(new ProcessStartInfo(indexPath) { UseShellExecute = true });
-                lblStatus.Text = "Site tarayıcıda açıldı.";
+                string url = "http://127.0.0.1:" + Port + "/index.html";
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                lblStatus.Text = "Site yerel sunucu üzerinden açıldı: " + url;
             }
             catch (Exception ex)
             {

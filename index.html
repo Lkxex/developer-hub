@@ -3,28 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lkxex / Modlar &amp; Projeler</title>
-  <meta name="description" content="Lkxex - Oyun modları, Sider eklentileri ve performans odaklı araçlar." />
+  <title data-i18n="site_title">Lkxex / Modlar &amp; Projeler</title>
   
-  <link rel="icon" type="image/svg+xml" href="./assets/images/projects/pes2021-icon.svg" />
+  <meta name="description" content="Lkxex tarafından geliştirilen oyun modları, Sider 7 modülleri ve popüler topluluk modları vitrini." />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
     :root {
-      --bg-base: #090c12;
-      --bg-surface: #10141e;
-      --bg-surface-elevated: #161c2b;
-      --bg-surface-hover: #1c2436;
-      --border-subtle: #1f2738;
-      --border-hover: #313e59;
-      --text-primary: #f0f4fc;
+      --bg-base: #090d16;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1a2234;
+      --bg-surface-hover: #222d42;
+      --border-subtle: #1e293d;
+      --border-hover: #334155;
+      --text-primary: #f1f5f9;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
       --accent: #5865F2;
       --accent-hover: #4752c4;
       --emerald: #10b981;
+      --emerald-hover: #059669;
       --amber: #f59e0b;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
     }
 
     * {
@@ -37,11 +42,11 @@
       background-color: var(--bg-base);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      -webkit-font-smoothing: antialiased;
     }
 
     a {
@@ -50,22 +55,19 @@
     }
 
     .container {
-      width: 100%;
-      max-width: 840px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 0 1.25rem;
+      padding: 0 1.5rem;
+      width: 100%;
     }
 
-    /* Top Admin Bar (Only active in editor/localhost) */
+    /* Top Admin Bar (When active in ModManager / Local preview) */
     .admin-top-bar {
       display: none;
-      background: #0d1527;
-      border-bottom: 1px solid #1e293b;
+      background: #0f172a;
+      border-bottom: 1px solid var(--accent);
       padding: 0.5rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      font-size: 0.8rem;
+      font-size: 0.825rem;
     }
     .admin-top-bar.active {
       display: block;
@@ -74,8 +76,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.65rem;
+      gap: 1rem;
     }
     .admin-status {
       display: flex;
@@ -83,8 +84,6 @@
       gap: 0.5rem;
       font-weight: 700;
       color: #38bdf8;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
       letter-spacing: 0.04em;
     }
     .admin-dot {
@@ -93,40 +92,29 @@
       border-radius: 50%;
       background: #38bdf8;
       box-shadow: 0 0 8px #38bdf8;
-      display: inline-block;
-    }
-    .admin-btn-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
     }
 
-    /* Header */
+    /* Site Header */
     .site-header {
       border-bottom: 1px solid var(--border-subtle);
-      background: rgba(9, 12, 18, 0.85);
+      background: rgba(9, 13, 22, 0.85);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
-      z-index: 50;
-    }
-    .admin-top-bar.active ~ .site-header {
-      top: 2.75rem;
+      z-index: 40;
     }
     .header-inner {
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 3.75rem;
     }
     .brand {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 1.05rem;
+      font-weight: 800;
+      font-size: 1.15rem;
       letter-spacing: -0.02em;
     }
     .brand-accent {
@@ -134,13 +122,13 @@
     }
     .brand-sub {
       color: var(--text-muted);
-      font-weight: 400;
+      font-weight: 500;
       font-size: 0.85rem;
     }
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.75rem;
     }
 
     /* Buttons */
@@ -158,9 +146,8 @@
       border: 1px solid transparent;
       cursor: pointer;
       transition: all 120ms ease;
-      text-decoration: none;
-      white-space: nowrap;
       line-height: 1;
+      white-space: nowrap;
     }
     .btn-primary {
       background-color: var(--accent);
@@ -181,15 +168,9 @@
     .btn-emerald {
       background-color: var(--emerald);
       color: #fff;
-      border: none;
     }
     .btn-emerald:hover {
-      background-color: #059669;
-    }
-    .btn-sm {
-      height: 30px;
-      padding: 0 0.7rem;
-      font-size: 0.775rem;
+      background-color: var(--emerald-hover);
     }
     .btn-outline {
       background: transparent;
@@ -200,8 +181,13 @@
       border-color: var(--border-hover);
       color: var(--text-primary);
     }
+    .btn-sm {
+      height: 30px;
+      padding: 0 0.7rem;
+      font-size: 0.775rem;
+    }
 
-    /* Intro / Hero */
+    /* Intro / Hero Section */
     .intro-section {
       padding: 2.75rem 0 1.75rem;
       border-bottom: 1px solid var(--border-subtle);
@@ -211,14 +197,21 @@
       font-size: 1.85rem;
       font-weight: 800;
       letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
     }
     .intro-desc {
       color: var(--text-secondary);
       font-size: 0.95rem;
-      max-width: 620px;
+      max-width: 640px;
       line-height: 1.6;
       margin-bottom: 1.25rem;
+    }
+
+    /* Search & Filter Controls */
+    .controls-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
     .search-box {
       display: flex;
@@ -226,9 +219,9 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
-      padding: 0.45rem 0.8rem;
+      padding: 0.5rem 0.85rem;
       gap: 0.6rem;
-      max-width: 460px;
+      max-width: 480px;
       transition: border-color 150ms ease;
     }
     .search-box:focus-within {
@@ -247,19 +240,17 @@
       color: var(--text-muted);
     }
 
-    /* Tabs / Filter Navigation */
     .tabs-container {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-top: 1.1rem;
       flex-wrap: wrap;
     }
     .tab-btn {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      padding: 0.38rem 0.85rem;
+      padding: 0.4rem 0.9rem;
       border-radius: 8px;
       font-size: 0.825rem;
       font-weight: 600;
@@ -277,6 +268,8 @@
       color: #fff;
       border-color: var(--accent);
     }
+
+    /* Badges */
     .badge-type {
       font-size: 0.685rem;
       font-weight: 700;
@@ -286,87 +279,23 @@
     }
     .badge-personal {
       background: rgba(88, 101, 242, 0.15);
-      color: #7289da;
+      color: #818cf8;
       border: 1px solid rgba(88, 101, 242, 0.35);
     }
     .badge-community {
       background: rgba(245, 158, 11, 0.14);
-      color: #f59e0b;
+      color: #fbbf24;
       border: 1px solid rgba(245, 158, 11, 0.35);
     }
-    .badge-platform {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-primary);
+    .badge-game {
+      font-family: var(--font-mono);
       font-size: 0.725rem;
       font-weight: 600;
-      padding: 0.12rem 0.45rem;
-      border-radius: 5px;
-    }
-    .mod-author-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.35rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-    .mod-author-row strong {
-      color: var(--text-secondary);
-    }
-
-    /* Mods Grid / List */
-    .mods-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      margin-bottom: 3.5rem;
-    }
-    .mod-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.25rem 1.4rem;
-      transition: border-color 150ms ease, box-shadow 150ms ease;
-    }
-    .mod-card:hover {
-      border-color: var(--border-hover);
-      box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.4);
-    }
-
-    .mod-card-header {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      margin-bottom: 0.75rem;
-    }
-    .mod-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 10px;
-      object-fit: cover;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-subtle);
-      flex-shrink: 0;
-    }
-    .mod-header-text {
-      flex: 1;
-      min-width: 0;
-    }
-    .mod-title-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.2rem;
-    }
-    .mod-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
+      color: #38bdf8;
+      padding: 0.1rem 0.45rem;
+      border-radius: 5px;
     }
     .badge-version {
       font-family: var(--font-mono);
@@ -378,16 +307,102 @@
       padding: 0.1rem 0.45rem;
       border-radius: 5px;
     }
-    .mod-tagline {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
+    .badge-platform {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.725rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
     }
-    .mod-tags {
+
+    /* Mod Showcase Grid (Modern, Balanced Cards) */
+    .mods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .mod-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+    }
+    .mod-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.45);
+    }
+
+    .mod-card-header {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+    }
+    .mod-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+    .mod-card-header-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .mod-card-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+    .mod-card-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .mod-card-author {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .mod-card-author strong {
+      color: var(--text-secondary);
+    }
+
+    .mod-card-tagline {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .mod-card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
+      margin-bottom: 1.1rem;
     }
     .tag-pill {
       font-size: 0.725rem;
@@ -399,59 +414,263 @@
       border-radius: 5px;
     }
 
-    /* Mod Actions */
-    .mod-actions-row {
+    .mod-card-footer {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      gap: 0.5rem;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
       padding-top: 0.85rem;
       border-top: 1px solid var(--border-subtle);
+      margin-top: auto;
     }
-    .mod-btn-group {
+    .mod-card-links-preview {
       display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    /* Mod Showcase Modal (Deep Dive / Detail View) */
+    .showcase-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+    .showcase-overlay.open {
+      display: flex;
+    }
+    .showcase-modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hover);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75);
+      animation: modalScale 160ms ease-out;
+      overflow: hidden;
+    }
+    @keyframes modalScale {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .showcase-header {
+      padding: 1.5rem 1.75rem 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      position: relative;
+    }
+    .showcase-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 14px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .showcase-header-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .showcase-meta-top {
+      display: flex;
+      align-items: center;
       gap: 0.5rem;
       flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+    .showcase-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+    .showcase-subline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .showcase-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.75rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.2rem;
+      border-radius: 6px;
+      transition: color 120ms;
+    }
+    .showcase-close-btn:hover {
+      color: var(--text-primary);
+    }
+
+    /* Showcase Quick Actions / External Platforms Bar */
+    .showcase-actions-bar {
+      padding: 0.9rem 1.75rem;
+      background: var(--bg-base);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
       align-items: center;
-    }
-    .toggle-details-btn {
-      margin-left: auto;
-    }
-    @media (max-width: 640px) {
-      .toggle-details-btn {
-        margin-left: 0;
-        width: 100%;
-      }
+      gap: 0.6rem;
+      flex-wrap: wrap;
     }
 
-    /* Mod Collapsible Detail */
-    .mod-details {
+    /* Showcase Tabs */
+    .showcase-nav {
+      display: flex;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 1.75rem;
+      gap: 1.5rem;
+    }
+    .showcase-nav-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 0.8rem 0;
+      cursor: pointer;
+      transition: all 120ms ease;
+    }
+    .showcase-nav-btn:hover {
+      color: var(--text-primary);
+    }
+    .showcase-nav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Showcase Body */
+    .showcase-body {
+      padding: 1.5rem 1.75rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .showcase-tab-pane {
       display: none;
-      margin-top: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px dashed var(--border-subtle);
-      animation: fadeIn 150ms ease;
     }
-    .mod-details.open {
+    .showcase-tab-pane.active {
       display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
+      animation: fadeIn 120ms ease;
     }
 
-    .detail-block {
-      margin-bottom: 1rem;
+    .detail-section {
+      margin-bottom: 1.5rem;
     }
-    .detail-label {
-      font-size: 0.8rem;
+    .detail-section-title {
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.6rem;
     }
+    .overview-text {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .requirements-box {
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+    .requirements-list {
+      list-style-type: square;
+      padding-left: 1.25rem;
+      margin-top: 0.4rem;
+    }
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .feature-list li {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .feature-list li::before {
+      content: "✔";
+      color: var(--emerald);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    /* Step-by-step instructions */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .step-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+    .step-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .step-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .step-text code {
+      font-family: var(--font-mono);
+      background: var(--bg-surface-elevated);
+      color: #79c0ff;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.825rem;
+    }
+
     .copy-box {
       display: flex;
       align-items: center;
@@ -459,114 +678,54 @@
       background: var(--bg-base);
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
-      padding: 0.55rem 0.85rem;
+      padding: 0.65rem 0.95rem;
       font-family: var(--font-mono);
       font-size: 0.85rem;
       color: #79c0ff;
+      margin-top: 0.5rem;
     }
-    .hotkey-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.5rem;
-    }
-    .hotkey-item {
+
+    .hotkeys-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
       background: var(--bg-base);
       border: 1px solid var(--border-subtle);
-      border-radius: 6px;
-      padding: 0.5rem 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      font-size: 0.825rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .hotkeys-table th, .hotkeys-table td {
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .hotkeys-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      font-size: 0.775rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .kbd {
       font-family: var(--font-mono);
-      font-weight: 700;
-      color: var(--amber);
-      background: #1e2430;
-      border: 1px solid #323b4e;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-hover);
+      color: #e2e8f0;
+      padding: 0.15rem 0.45rem;
       border-radius: 4px;
-      padding: 0.1rem 0.4rem;
-      font-size: 0.75rem;
-    }
-    .feature-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-    .feature-list li::before {
-      content: "•";
-      color: var(--accent);
-      font-weight: bold;
+      font-size: 0.775rem;
       display: inline-block;
-      width: 1em;
     }
 
-    /* Modal Overlay */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .modal-box {
-      background: #10141e;
-      border: 1px solid #313e59;
-      border-radius: 14px;
-      width: 100%;
-      max-width: 580px;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8);
-      color: #f0f4fc;
-    }
-    .modal-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid #1f2738;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal-body {
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      font-size: 0.875rem;
-    }
-    .form-input {
-      width: 100%;
-      background: #090c12;
-      border: 1px solid #1f2738;
-      border-radius: 6px;
-      padding: 8px 10px;
-      color: #fff;
-      font-family: inherit;
-    }
-    .form-input:focus {
-      border-color: var(--accent);
-      outline: none;
-    }
-
-    /* Empty state */
     .empty-state {
-      text-align: center;
+      grid-column: 1 / -1;
       padding: 3rem 1rem;
+      text-align: center;
       color: var(--text-muted);
       font-size: 0.95rem;
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-subtle);
+      border-radius: 12px;
     }
 
     /* Footer */
@@ -588,17 +747,15 @@
 </head>
 <body>
 
-  <!-- Top Admin Bar (Always visible in ModManager.exe & local preview) -->
+  <!-- Top Admin Bar (When launched via local preview / ModManager) -->
   <div id="admin-top-bar" class="admin-top-bar">
     <div class="container admin-bar-inner">
       <div class="admin-status">
         <span class="admin-dot"></span>
-        <span>MOD YÖNETİCİSİ AKTİF</span>
+        <span>MOD YÖNETİCİSİ AKTİF (LOCAL PREVIEW)</span>
       </div>
-      <div class="admin-btn-group">
-        <button type="button" id="top-btn-add" class="btn btn-sm btn-primary">➕ Yeni Mod Ekle</button>
+      <div class="nav-actions">
         <button type="button" id="top-btn-refresh" class="btn btn-sm btn-secondary">🔄 Yenile</button>
-        <button type="button" id="top-btn-push" class="btn btn-sm btn-emerald">🚀 GitHub'a Canlıya Al</button>
       </div>
     </div>
   </div>
@@ -628,245 +785,177 @@
   <!-- Main Content -->
   <main class="container">
     
-    <!-- Intro Section -->
+    <!-- Intro / Hero Section -->
     <section class="intro-section">
       <h1 class="intro-title" data-i18n="intro_title">
         Selam, ben <span style="color: #5865F2;">Lkxex</span>.
       </h1>
       <p class="intro-desc" data-i18n="intro_desc">
-        Oyunlar için düşük seviyeli modlar, Sider eklentileri ve performans odaklı araçlar geliştiriyorum. İndirme bağlantılarına ve kurulum bilgilerine buradan ulaşabilirsiniz.
+        Oyunlar için düşük seviyeli modlar, Sider eklentileri ve performans odaklı araçlar geliştiriyorum. Kendi projelerime ve oyun dünyasından öne çıkan popüler topluluk modlarına buradan ulaşabilirsiniz.
       </p>
 
-      <!-- Instant Search Filter -->
-      <div class="search-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: var(--text-muted);">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input type="search" id="mod-search" placeholder="Mod, etiket veya oyun ara... (Örn: PES, Sider, Minecraft, RPC)" data-i18n="search_placeholder" autocomplete="off" />
-      </div>
+      <div class="controls-row">
+        <!-- Instant Search Filter -->
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: var(--text-muted);">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="search" id="mod-search" placeholder="Mod, etiket, oyun veya yazar ara... (Örn: PES, Sider, Minecraft, RPC)" data-i18n="search_placeholder" autocomplete="off" />
+        </div>
 
-      <!-- Category / Type Filter Tabs -->
-      <div class="tabs-container" id="mod-tabs">
-        <button type="button" class="tab-btn active" data-tab="all" data-i18n="tab_all">Tümü</button>
-        <button type="button" class="tab-btn" data-tab="personal" data-i18n="tab_personal">⚡ Kendi Modlarım</button>
-        <button type="button" class="tab-btn" data-tab="community" data-i18n="tab_community">🌟 Popüler Topluluk Modları</button>
+        <!-- Category / Type Filter Tabs -->
+        <div class="tabs-container" id="mod-tabs">
+          <button type="button" class="tab-btn active" data-tab="all" data-i18n="tab_all">Tümü</button>
+          <button type="button" class="tab-btn" data-tab="personal" data-i18n="tab_personal">⚡ Kendi Modlarım</button>
+          <button type="button" class="tab-btn" data-tab="community" data-i18n="tab_community">🌟 Popüler Topluluk Modları</button>
+        </div>
       </div>
     </section>
 
-    <!-- Dynamic Mods Container -->
-    <section class="mods-container" id="mods-container">
+    <!-- Modern Mod Showcase Grid -->
+    <section class="mods-grid" id="mods-grid">
       <div class="empty-state">Modlar yükleniyor...</div>
     </section>
 
   </main>
 
-  <!-- Mod Editor Modal -->
-  <div id="mod-editor-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="modal-heading" style="font-size:1.15rem;font-weight:700;margin:0;">➕ Yeni Mod Ekle</h3>
-        <button id="modal-close-btn" style="background:transparent;border:none;color:#94a3b8;font-size:1.5rem;cursor:pointer;line-height:1;">&times;</button>
+  <!-- Mod Showcase Modal (Deep Dive View) -->
+  <div id="showcase-overlay" class="showcase-overlay" role="dialog" aria-modal="true">
+    <div class="showcase-modal" id="showcase-modal">
+      
+      <!-- Showcase Header -->
+      <div class="showcase-header">
+        <img id="sc-icon" src="./assets/images/projects/pes2021-icon.svg" alt="Mod Icon" class="showcase-icon" />
+        <div class="showcase-header-content">
+          <div class="showcase-meta-top">
+            <span id="sc-game" class="badge-game">PES 2021</span>
+            <span id="sc-version" class="badge-version">v1.0.0</span>
+            <span id="sc-type" class="badge-type badge-personal">Geliştirici Projesi</span>
+          </div>
+          <h2 id="sc-title" class="showcase-title">Mod Başlığı</h2>
+          <div class="showcase-subline">
+            <span><span data-i18n="label_developer">Geliştirici:</span> <strong id="sc-author" style="color:var(--text-primary);">Lkxex</strong></span>
+            <span><span data-i18n="label_last_updated">Güncelleme:</span> <span id="sc-updated" style="color:var(--text-secondary);">2026-03-21</span></span>
+          </div>
+        </div>
+        <button type="button" class="showcase-close-btn" id="sc-close-btn" aria-label="Kapat">&times;</button>
       </div>
-      <form id="mod-edit-form" class="modal-body">
-        <input type="hidden" id="f-id" />
+
+      <!-- Quick Actions / External Platforms Bar -->
+      <div class="showcase-actions-bar" id="sc-actions-bar">
+        <!-- Download and multi-platform links injected dynamically -->
+      </div>
+
+      <!-- Showcase Tabs Navigation -->
+      <div class="showcase-nav">
+        <button type="button" class="showcase-nav-btn active" data-tab="overview" data-i18n="tab_overview">📖 Genel Bakış</button>
+        <button type="button" class="showcase-nav-btn" data-tab="install" data-i18n="tab_install">⚙️ Kurulum &amp; Yapılandırma</button>
+        <button type="button" class="showcase-nav-btn" data-tab="hotkeys" id="sc-tab-hotkeys-btn" data-i18n="tab_hotkeys">⌨️ Kısayollar</button>
+      </div>
+
+      <!-- Showcase Scrollable Body -->
+      <div class="showcase-body">
         
-        <div style="display:flex;gap:10px;">
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Mod Türü:</label>
-            <select id="f-type" class="form-input">
-              <option value="personal">⚡ Kendi Modum (Geliştirici)</option>
-              <option value="community">🌟 Popüler Topluluk Modu</option>
-            </select>
-          </div>
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Geliştirici / Yazar:</label>
-            <input type="text" id="f-author" class="form-input" placeholder="Örn: Lkxex veya juce & nesa24" />
-          </div>
-        </div>
+        <!-- Tab 1: Overview -->
+        <div class="showcase-tab-pane active" id="pane-overview">
+          <p class="overview-text" id="sc-overview-text">Detaylı açıklama...</p>
 
-        <div>
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Mod Başlığı:</label>
-          <input type="text" id="f-title" required class="form-input" placeholder="Örn: PES 2021 Discord Rich Presence" />
-        </div>
-
-        <div style="display:flex;gap:10px;">
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Platform Adı (Opsiyonel):</label>
-            <input type="text" id="f-platform" class="form-input" placeholder="Örn: EvoWeb, Modrinth, CurseForge" />
-          </div>
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Mod Sayfası URL (Opsiyonel):</label>
-            <input type="url" id="f-platform-url" class="form-input" placeholder="https://..." />
-          </div>
-        </div>
-
-        <div style="display:flex;gap:10px;">
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Sürüm:</label>
-            <input type="text" id="f-version" class="form-input" placeholder="v1.0.11" />
-          </div>
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Küçük Resim / İkon:</label>
-            <div style="display:flex;gap:6px;">
-              <input type="text" id="f-icon" class="form-input" style="font-size:11px;" placeholder="./assets/images/icons/..." />
-              <button type="button" id="btn-pick-img" class="btn btn-sm btn-secondary" style="white-space:nowrap;font-size:11px;">📁 Gözat</button>
+          <div class="detail-section" id="sc-requirements-box">
+            <div class="detail-section-title" data-i18n="label_requirements">Gereksinimler:</div>
+            <div class="requirements-box">
+              <ul class="requirements-list" id="sc-requirements-list"></ul>
             </div>
-            <select id="preset-icon-select" class="form-input" style="margin-top:5px;padding:4px 6px;font-size:11px;">
-              <option value="">⚡ Hazır İkon Seç...</option>
-              <option value="./assets/images/projects/pes2021-icon.svg">🎮 PES 2021 / Futbol</option>
-              <option value="./assets/images/icons/minecraft.svg">⛏️ Minecraft (Creeper)</option>
-              <option value="./assets/images/icons/minecraft-cube.svg">📦 Minecraft (Çimen Blok)</option>
-              <option value="./assets/images/icons/minecraft-pickaxe.svg">⛏️ Minecraft (Elmas Kazma)</option>
-              <option value="./assets/images/icons/discord.svg">💬 Discord Clyde</option>
-              <option value="./assets/images/icons/steam.svg">💨 Steam</option>
-              <option value="./assets/images/icons/gamepad.svg">🕹️ Gamepad / Konsol</option>
-              <option value="./assets/images/icons/lua.svg">🌙 Lua Modülü</option>
-              <option value="./assets/images/icons/python.svg">🐍 Python</option>
-              <option value="./assets/images/icons/csharp.svg">⚡ C# / .NET</option>
-              <option value="./assets/images/icons/plugin.svg">🔌 Eklenti / Plugin</option>
-              <option value="./assets/images/icons/tools.svg">🛠️ Araçlar / Wrench</option>
-              <option value="./assets/images/icons/terminal.svg">💻 Terminal</option>
-              <option value="./assets/images/icons/windows.svg">🪟 Windows</option>
-              <option value="./assets/images/icons/github.svg">🐙 GitHub</option>
-              <option value="./assets/images/icons/unity.svg">🕹️ Unity</option>
-              <option value="./assets/images/icons/unreal.svg">🔥 Unreal Engine</option>
-              <option value="./assets/images/icons/curseforge.svg">🔥 CurseForge</option>
-              <option value="./assets/images/icons/modrinth.svg">🌿 Modrinth</option>
-              <option value="./assets/images/icons/gamebanana.svg">🍌 GameBanana</option>
-              <option value="./assets/images/icons/java.svg">☕ Java</option>
-              <option value="./assets/images/icons/cplusplus.svg">⚙️ C++</option>
-            </select>
+          </div>
+
+          <div class="detail-section" id="sc-features-box">
+            <div class="detail-section-title" data-i18n="label_features">Öne Çıkan Özellikler:</div>
+            <ul class="feature-list" id="sc-features-list"></ul>
           </div>
         </div>
 
-        <div>
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Açıklama (Türkçe):</label>
-          <textarea id="f-tagline-tr" rows="2" class="form-input" style="resize:vertical;" placeholder="Modun ne yaptığını kısaca anlatın..."></textarea>
-        </div>
-
-        <div>
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Açıklama (İngilizce):</label>
-          <textarea id="f-tagline-en" rows="2" class="form-input" style="resize:vertical;" placeholder="Brief description in English..."></textarea>
-        </div>
-
-        <div style="display:flex;gap:10px;">
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">İndirme Linki (.zip):</label>
-            <input type="url" id="f-download" class="form-input" placeholder="https://github.com/.../release.zip" />
+        <!-- Tab 2: Installation -->
+        <div class="showcase-tab-pane" id="pane-install">
+          <div class="detail-section">
+            <div class="detail-section-title" data-i18n="label_steps">Adım Adım Kurulum Rehberi:</div>
+            <div class="steps-list" id="sc-steps-list"></div>
           </div>
-          <div style="flex:1;">
-            <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">GitHub Linki:</label>
-            <input type="url" id="f-github" class="form-input" placeholder="https://github.com/..." />
+
+          <div class="detail-section" id="sc-install-code-box">
+            <div class="detail-section-title" data-i18n="label_install">Kurulum Satırı (sider.ini / config):</div>
+            <div class="copy-box">
+              <code id="sc-install-code">lua.module = "..."</code>
+              <button type="button" class="btn btn-sm btn-secondary copy-btn" id="sc-copy-btn" data-i18n="btn_copy">Kopyala</button>
+            </div>
           </div>
         </div>
 
-        <div>
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Kurulum Satırı (sider.ini / config):</label>
-          <input type="text" id="f-install" class="form-input" style="color:#79c0ff;font-family:var(--font-mono);" placeholder='lua.module = "discord_rpc.lua"' />
-        </div>
-
-        <div>
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Etiketler (Virgülle ayırın):</label>
-          <input type="text" id="f-tags" class="form-input" placeholder="PES 2021, Sider 7, Discord RPC" />
-        </div>
-
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:12px;border-top:1px solid #1f2738;">
-          <button type="button" id="btn-delete-mod" style="display:none;background:#ef4444;border:none;color:#fff;padding:7px 12px;border-radius:6px;cursor:pointer;font-weight:600;">🗑️ Bu Modu Sil</button>
-          <div style="display:flex;gap:8px;margin-left:auto;">
-            <button type="button" id="btn-cancel-modal" class="btn btn-secondary">İptal</button>
-            <button type="submit" class="btn btn-emerald">💾 Kaydet</button>
+        <!-- Tab 3: Hotkeys -->
+        <div class="showcase-tab-pane" id="pane-hotkeys">
+          <div class="detail-section">
+            <div class="detail-section-title" data-i18n="label_hotkeys">Kısayollar &amp; Kontroller:</div>
+            <table class="hotkeys-table">
+              <thead>
+                <tr>
+                  <th style="width: 140px;">Tuş / Kısayol</th>
+                  <th>Açıklama</th>
+                </tr>
+              </thead>
+              <tbody id="sc-hotkeys-tbody"></tbody>
+            </table>
           </div>
         </div>
-      </form>
+
+      </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- Site Footer -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span data-i18n="footer_text">Lkxex • Açık Kaynak &amp; Doğrudan Dağıtım</span>
-      <span>&copy; <span id="current-year">2026</span> Lkxex</span>
+      <div data-i18n="footer_text">Lkxex • Açık Kaynak &amp; Doğrudan Dağıtım</div>
+      <div>&copy; <span id="current-year">2026</span> lkxex.dev</div>
     </div>
   </footer>
 
-  <!-- Core App Logic -->
   <script type="module">
-    import { applyLanguage, getLanguage, setLanguage, t } from './assets/js/i18n.js';
+    import { t, getLanguage, setLanguage, applyLanguage } from './assets/js/i18n.js';
 
     let allMods = [];
-    const isEditor = window.pywebview || location.hostname === '127.0.0.1' || location.hostname === 'localhost' || location.protocol === 'file:';
+    let currentTab = 'all';
+    let currentOpenMod = null;
 
-    // Fallback data in case of file:// protocol restriction on fetch
-    const fallbackMods = [
-      {
-        "id": "pes2021-discord-rpc",
-        "title": "PES 2021 Discord Rich Presence",
-        "version": "v1.0.11",
-        "updated": "2026-03-21",
-        "tagline_tr": "eFootball PES 2021 için Sider 7 tabanlı, sıfır FPS düşüşlü ve anlık skor bildirimli Discord RPC modu.",
-        "tagline_en": "Sider 7 Lua module for eFootball PES 2021 with zero-GC memory and real-time Discord Rich Presence.",
-        "icon": "./assets/images/projects/pes2021-icon.svg",
-        "tags": ["PES 2021", "Sider 7", "LuaJIT", "Discord RPC", "Zero-GC"],
-        "download_url": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
-        "github_url": "https://github.com/Lkxex/pes2021-discord-rpc",
-        "evoweb_url": "https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/",
-        "install_code": "lua.module = \"discord_rpc.lua\"",
-        "hotkeys": [
-          { "key": "F5", "desc_tr": "Discord bağlantısını yeniler", "desc_en": "Reconnects Discord IPC" },
-          { "key": "PgUp / PgDn", "desc_tr": "Sider menüsünde gezinme", "desc_en": "Navigate Sider menu" },
-          { "key": "Delete", "desc_tr": "Açık / Kapalı değiştirir", "desc_en": "Toggle ON / OFF" }
-        ],
-        "features_tr": [
-          "Doğrudan Win32 IPC: Harici arka plan programı gerektirmez.",
-          "Zero-GC: Önceden ayrılmış C bellek tamponları ile sıfır FPS kaybı.",
-          "Canlı Maç & Gol: Takımlar, lig adı, anlık skor ve gol bildirimleri.",
-          "Geniş Yama Desteği: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
-        ],
-        "features_en": [
-          "Direct Win32 IPC: No external background executables needed.",
-          "Zero-GC: Preallocated C buffers ensure zero micro-stutters.",
-          "Live Match & Goals: Real-time score, stadium, team and goal events.",
-          "Universal Compatibility: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
-        ]
-      }
-    ];
+    const isLocalServer = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
 
     async function loadMods() {
       try {
         const res = await fetch('./mods.json?t=' + Date.now());
-        if (res.ok) {
-          allMods = await res.json();
-        } else {
-          allMods = fallbackMods;
-        }
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        allMods = await res.json();
       } catch (e) {
-        allMods = fallbackMods;
+        console.error('mods.json yüklenemedi:', e);
       }
-      renderMods();
+      renderGrid();
+      checkDeepLink();
     }
 
-    let currentTab = 'all';
-
-    function renderMods(filterQuery = '') {
-      const container = document.getElementById('mods-container');
+    function renderGrid() {
+      const container = document.getElementById('mods-grid');
       const lang = getLanguage();
-      const q = filterQuery.toLowerCase().trim();
+      const q = (document.getElementById('mod-search')?.value || '').toLowerCase().trim();
 
       const filtered = allMods.filter(m => {
-        // Tab filtering
         if (currentTab === 'personal' && m.type === 'community') return false;
         if (currentTab === 'community' && m.type !== 'community') return false;
 
-        // Search query filtering
         if (!q) return true;
         const title = (m.title || '').toLowerCase();
         const tagTr = (m.tagline_tr || '').toLowerCase();
         const tagEn = (m.tagline_en || '').toLowerCase();
         const tags = (m.tags || []).join(' ').toLowerCase();
         const author = (m.author || '').toLowerCase();
-        const platform = (m.platform || '').toLowerCase();
-        return title.includes(q) || tagTr.includes(q) || tagEn.includes(q) || tags.includes(q) || author.includes(q) || platform.includes(q);
+        const game = (m.game || '').toLowerCase();
+        return title.includes(q) || tagTr.includes(q) || tagEn.includes(q) || tags.includes(q) || author.includes(q) || game.includes(q);
       });
 
       if (filtered.length === 0) {
@@ -876,183 +965,216 @@
 
       container.innerHTML = filtered.map(m => {
         const isCommunity = m.type === 'community';
-        const tagline = (lang === 'en' && m.tagline_en) ? m.tagline_en : m.tagline_tr;
-        const features = (lang === 'en' && m.features_en) ? m.features_en : (m.features_tr || []);
-        const hotkeys = m.hotkeys || [];
-        const tagsHTML = (m.tags || []).map(tag => `<span class="tag-pill">${escapeHTML(tag)}</span>`).join('');
-
+        const tagline = (lang === 'en' && m.tagline_en) ? m.tagline_en : (m.tagline_tr || '');
+        const tagsHTML = (m.tags || []).slice(0, 4).map(tag => `<span class="tag-pill">${escapeHTML(tag)}</span>`).join('');
+        
         const typeBadge = isCommunity 
           ? `<span class="badge-type badge-community">${t('badge_community')}</span>` 
           : `<span class="badge-type badge-personal">${t('badge_personal')}</span>`;
 
-        const authorRow = (m.author || m.platform) ? `
-          <div class="mod-author-row">
-            ${m.author ? `<span>${t('label_developer')} <strong>${escapeHTML(m.author)}</strong></span>` : ''}
-            ${m.platform ? `<span class="badge-platform">🌐 ${escapeHTML(m.platform)}</span>` : ''}
-          </div>
-        ` : '';
-
-        // Primary & external buttons
-        let primaryBtn = '';
-        if (isCommunity && (m.platform_url || m.download_url)) {
-          const url = m.platform_url || m.download_url;
-          primaryBtn = `
-            <a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              ${t('btn_visit_mod')}
-            </a>
-          `;
-        } else if (m.download_url) {
-          primaryBtn = `
-            <a href="${escapeHTML(m.download_url)}" class="btn btn-sm btn-primary">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              ${t('btn_download_zip')}
-            </a>
-          `;
-        }
-
-        const githubBtn = m.github_url ? `
-          <a href="${escapeHTML(m.github_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            ${t('btn_github')}
-          </a>
-        ` : '';
-
-        const evowebBtn = m.evoweb_url ? `
-          <a href="${escapeHTML(m.evoweb_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            ${t('btn_evoweb')}
-          </a>
-        ` : '';
-
-        // Edit button always visible when in editor/localhost
-        const editBtn = isEditor ? `
-          <button type="button" class="btn btn-sm btn-outline btn-edit-mod" data-id="${escapeHTML(m.id)}" style="color: var(--amber); border-color: rgba(245, 158, 11, 0.4);">
-            ✏️ Düzenle
-          </button>
-        ` : '';
-
-        const hasDetails = m.install_code || hotkeys.length > 0 || features.length > 0;
-        const toggleDetailsBtn = hasDetails ? `
-          <button type="button" class="btn btn-sm btn-outline toggle-details-btn" data-target="details-${escapeHTML(m.id)}">
-            ${t('btn_details_open')}
-          </button>
-        ` : '';
-
-        const installHTML = m.install_code ? `
-          <div class="detail-block">
-            <div class="detail-label">${t('label_install')}</div>
-            <div class="copy-box">
-              <code>${escapeHTML(m.install_code)}</code>
-              <button type="button" class="btn btn-sm btn-secondary copy-btn" data-code="${escapeHTML(m.install_code)}">
-                ${t('btn_copy')}
-              </button>
-            </div>
-          </div>
-        ` : '';
-
-        const hotkeysHTML = hotkeys.length > 0 ? `
-          <div class="detail-block">
-            <div class="detail-label">${t('label_hotkeys')}</div>
-            <div class="hotkey-grid">
-              ${hotkeys.map(h => {
-                const desc = (lang === 'en' && h.desc_en) ? h.desc_en : h.desc_tr;
-                return `
-                  <div class="hotkey-item">
-                    <span class="kbd">${escapeHTML(h.key)}</span>
-                    <span>${escapeHTML(desc)}</span>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        ` : '';
-
-        const featuresHTML = features.length > 0 ? `
-          <div class="detail-block" style="margin-bottom: 0;">
-            <div class="detail-label">${t('label_features')}</div>
-            <ul class="feature-list">
-              ${features.map(f => `<li>${escapeHTML(f)}</li>`).join('')}
-            </ul>
-          </div>
-        ` : '';
+        // Render quick platform badges
+        const linksList = m.links || [];
+        const quickLinksHTML = linksList.slice(0, 3).map(l => {
+          return `<span class="badge-platform" title="${escapeHTML(l.title)}">${getPlatformIcon(l.icon || l.title)} ${escapeHTML(l.title)}</span>`;
+        }).join('');
 
         return `
-          <article class="mod-card" id="mod-${escapeHTML(m.id)}">
+          <article class="mod-card" data-id="${escapeHTML(m.id)}">
             <div class="mod-card-header">
-              <img src="${escapeHTML(m.icon || './assets/images/projects/pes2021-icon.svg')}" alt="${escapeHTML(m.title)} icon" class="mod-icon" loading="lazy" />
-              <div class="mod-header-text">
-                <div class="mod-title-row">
-                  <h2 class="mod-title">${escapeHTML(m.title)}</h2>
+              <img src="${escapeHTML(m.icon || './assets/images/projects/pes2021-icon.svg')}" alt="${escapeHTML(m.title)} icon" class="mod-card-icon" loading="lazy" />
+              <div class="mod-card-header-info">
+                <div class="mod-card-meta-top">
+                  ${m.game ? `<span class="badge-game">${escapeHTML(m.game)}</span>` : ''}
                   ${m.version ? `<span class="badge-version">${escapeHTML(m.version)}</span>` : ''}
                   ${typeBadge}
                 </div>
-                ${authorRow}
-                <p class="mod-tagline">${escapeHTML(tagline)}</p>
-                <div class="mod-tags">${tagsHTML}</div>
+                <h3 class="mod-card-title">${escapeHTML(m.title)}</h3>
+                <div class="mod-card-author">${t('label_developer')} <strong>${escapeHTML(m.author || 'Lkxex')}</strong></div>
               </div>
             </div>
 
-            <div class="mod-actions-row">
-              <div class="mod-btn-group">
-                ${primaryBtn}
-                ${githubBtn}
-                ${evowebBtn}
-                ${editBtn}
-              </div>
-              ${toggleDetailsBtn}
-            </div>
+            <p class="mod-card-tagline">${escapeHTML(tagline)}</p>
 
-            ${hasDetails ? `
-            <div class="mod-details" id="details-${escapeHTML(m.id)}">
-              ${installHTML}
-              ${hotkeysHTML}
-              ${featuresHTML}
-            </div>` : ''}
+            <div class="mod-card-tags">${tagsHTML}</div>
+
+            <div class="mod-card-footer">
+              <div class="mod-card-links-preview">${quickLinksHTML}</div>
+              <button type="button" class="btn btn-sm btn-primary btn-open-showcase" data-id="${escapeHTML(m.id)}">
+                ${t('btn_view_mod')}
+              </button>
+            </div>
           </article>
         `;
       }).join('');
 
-      // Wire up toggle details buttons
-      document.querySelectorAll('.toggle-details-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const targetId = btn.getAttribute('data-target');
-          const panel = document.getElementById(targetId);
-          if (panel) {
-            const isOpen = panel.classList.toggle('open');
-            btn.textContent = isOpen ? t('btn_details_close') : t('btn_details_open');
-          }
+      // Wire up card clicks to open showcase
+      document.querySelectorAll('.mod-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          const modId = card.getAttribute('data-id');
+          openShowcase(modId);
         });
       });
+    }
 
-      // Wire up copy buttons
-      document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const code = btn.getAttribute('data-code');
-          navigator.clipboard.writeText(code).then(() => {
-            const origText = btn.textContent;
-            btn.textContent = t('btn_copied');
-            btn.style.backgroundColor = 'var(--emerald)';
-            btn.style.color = '#fff';
-            setTimeout(() => {
-              btn.textContent = origText;
-              btn.style.backgroundColor = '';
-              btn.style.color = '';
-            }, 1800);
-          });
-        });
-      });
+    function getPlatformIcon(typeStr = '') {
+      const s = typeStr.toLowerCase();
+      if (s.includes('discord')) return '💬';
+      if (s.includes('evoweb')) return '🌐';
+      if (s.includes('github')) return '💻';
+      if (s.includes('youtube')) return '📺';
+      if (s.includes('steam')) return '💨';
+      if (s.includes('modrinth')) return '🌿';
+      if (s.includes('curseforge')) return '🔥';
+      if (s.includes('gamebanana')) return '🍌';
+      return '🔗';
+    }
 
-      // Wire up edit buttons
-      document.querySelectorAll('.btn-edit-mod').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const modId = btn.getAttribute('data-id');
-          const targetMod = allMods.find(m => m.id === modId);
-          if (targetMod && window.openModEditorModal) {
-            window.openModEditorModal(targetMod);
-          }
-        });
+    // Showcase View
+    function openShowcase(modId) {
+      const mod = allMods.find(m => m.id === modId);
+      if (!mod) return;
+      currentOpenMod = mod;
+
+      const lang = getLanguage();
+      const isCommunity = mod.type === 'community';
+
+      document.getElementById('sc-icon').src = mod.icon || './assets/images/projects/pes2021-icon.svg';
+      document.getElementById('sc-title').textContent = mod.title;
+      document.getElementById('sc-game').textContent = mod.game || (isCommunity ? 'Oyun Modu' : 'Mod / Araç');
+      document.getElementById('sc-version').textContent = mod.version || 'v1.0';
+      
+      const typeEl = document.getElementById('sc-type');
+      typeEl.className = 'badge-type ' + (isCommunity ? 'badge-community' : 'badge-personal');
+      typeEl.textContent = isCommunity ? t('badge_community') : t('badge_personal');
+
+      document.getElementById('sc-author').textContent = mod.author || 'Lkxex';
+      document.getElementById('sc-updated').textContent = mod.updated || '2026-03-21';
+
+      // Actions Bar: Primary download + Multi-platform links
+      const actionsBar = document.getElementById('sc-actions-bar');
+      let actionsHTML = '';
+
+      if (mod.download_url) {
+        actionsHTML += `
+          <a href="${escapeHTML(mod.download_url)}" class="btn btn-emerald" style="height:36px;padding:0 1.1rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            ${t('btn_download_zip')}
+          </a>
+        `;
+      }
+
+      const links = mod.links || [];
+      links.forEach(l => {
+        actionsHTML += `
+          <a href="${escapeHTML(l.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="height:36px;">
+            ${getPlatformIcon(l.icon || l.title)} ${escapeHTML(l.title)} ↗
+          </a>
+        `;
       });
+      actionsBar.innerHTML = actionsHTML;
+
+      // Overview Tab
+      const overview = (lang === 'en' && mod.overview_en) ? mod.overview_en : (mod.overview_tr || (lang === 'en' ? mod.tagline_en : mod.tagline_tr));
+      document.getElementById('sc-overview-text').textContent = overview;
+
+      // Requirements
+      const reqBox = document.getElementById('sc-requirements-box');
+      const reqList = document.getElementById('sc-requirements-list');
+      if (mod.requirements && mod.requirements.length > 0) {
+        reqBox.style.display = 'block';
+        reqList.innerHTML = mod.requirements.map(r => `<li>${escapeHTML(r)}</li>`).join('');
+      } else {
+        reqBox.style.display = 'none';
+      }
+
+      // Features
+      const featBox = document.getElementById('sc-features-box');
+      const featList = document.getElementById('sc-features-list');
+      const features = (lang === 'en' && mod.features_en) ? mod.features_en : (mod.features_tr || []);
+      if (features.length > 0) {
+        featBox.style.display = 'block';
+        featList.innerHTML = features.map(f => `<li>${escapeHTML(f)}</li>`).join('');
+      } else {
+        featBox.style.display = 'none';
+      }
+
+      // Installation Tab
+      const stepsList = document.getElementById('sc-steps-list');
+      const steps = (lang === 'en' && mod.install_steps_en) ? mod.install_steps_en : (mod.install_steps_tr || []);
+      if (steps.length > 0) {
+        stepsList.innerHTML = steps.map((s, idx) => `
+          <div class="step-item">
+            <div class="step-number">${idx + 1}</div>
+            <div class="step-text">${formatCodeSpans(s)}</div>
+          </div>
+        `).join('');
+      } else {
+        stepsList.innerHTML = `<div class="step-item"><div class="step-text">İndirilen arşiv dosyasını oyun veya Sider ana dizinine çıkartın.</div></div>`;
+      }
+
+      const installCodeBox = document.getElementById('sc-install-code-box');
+      if (mod.install_code) {
+        installCodeBox.style.display = 'block';
+        document.getElementById('sc-install-code').textContent = mod.install_code;
+      } else {
+        installCodeBox.style.display = 'none';
+      }
+
+      // Hotkeys Tab
+      const hotkeysBtn = document.getElementById('sc-tab-hotkeys-btn');
+      const hotkeysTbody = document.getElementById('sc-hotkeys-tbody');
+      const hotkeys = mod.hotkeys || [];
+      if (hotkeys.length > 0) {
+        hotkeysBtn.style.display = 'inline-block';
+        hotkeysTbody.innerHTML = hotkeys.map(h => {
+          const desc = (lang === 'en' && h.desc_en) ? h.desc_en : h.desc_tr;
+          return `
+            <tr>
+              <td><span class="kbd">${escapeHTML(h.key)}</span></td>
+              <td style="color:var(--text-secondary);">${escapeHTML(desc)}</td>
+            </tr>
+          `;
+        }).join('');
+      } else {
+        hotkeysBtn.style.display = 'none';
+      }
+
+      // Reset tabs to Overview
+      switchShowcaseTab('overview');
+
+      // Open Modal
+      document.getElementById('showcase-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Update URL hash
+      history.replaceState(null, null, '#mod-' + mod.id);
+    }
+
+    function closeShowcase() {
+      document.getElementById('showcase-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      history.replaceState(null, null, ' ');
+    }
+
+    function switchShowcaseTab(tabKey) {
+      document.querySelectorAll('.showcase-nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabKey);
+      });
+      document.querySelectorAll('.showcase-tab-pane').forEach(pane => {
+        pane.classList.toggle('active', pane.id === 'pane-' + tabKey);
+      });
+    }
+
+    function checkDeepLink() {
+      const hash = location.hash;
+      if (hash && hash.startsWith('#mod-')) {
+        const modId = hash.replace('#mod-', '');
+        openShowcase(modId);
+      }
+    }
+
+    function formatCodeSpans(text) {
+      return escapeHTML(text).replace(/`([^`]+)`/g, '<code>$1</code>');
     }
 
     function escapeHTML(str) {
@@ -1060,225 +1182,85 @@
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
-    // Modal & Editor Handlers
-    function setupEditor() {
-      const modal = document.getElementById('mod-editor-modal');
-      const topBar = document.getElementById('admin-top-bar');
-
-      if (isEditor && topBar) {
-        topBar.classList.add('active');
-      }
-
-      window.openModEditorModal = function(mod = null) {
-        if (!modal) return;
-        modal.style.display = 'flex';
-        if (mod) {
-          document.getElementById('modal-heading').textContent = '✏️ Mod Düzenle: ' + mod.title;
-          document.getElementById('f-id').value = mod.id || '';
-          document.getElementById('f-type').value = mod.type || 'personal';
-          document.getElementById('f-author').value = mod.author || '';
-          document.getElementById('f-platform').value = mod.platform || '';
-          document.getElementById('f-platform-url').value = mod.platform_url || '';
-          document.getElementById('f-title').value = mod.title || '';
-          document.getElementById('f-version').value = mod.version || '';
-          document.getElementById('f-icon').value = mod.icon || '';
-          document.getElementById('f-tagline-tr').value = mod.tagline_tr || '';
-          document.getElementById('f-tagline-en').value = mod.tagline_en || '';
-          document.getElementById('f-download').value = mod.download_url || '';
-          document.getElementById('f-github').value = mod.github_url || '';
-          document.getElementById('f-install').value = mod.install_code || '';
-          document.getElementById('f-tags').value = (mod.tags || []).join(', ');
-          document.getElementById('btn-delete-mod').style.display = 'inline-block';
-        } else {
-          document.getElementById('modal-heading').textContent = '➕ Yeni Mod Ekle';
-          document.getElementById('mod-edit-form').reset();
-          document.getElementById('f-id').value = '';
-          document.getElementById('f-type').value = 'personal';
-          document.getElementById('f-author').value = '';
-          document.getElementById('f-platform').value = '';
-          document.getElementById('f-platform-url').value = '';
-          document.getElementById('f-icon').value = './assets/images/projects/pes2021-icon.svg';
-          document.getElementById('btn-delete-mod').style.display = 'none';
-        }
-      };
-
-      const closeModal = () => { if (modal) modal.style.display = 'none'; };
-      const closeBtn = document.getElementById('modal-close-btn');
-      const cancelBtn = document.getElementById('btn-cancel-modal');
-      if (closeBtn) closeBtn.onclick = closeModal;
-      if (cancelBtn) cancelBtn.onclick = closeModal;
-
-      // Preset icon change
-      const presetSelect = document.getElementById('preset-icon-select');
-      if (presetSelect) {
-        presetSelect.onchange = (e) => {
-          if (e.target.value) {
-            document.getElementById('f-icon').value = e.target.value;
-          }
-        };
-      }
-
-      // Image picker button
-      const pickBtn = document.getElementById('btn-pick-img');
-      if (pickBtn) {
-        pickBtn.onclick = async () => {
-          if (window.pywebview && window.pywebview.api) {
-            const res = await window.pywebview.api.pick_image();
-            if (res.success && res.path) {
-              document.getElementById('f-icon').value = res.path;
-            }
-          } else {
-            const path = prompt('Resim dosya yolunu girin (örn: ./assets/images/icons/minecraft.svg):', './assets/images/icons/');
-            if (path) document.getElementById('f-icon').value = path;
-          }
-        };
-      }
-
-      // Form submit
-      const form = document.getElementById('mod-edit-form');
-      if (form) {
-        form.onsubmit = async (e) => {
-          e.preventDefault();
-          const idVal = document.getElementById('f-id').value.trim();
-          const titleVal = document.getElementById('f-title').value.trim();
-          const tagsArr = document.getElementById('f-tags').value.split(',').map(s => s.trim()).filter(Boolean);
-
-          const modObj = {
-            id: idVal || titleVal.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-            type: document.getElementById('f-type').value,
-            author: document.getElementById('f-author').value.trim(),
-            platform: document.getElementById('f-platform').value.trim(),
-            platform_url: document.getElementById('f-platform-url').value.trim(),
-            title: titleVal,
-            version: document.getElementById('f-version').value.trim(),
-            updated: new Date().toISOString().split('T')[0],
-            icon: document.getElementById('f-icon').value.trim() || './assets/images/projects/pes2021-icon.svg',
-            tagline_tr: document.getElementById('f-tagline-tr').value.trim(),
-            tagline_en: document.getElementById('f-tagline-en').value.trim(),
-            download_url: document.getElementById('f-download').value.trim(),
-            github_url: document.getElementById('f-github').value.trim(),
-            install_code: document.getElementById('f-install').value.trim(),
-            tags: tagsArr,
-            hotkeys: [],
-            features_tr: [],
-            features_en: []
-          };
-
-          if (window.pywebview && window.pywebview.api) {
-            const res = await window.pywebview.api.save_mod(modObj);
-            if (res.success) {
-              closeModal();
-              loadMods();
-            } else {
-              alert('Hata: ' + res.error);
-            }
-          } else {
-            // Local fallback simulation
-            const idx = allMods.findIndex(m => m.id === modObj.id);
-            if (idx >= 0) allMods[idx] = modObj;
-            else allMods.unshift(modObj);
-            closeModal();
-            renderMods();
-          }
-        };
-      }
-
-      // Delete mod
-      const delBtn = document.getElementById('btn-delete-mod');
-      if (delBtn) {
-        delBtn.onclick = async () => {
-          const idVal = document.getElementById('f-id').value.trim();
-          if (!idVal) return;
-          if (confirm('Bu modu silmek istediğinize emin misiniz?')) {
-            if (window.pywebview && window.pywebview.api) {
-              const res = await window.pywebview.api.delete_mod(idVal);
-              if (res.success) {
-                closeModal();
-                loadMods();
-              } else {
-                alert('Hata: ' + res.error);
-              }
-            } else {
-              allMods = allMods.filter(m => m.id !== idVal);
-              closeModal();
-              renderMods();
-            }
-          }
-        };
-      }
-
-      // Top bar button actions
-      const topAddBtn = document.getElementById('top-btn-add');
-      if (topAddBtn) topAddBtn.onclick = () => window.openModEditorModal();
-
-      const topRefreshBtn = document.getElementById('top-btn-refresh');
-      if (topRefreshBtn) topRefreshBtn.onclick = () => loadMods();
-
-      const topPushBtn = document.getElementById('top-btn-push');
-      if (topPushBtn) {
-        topPushBtn.onclick = async () => {
-          if (window.pywebview && window.pywebview.api) {
-            topPushBtn.textContent = '⏳ Gönderiliyor...';
-            topPushBtn.disabled = true;
-            try {
-              const res = await window.pywebview.api.publish_github();
-              if (res.success) {
-                alert('✅ ' + res.message);
-              } else {
-                alert('❌ Hata: ' + res.error);
-              }
-            } catch(e) {
-              alert('❌ Hata: ' + e);
-            } finally {
-              topPushBtn.textContent = '🚀 GitHub\'a Canlıya Al';
-              topPushBtn.disabled = false;
-            }
-          } else {
-            alert('Bu özellik ModManager.exe uygulaması içinden çalışır.');
-          }
-        };
-      }
-    }
-
     // Initialize UI
     document.addEventListener('DOMContentLoaded', () => {
       applyLanguage();
 
+      // Top Admin Bar
+      if (isLocalServer) {
+        document.getElementById('admin-top-bar')?.classList.add('active');
+      }
+
+      const topRefreshBtn = document.getElementById('top-btn-refresh');
+      if (topRefreshBtn) topRefreshBtn.onclick = () => loadMods();
+
+      // Language Switch
       const langBtn = document.getElementById('lang-toggle-btn');
       if (langBtn) {
         langBtn.addEventListener('click', () => {
           const cur = getLanguage();
           setLanguage(cur === 'tr' ? 'en' : 'tr');
-          renderMods(document.getElementById('mod-search').value);
+          renderGrid();
+          if (currentOpenMod) openShowcase(currentOpenMod.id);
         });
       }
 
+      // Search input
       const searchInput = document.getElementById('mod-search');
       if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-          renderMods(e.target.value);
-        });
+        searchInput.addEventListener('input', () => renderGrid());
       }
 
       // Tab switching
-      document.querySelectorAll('.tab-btn').forEach(btn => {
+      document.querySelectorAll('#mod-tabs .tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('#mod-tabs .tab-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentTab = btn.getAttribute('data-tab');
-          renderMods(searchInput ? searchInput.value : '');
+          renderGrid();
+        });
+      });
+
+      // Showcase Close Events
+      document.getElementById('sc-close-btn')?.addEventListener('click', closeShowcase);
+      document.getElementById('showcase-overlay')?.addEventListener('click', (e) => {
+        if (e.target.id === 'showcase-overlay') closeShowcase();
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeShowcase();
+      });
+
+      // Showcase Tabs
+      document.querySelectorAll('.showcase-nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchShowcaseTab(btn.getAttribute('data-tab'));
+        });
+      });
+
+      // Copy Button
+      document.getElementById('sc-copy-btn')?.addEventListener('click', () => {
+        const code = document.getElementById('sc-install-code').textContent;
+        navigator.clipboard.writeText(code).then(() => {
+          const btn = document.getElementById('sc-copy-btn');
+          const orig = btn.textContent;
+          btn.textContent = t('btn_copied');
+          btn.style.backgroundColor = 'var(--emerald)';
+          btn.style.color = '#fff';
+          setTimeout(() => {
+            btn.textContent = orig;
+            btn.style.backgroundColor = '';
+            btn.style.color = '';
+          }, 1800);
         });
       });
 
       const yearEl = document.getElementById('current-year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-      setupEditor();
       loadMods();
     });
 
-    // Make reload available for external manager
-    window.reloadMods = loadMods;
+    window.addEventListener('popstate', checkDeepLink);
   </script>
 </body>
 </html>

@@ -2,73 +2,127 @@
   {
     "id": "pes2021-discord-rpc",
     "type": "personal",
+    "game": "eFootball PES 2021",
     "title": "PES 2021 Discord Rich Presence",
     "version": "v1.0.11",
     "updated": "2026-03-21",
     "author": "Lkxex",
+    "icon": "./assets/images/projects/pes2021-icon.svg",
     "tagline_tr": "eFootball PES 2021 için Sider 7 tabanlı, sıfır FPS düşüşlü ve anlık skor bildirimli Discord RPC modu.",
     "tagline_en": "Sider 7 Lua module for eFootball PES 2021 with zero-GC memory and real-time Discord Rich Presence.",
-    "icon": "./assets/images/projects/pes2021-icon.svg",
-    "tags": ["PES 2021", "Sider 7", "LuaJIT", "Discord RPC", "Zero-GC"],
+    "overview_tr": "PES 2021 Discord Rich Presence modu, oyunun belleğini doğrudan Win32 IPC kanalı üzerinden okuyarak Discord profilinizde oynadığınız takımları, ligi, stadyumu, anlık skoru ve gol bildirimlerini canlı olarak gösterir. Önceden ayrılmış C bellek tamponları (Zero-GC) sayesinde maç esnasında en ufak bir FPS düşüşü veya mikro takılma yaşatmaz.",
+    "overview_en": "PES 2021 Discord Rich Presence directly interfaces with game memory via low-level Win32 IPC to broadcast your active teams, league, stadium, real-time score and goal events to your Discord profile. Built with preallocated C memory buffers (Zero-GC), ensuring absolutely zero micro-stutters or frame drops.",
+    "tags": ["PES 2021", "Sider 7", "LuaJIT", "Discord RPC", "Zero-GC", "Win32 IPC"],
     "download_url": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
-    "github_url": "https://github.com/Lkxex/pes2021-discord-rpc",
-    "evoweb_url": "https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/",
+    "links": [
+      { "title": "GitHub Deposu", "url": "https://github.com/Lkxex/pes2021-discord-rpc", "icon": "github" },
+      { "title": "EvoWeb Konusu", "url": "https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/", "icon": "evoweb" },
+      { "title": "Discord Topluluğu", "url": "https://discord.gg/", "icon": "discord" }
+    ],
     "install_code": "lua.module = \"discord_rpc.lua\"",
+    "requirements": ["eFootball PES 2021 (PC / Steam)", "Sider 7.1.4 veya daha yeni bir sürüm"],
+    "install_steps_tr": [
+      "İndirdiğiniz .zip arşivinin içindeki `discord_rpc.lua` dosyasını Sider klasörünüzdeki `modules/` dizinine çıkartın.",
+      "Sider ana dizinindeki `sider.ini` dosyasını bir metin editörüyle açın.",
+      "`lua.module` satırlarının bulunduğu bölüme `lua.module = \"discord_rpc.lua\"` satırını ekleyin ve kaydedin.",
+      "Sider'ı ve ardından PES 2021'i başlatın. Discord uygulamanız açık olduğu sürece durumunuz otomatik olarak senkronize edilecektir."
+    ],
+    "install_steps_en": [
+      "Extract `discord_rpc.lua` from the downloaded .zip into your Sider `modules/` folder.",
+      "Open `sider.ini` located in your main Sider root directory with a text editor.",
+      "Add `lua.module = \"discord_rpc.lua\"` under the Lua modules section and save the file.",
+      "Launch Sider and then start PES 2021. As long as Discord is running, your status will update automatically."
+    ],
     "hotkeys": [
-      { "key": "F5", "desc_tr": "Discord bağlantısını yeniler", "desc_en": "Reconnects Discord IPC" },
-      { "key": "PgUp / PgDn", "desc_tr": "Sider menüsünde gezinme", "desc_en": "Navigate Sider menu" },
-      { "key": "Delete", "desc_tr": "Açık / Kapalı değiştirir", "desc_en": "Toggle ON / OFF" }
+      { "key": "F5", "desc_tr": "Discord bağlantısını yeniler ve IPC borusunu sıfırlar", "desc_en": "Reconnects Discord IPC pipe" },
+      { "key": "PgUp / PgDn", "desc_tr": "Sider canlı bindirme menüsünde sayfalar arası gezinme", "desc_en": "Navigate Sider live overlay menu" },
+      { "key": "Delete", "desc_tr": "RPC durum yayını açık/kapalı olarak değiştirir", "desc_en": "Toggle RPC broadcast ON / OFF" }
     ],
     "features_tr": [
-      "Doğrudan Win32 IPC: Harici arka plan programı gerektirmez.",
-      "Zero-GC: Önceden ayrılmış C bellek tamponları ile sıfır FPS kaybı.",
-      "Canlı Maç & Gol: Takımlar, lig adı, anlık skor ve gol bildirimleri.",
-      "Geniş Yama Desteği: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
+      "Doğrudan Win32 IPC: Harici bir arka plan yürütülebilir dosyası veya Node.js gerektirmez.",
+      "Zero-GC Bellek Yönetimi: Çöp toplayıcı tetiklemeyen C tamponları ile sıfır FPS kaybı.",
+      "Canlı Maç & Gol Olayları: Takım isimleri, logolar, lig adı, anlık skor ve uzatma dakikaları.",
+      "Geniş Yama Desteği: FL24/25, SmokePatch, EvoWeb Patch ve VirtuaRED ile tam uyumlu."
     ],
     "features_en": [
-      "Direct Win32 IPC: No external background executables needed.",
-      "Zero-GC: Preallocated C buffers ensure zero micro-stutters.",
-      "Live Match & Goals: Real-time score, stadium, team and goal events.",
-      "Universal Compatibility: FL24/25, SmokePatch, EvoWeb, VirtuaRED."
+      "Direct Win32 IPC: No external background helper or Node.js runtime required.",
+      "Zero-GC Architecture: Preallocated C buffers eliminate garbage collection frame-drops.",
+      "Live Match & Goal Events: Authentic team names, tournament badges, live score and extra time.",
+      "Universal Patch Compatibility: 100% compatible with FL24/25, SmokePatch, EvoWeb and VirtuaRED."
     ]
   },
   {
     "id": "sider-7",
     "type": "community",
-    "title": "Sider 7 (PES 2021)",
+    "game": "eFootball PES 2021",
+    "title": "Sider 7",
     "version": "v7.2.1",
     "updated": "2024-05-10",
     "author": "juce & nesa24",
-    "platform": "EvoWeb",
-    "platform_url": "https://evoweb.uk/threads/sider-7.84002/",
     "icon": "./assets/images/icons/tools.svg",
-    "tags": ["PES 2021", "Hook Tool", "Lua", "EvoWeb", "Essential"],
-    "tagline_tr": "PES 2021 için tüm modların, Lua scriptlerinin ve stadyum/top sunucularının çalışmasını sağlayan vazgeçilmez hook aracı.",
-    "tagline_en": "The essential hook tool and Lua scripting engine powering all PES 2021 mods, overlays and servers.",
+    "tagline_tr": "PES 2021 için dinamik yama yükleme, Lua modülleri ve stadyum/top sunucularını yöneten temel araç.",
+    "tagline_en": "The essential hook tool and Lua runtime powering dynamic mod loading, stadiums and ball servers in PES 2021.",
+    "overview_tr": "Sider 7, eFootball PES 2021 için geliştirilmiş en önemli modlama platformudur. Oyunun orijinal dosyalarına dokunmadan, belleğe doğrudan yama yüklenmesini sağlar. LuaJIT motoruyla binlerce bağımsız eklenti, canlı stadyum sunucuları ve skorboard sistemleri Sider üzerinden çalışır.",
+    "overview_en": "Sider 7 is the definitive modding foundation for PES 2021. It allows dynamic, in-memory asset replacement without modifying original game CPK files. Its embedded LuaJIT scripting engine powers thousands of community modules, stadiums and overlays.",
+    "tags": ["PES 2021", "Hook Tool", "LuaJIT", "Essential", "EvoWeb"],
+    "download_url": "https://evoweb.uk/threads/sider-7.84002/",
+    "links": [
+      { "title": "EvoWeb Ana Konusu", "url": "https://evoweb.uk/threads/sider-7.84002/", "icon": "evoweb" },
+      { "title": "GitHub Kaynak Kodu", "url": "https://github.com/juce/sider", "icon": "github" }
+    ],
+    "install_code": "sider.exe",
+    "requirements": ["eFootball PES 2021 (PC / Steam)"],
+    "install_steps_tr": [
+      "Sider arşivini indirin ve oyun ana dizininden ayrı veya yanına bir klasöre çıkartın.",
+      "Oyunu çalıştırmadan önce `sider.exe` dosyasını yönetici olarak başlatın.",
+      "Oyun içindeyken `Space` tuşuna basarak Sider canlı arayüzünü açabilirsiniz."
+    ],
+    "install_steps_en": [
+      "Download the Sider archive and extract it to a dedicated directory.",
+      "Run `sider.exe` as Administrator before launching the game.",
+      "Press `Space` in-game to toggle the Sider overlay menu."
+    ],
     "features_tr": [
-      "Bellek içi dinamik yama yükleme (Orijinal CPK'ları bozmaz).",
-      "Gelişmiş LuaJIT modül desteği ve anlık oyun verisi okuma.",
+      "Bellek içi dinamik yama yükleme (Orijinal CPK arşivlerini bozmaz).",
+      "Gelişmiş LuaJIT modül desteği ve anlık bellek hook sistemi.",
       "Gamepad ile oyun içi canlı menü kontrolü (Space tuşu / R3)."
     ],
     "features_en": [
-      "Dynamic in-memory asset replacement without touching CPK files.",
-      "Full LuaJIT scripting runtime with real-time match events.",
+      "Dynamic in-memory asset replacement without touching original CPKs.",
+      "Full LuaJIT runtime with real-time memory hooking capabilities.",
       "In-game interactive overlay menu via keyboard or controller."
     ]
   },
   {
     "id": "virtuared-patch-2021",
     "type": "community",
+    "game": "eFootball PES 2021",
     "title": "VirtuaRED.com Patch 2021",
     "version": "v8.4 Final",
     "updated": "2024-03-15",
     "author": "VirtuaRED Team",
-    "platform": "EvoWeb / VirtuaRED",
-    "platform_url": "https://evoweb.uk/threads/virtuared-com-patch-2021.85408/",
     "icon": "./assets/images/projects/pes2021-icon.svg",
-    "tags": ["PES 2021", "Mega Patch", "Stadiums", "Faces", "Licenses"],
-    "tagline_tr": "PES 2021 için 1000+ gerçek stadyum, binlerce yüksek kaliteli yüz ve tam lisans içeren en kapsamlı mega yama.",
-    "tagline_en": "The most complete all-in-one mega patch for PES 2021 with 1000+ real stadiums, faces and full licenses.",
+    "tagline_tr": "1000+ gerçek stadyum, binlerce HD yüz ve tam lisans içeren en kapsamlı PES 2021 mega yaması.",
+    "tagline_en": "The most comprehensive mega patch for PES 2021 featuring 1000+ stadiums, faces, and full authentic licenses.",
+    "overview_tr": "VirtuaRED Patch, PES 2021 topluluğunun hazırladığı en büyük ve en detaylı yama paketidir. Dünyanın dört bir yanından 1000'den fazla gerçekçi stadyum, binlerce fotogerçekçi oyuncu yüzü, lisanslı formalar, giriş seremonileri ve turnuva temalarıyla oyunu bambaşka bir seviyeye taşır.",
+    "overview_en": "VirtuaRED Patch is the pinnacle of PES 2021 mega-patches. Bringing over 1,000 authentic stadiums, thousands of photorealistic player faces, fully licensed kits, competition ceremonies and broadcast overlays.",
+    "tags": ["PES 2021", "Mega Patch", "Stadiums", "Faces", "Licenses", "VirtuaRED"],
+    "download_url": "https://evoweb.uk/threads/virtuared-com-patch-2021.85408/",
+    "links": [
+      { "title": "VirtuaRED Resmi Sayfası", "url": "https://virtuared.com/", "icon": "web" },
+      { "title": "EvoWeb Yayın Konusu", "url": "https://evoweb.uk/threads/virtuared-com-patch-2021.85408/", "icon": "evoweb" }
+    ],
+    "requirements": ["eFootball PES 2021 (Temiz Kurulum)", "Sider 7", "Yaklaşık 300 GB Boş Disk Alanı"],
+    "install_steps_tr": [
+      "Yama partlarını indirin ve WinRAR ile ana dizine çıkartın.",
+      "`livecpk` ve `content` klasörlerini Sider dizininize kopyalayın.",
+      "Yama ile gelen `sider.ini` dosyasını Sider klasörünüze yapıştırın."
+    ],
+    "install_steps_en": [
+      "Download all patch archives and extract with WinRAR.",
+      "Copy `livecpk` and `content` folders into your Sider directory.",
+      "Replace your `sider.ini` with the configuration provided in the patch."
+    ],
     "features_tr": [
       "1000+ detaylı stadyum ve atmosfer paketi.",
       "Tamamen güncellenmiş transferler, ligler ve gerçek formalar.",
@@ -83,16 +137,33 @@
   {
     "id": "smoke-patch-football-life",
     "type": "community",
+    "game": "eFootball PES 2021",
     "title": "SP Football Life",
     "version": "FL24 / FL25",
     "updated": "2025-01-20",
     "author": "Dido & SmokePatch",
-    "platform": "Smoke-Patch",
-    "platform_url": "https://www.pessmokepatch.com/",
     "icon": "./assets/images/icons/gamepad.svg",
+    "tagline_tr": "PES 2021 motoru üzerine kurulu, tek kurulumla çalışan bağımsız futbol oyunu ve kariyer modu.",
+    "tagline_en": "Standalone football simulation built on the PES 2021 engine with updated career mode and database.",
+    "overview_tr": "SP Football Life, PES 2021'in temel oyununa ihtiyaç duymadan, tek tıkla kurulan bağımsız bir projedir. Geliştirilmiş yapay zeka, güncel sezon kadroları, genç yetenekler ve baştan tasarlanmış kariyer moduyla futbolseverlere eksiksiz bir deneyim sunar.",
+    "overview_en": "SP Football Life is an all-in-one standalone football game requiring no base PES 2021 installation. Features reworked gameplay physics, modern season rosters, expanded career mode depth and continuous seasonal updates.",
     "tags": ["PES 2021", "Standalone", "Career Mode", "Gameplay", "Faces"],
-    "tagline_tr": "PES 2021 motoru üzerine kurulu, tek kurulumla çalışan, bağımsız ve sürekli güncellenen futbol deneyimi.",
-    "tagline_en": "Standalone football game built on the PES 2021 engine with updated career mode, database and faces.",
+    "download_url": "https://www.pessmokepatch.com/",
+    "links": [
+      { "title": "Smoke-Patch Resmi Sitesi", "url": "https://www.pessmokepatch.com/", "icon": "web" },
+      { "title": "YouTube Oynanış Tanıtımı", "url": "https://www.youtube.com/results?search_query=SP+Football+Life", "icon": "youtube" }
+    ],
+    "requirements": ["Windows 10 / 11 (64-bit)", "Orijinal oyun gerektirmez (Bağımsız çalışır)"],
+    "install_steps_tr": [
+      "Resmi siteden kurulum dosyalarını indirin.",
+      "`SPFL_Setup.exe` dosyasını çalıştırın ve dilediğiniz bir dizine kurun.",
+      "Masaüstündeki kısayoldan oyunu doğrudan başlatın."
+    ],
+    "install_steps_en": [
+      "Download the installer files from the official website.",
+      "Run `SPFL_Setup.exe` and select your installation directory.",
+      "Launch directly via the desktop shortcut."
+    ],
     "features_tr": [
       "Tek tıkla kurulum; harici oyun sürümü gerektirmez.",
       "Geliştirilmiş yapay zeka ve gerçekçi maç temposu.",
@@ -107,16 +178,35 @@
   {
     "id": "sodium-minecraft",
     "type": "community",
-    "title": "Sodium (Minecraft)",
+    "game": "Minecraft",
+    "title": "Sodium",
     "version": "v0.5.11",
     "updated": "2024-06-01",
     "author": "CaffeineMC",
-    "platform": "Modrinth",
-    "platform_url": "https://modrinth.com/mod/sodium",
     "icon": "./assets/images/icons/modrinth.svg",
-    "tags": ["Minecraft", "Optimization", "Fabric", "FPS Boost", "Modrinth"],
-    "tagline_tr": "Minecraft Fabric için modern OpenGL kullanan, FPS'i katlayan ve takılmaları yok eden devrimsel grafik optimizasyon modu.",
+    "tagline_tr": "Minecraft Fabric için modern OpenGL kullanan, FPS'i katlayan devrimsel grafik optimizasyonu.",
     "tagline_en": "Revolutionary rendering engine for Minecraft Fabric that dramatically boosts FPS and eliminates micro-stutters.",
+    "overview_tr": "Sodium, Minecraft'ın eskiyen render motorunu modern OpenGL standartlarına taşıyan açık kaynaklı bir optimizasyon modudur. Chunk yüklemelerindeki takılmaları giderir, GPU kullanımını optimize eder ve kare hızını (FPS) 2 ila 4 katına kadar artırır. Iris Shaders ile birlikte kullanıldığında tam shader desteği sunar.",
+    "overview_en": "Sodium is an open-source rendering engine replacement for Minecraft Fabric. Leveraging modern OpenGL pipeline techniques, it dramatically improves frame rates, reduces micro-stutters, and optimizes chunk rendering performance.",
+    "tags": ["Minecraft", "Optimization", "Fabric", "FPS Boost", "Modrinth"],
+    "download_url": "https://modrinth.com/mod/sodium",
+    "links": [
+      { "title": "Modrinth Sayfası", "url": "https://modrinth.com/mod/sodium", "icon": "modrinth" },
+      { "title": "CurseForge Sayfası", "url": "https://www.curseforge.com/minecraft/mc-mods/sodium", "icon": "curseforge" },
+      { "title": "GitHub Deposu", "url": "https://github.com/CaffeineMC/sodium-fabric", "icon": "github" },
+      { "title": "Discord Topluluğu", "url": "https://discord.gg/caffeinemc", "icon": "discord" }
+    ],
+    "requirements": ["Minecraft (Java Edition)", "Fabric Loader", "Fabric API"],
+    "install_steps_tr": [
+      "Minecraft sürümünüze uygun Fabric Loader'ı kurun.",
+      "İndirdiğiniz `sodium-fabric-*.jar` dosyasını `.minecraft/mods` klasörüne atın.",
+      "Oyunu Fabric profili ile başlatın."
+    ],
+    "install_steps_en": [
+      "Install the appropriate Fabric Loader for your Minecraft version.",
+      "Place the downloaded `sodium-fabric-*.jar` inside your `.minecraft/mods` folder.",
+      "Launch Minecraft using the Fabric profile."
+    ],
     "features_tr": [
       "Modern OpenGL render hattı ile %200 - %400'e varan FPS artışı.",
       "Chunk yükleme ve CPU bellek kullanımında devasa optimizasyon.",
@@ -131,25 +221,44 @@
   {
     "id": "create-minecraft",
     "type": "community",
-    "title": "Create Mod (Minecraft)",
+    "game": "Minecraft",
+    "title": "Create Mod",
     "version": "v0.5.1",
     "updated": "2024-05-20",
     "author": "simibubi",
-    "platform": "CurseForge",
-    "platform_url": "https://www.curseforge.com/minecraft/mc-mods/create",
     "icon": "./assets/images/icons/curseforge.svg",
+    "tagline_tr": "Minecraft'a dişliler, dönen miller, konveyör bantları ve trenlerle çalışan estetik mekanik otomasyon getirir.",
+    "tagline_en": "Aesthetic mechanical engineering mod for Minecraft with rotational kinetic power, conveyor belts and trains.",
+    "overview_tr": "Create, Minecraft'ta otomasyonu sihirli tek bloklu makineler yerine gerçekçi mekanik fizik kurallarına bağlayan bir başyapıttır. Dişliler, miller, su çarkları, buhar kazanları, konveyör bantları ve hareketli tren hatları inşa ederek tamamen görsel ve hareketli fabrikalar kurmanıza olanak tanır.",
+    "overview_en": "Create is a masterclass in Minecraft mechanical engineering. Rather than relying on magical black-box machines, it introduces rotational kinetic power systems, conveyor belts, mechanical arms, and physics-based functional trains.",
     "tags": ["Minecraft", "Mechanics", "Automation", "Forge / Fabric", "CurseForge"],
-    "tagline_tr": "Minecraft'a dişliler, dönen miller, konveyör bantları ve trenlerle çalışan gerçekçi mekanik otomasyon getiren efsanevi mod.",
-    "tagline_en": "Legendary mechanical engineering mod for Minecraft with rotational power, conveyor belts, trains and contraptions.",
+    "download_url": "https://www.curseforge.com/minecraft/mc-mods/create",
+    "links": [
+      { "title": "CurseForge Sayfası", "url": "https://www.curseforge.com/minecraft/mc-mods/create", "icon": "curseforge" },
+      { "title": "Modrinth Sayfası", "url": "https://modrinth.com/mod/create", "icon": "modrinth" },
+      { "title": "GitHub Deposu", "url": "https://github.com/Creators-of-Create/Create", "icon": "github" },
+      { "title": "Discord Topluluğu", "url": "https://discord.gg/create", "icon": "discord" }
+    ],
+    "requirements": ["Minecraft (Java Edition)", "Forge veya Fabric Loader"],
+    "install_steps_tr": [
+      "Forge veya Fabric Loader'ı kurun.",
+      "İndirdiğiniz `create-*.jar` dosyasını `.minecraft/mods` klasörüne kopyalayın.",
+      "Oyunu başlatın ve Ponder (Etkileşimli Rehber) sistemini kullanarak makineleri öğrenin."
+    ],
+    "install_steps_en": [
+      "Install Forge or Fabric Loader.",
+      "Copy `create-*.jar` into your `.minecraft/mods` directory.",
+      "Launch Minecraft and hold 'W' on any Create item to access the interactive Ponder tutorial."
+    ],
     "features_tr": [
       "Dönme torku ve kinetik enerjiye dayalı gerçekçi makineler.",
       "Özelleştirilebilir tren hatları ve raylı ulaşım sistemleri.",
-      "Tamamen görsel, estetik ve fizik tabanlı fabrikalar kurma imkanı."
+      "Ponder Sistemi: Oyun içi 3D etkileşimli mekanizma rehberi."
     ],
     "features_en": [
       "Kinetic rotational power mechanics and kinetic stress systems.",
       "Customizable functional trains and railway networks.",
-      "Aesthetic, physics-based automation without magical single-block machines."
+      "Ponder System: Interactive in-game 3D mechanism tutorials."
     ]
   }
 ]
