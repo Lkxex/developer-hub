@@ -3,20 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lkxex - Game Mods &amp; Tools</title>
-  <meta name="description" content="Personal game mods, Sider 7 modules, and desktop utilities by Lkxex." />
+  <title>PES 2021 Discord Rich Presence - Lkxex</title>
+  <meta name="description" content="eFootball PES 2021 için Sider 7 tabanlı, sıfır gecikmeli canlı Discord Rich Presence modu." />
   <meta name="author" content="Lkxex" />
   
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Lkxex - Game Mods &amp; Tools" />
-  <meta property="og:description" content="Personal game mods, Sider 7 modules, and desktop utilities by Lkxex." />
-  <meta property="og:image" content="./assets/images/projects/pes2021-rpc-cover.svg" />
+  <meta property="og:title" content="PES 2021 Discord Rich Presence - Lkxex" />
+  <meta property="og:description" content="eFootball PES 2021 için Sider 7 tabanlı, sıfır gecikmeli canlı Discord Rich Presence modu." />
+  <meta property="og:image" content="./assets/images/projects/pes2021-rpc-screen1.svg" />
   
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   
   <link rel="stylesheet" href="./assets/css/variables.css" />
   <link rel="stylesheet" href="./assets/css/main.css" />
   <link rel="stylesheet" href="./assets/css/components.css" />
+  <link rel="stylesheet" href="./assets/css/project-detail.css" />
+  
+  <style>
+    /* Direct-action Hero Styles */
+    .hub-hero {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 2rem;
+    }
+    .hub-hero-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 860px;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background-color: rgba(88, 101, 242, 0.12);
+      border: 1px solid rgba(88, 101, 242, 0.3);
+      color: #7983f5;
+      font-family: var(--font-mono);
+      width: fit-content;
+    }
+    .hero-actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      padding-top: 0.5rem;
+    }
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    
+    /* Interactive Tab Panels */
+    .tabs-nav {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 1px;
+    }
+    .tab-button {
+      padding: 0.65rem 1.15rem;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--transition-fast);
+      font-family: inherit;
+    }
+    .tab-button:hover {
+      color: var(--text-primary);
+    }
+    .tab-button.active {
+      color: var(--accent-discord);
+      border-bottom-color: var(--accent-discord);
+    }
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Steps Box */
+    .install-step-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .install-step-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .copy-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--bg-base);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 1rem;
+      margin-top: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: #58a6ff;
+    }
+    .copy-btn {
+      background-color: var(--bg-surface-elevated);
+      border: 1px solid var(--border-default);
+      color: var(--text-primary);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-family: inherit;
+    }
+    .copy-btn:hover {
+      background-color: var(--bg-surface-hover);
+      border-color: var(--text-secondary);
+    }
+
+    /* Key Grid */
+    .key-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .key-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .kbd-badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e3b341;
+      margin-bottom: 0.5rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -37,9 +195,10 @@
       </button>
 
       <ul id="nav-links" class="nav-links">
-        <li><a href="./index.html" class="nav-link active" data-i18n="nav_home">Ana Sayfa</a></li>
-        <li><a href="./projects.html" class="nav-link" data-i18n="nav_projects">Projeler</a></li>
-        <li><a href="./index.html#about-section" class="nav-link" data-i18n="nav_about">Hakkımda</a></li>
+        <li><a href="#overview" class="nav-link active" data-i18n="nav_home">Ana Sayfa</a></li>
+        <li><a href="#install-tab" class="nav-link tab-nav-trigger" data-tab="tab-install" data-i18n="nav_install">Kurulum</a></li>
+        <li><a href="#preview-tab" class="nav-link tab-nav-trigger" data-tab="tab-preview" data-i18n="nav_preview">Önizleme</a></li>
+        <li><a href="#controls-tab" class="nav-link tab-nav-trigger" data-tab="tab-controls" data-i18n="nav_controls">Kısayollar</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -61,66 +220,146 @@
   <!-- Main Content -->
   <main class="site-main">
     
-    <!-- Hero Section -->
-    <section class="container" style="margin-bottom: 4rem;">
-      <div style="max-width: 760px; display: flex; flex-direction: column; gap: 1.25rem;">
-        <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
-          <span class="badge badge-status-active" data-i18n="hero_status">Aktif Geliştirici</span>
-          <span class="tag-pill" id="total-projects-count">1 Proje</span>
+    <!-- Direct-Action Hero -->
+    <section class="hub-hero" id="overview">
+      <div class="container hub-hero-container">
+        <div class="badge-pill">
+          <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: var(--accent-emerald);"></span>
+          <span data-i18n="hero_badge">v1.0.11 Çıktı</span>
         </div>
-        <h1 style="font-weight: 800; letter-spacing: -0.025em; line-height: 1.2;" data-i18n="hero_title">
-          Oyun modları, Sider modülleri ve <span style="color: var(--accent-discord);">özel araçlar</span>.
+
+        <h1 style="font-weight: 800; letter-spacing: -0.025em; line-height: 1.15;" data-i18n="hero_title">
+          eFootball PES 2021 için Discord Rich Presence
         </h1>
-        <p style="font-size: 1.05rem; line-height: 1.65; color: var(--text-secondary);" data-i18n="hero_desc">
-          Selam, ben Lkxex. eFootball PES 2021 ve çeşitli oyunlar için geliştirdiğim modlar, doğrudan IPC eklentileri ve araçların güncel sürümlerini, kaynak kodlarını ve indirme bağlantılarını buradan paylaşıyorum.
+
+        <p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-secondary);" data-i18n="hero_desc">
+          Oyun içi maç skorunu, takımları, uzatma dakikalarını ve gol anlarını Discord profilinizde canlı gösterir. Sider 7 ve doğrudan Windows Named Pipe (IPC) ile sıfır gecikme ve sıfır FPS kaybı.
         </p>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.25rem;">
-          <a href="./projects.html" class="btn btn-primary">
-            <span data-i18n="hero_btn_explore">Projeleri İncele</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+
+        <!-- Immediate Action Buttons -->
+        <div class="hero-actions-bar">
+          <a href="https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip" class="btn btn-lg btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-i18n="btn_download_zip">v1.0.11 İndir (.zip)</span>
           </a>
-          <a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="btn btn-github">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-            </svg>
-            <span data-i18n="hero_btn_github">GitHub Profilim</span>
+
+          <a href="https://github.com/Lkxex/pes2021-discord-rpc" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-github">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span data-i18n="btn_view_github">GitHub'da Gör</span>
           </a>
+
+          <a href="https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-outline">
+            <span data-i18n="btn_evoweb">EvoWeb Konusu</span>
+          </a>
+        </div>
+
+        <!-- Meta Info -->
+        <div class="hero-meta-row">
+          <span class="hero-meta-item">🎮 PES 2021 / FL24 / FL25</span>
+          <span class="hero-meta-item">⚙️ Sider 7 (LuaJIT FFI)</span>
+          <span class="hero-meta-item">⚡ Zero-GC (No Stutter)</span>
+          <span class="hero-meta-item">💻 Windows 10 / 11</span>
         </div>
       </div>
     </section>
 
-    <!-- Featured Projects Section -->
-    <section class="container" style="margin-bottom: 4rem;">
-      <div class="section-header">
-        <div class="section-title-wrap">
-          <h2 data-i18n="sec_featured_title">Yayınlanan Projeler</h2>
-          <span class="section-subtitle" data-i18n="sec_featured_sub">Doğrudan indirilebilir ve kaynak kodu açık çalışmalarım</span>
-        </div>
+    <!-- Tabbed Interactive Area -->
+    <section class="container">
+      <!-- Tabs Header -->
+      <div class="tabs-nav" role="tablist">
+        <button type="button" class="tab-button active" data-tab="tab-preview" data-i18n="tab_preview">Ekran &amp; Önizleme</button>
+        <button type="button" class="tab-button" data-tab="tab-install" data-i18n="tab_install">3 Adımda Hızlı Kurulum</button>
+        <button type="button" class="tab-button" data-tab="tab-controls" data-i18n="tab_controls">Kısayollar &amp; Özellikler</button>
+        <button type="button" class="tab-button" data-tab="tab-changelog" data-i18n="tab_changelog">Sürüm Notları</button>
       </div>
 
-      <div id="featured-projects-grid" class="projects-grid">
-        <div class="empty-state" style="grid-column: 1 / -1;">
-          <p>Yükleniyor...</p>
+      <!-- Tab 1: Preview -->
+      <div id="tab-preview" class="tab-panel active">
+        <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); background-color: var(--bg-surface);">
+          <img src="./assets/images/projects/pes2021-rpc-screen1.svg" alt="Sider 7 Overlay &amp; Discord RPC Preview" style="width: 100%;" />
         </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; text-align: center; font-family: var(--font-mono);">
+          * Sol taraf: Oyun içi Sider 7 arayüzü (overlay_on) | Sağ taraf: Discord masaüstü canlı oyuncu kartı
+        </p>
       </div>
-    </section>
 
-    <!-- About Section -->
-    <section class="container" id="about-section">
-      <div class="project-section-box" style="padding: 2rem;">
-        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-          <h2 style="font-size: 1.35rem;" data-i18n="sec_about_title">Hakkımda</h2>
-          <p style="font-size: 0.975rem; line-height: 1.65;" data-i18n="sec_about_desc">
-            Oyun modlama, bellek analizi ve Windows araçları üzerine çalışan bağımsız bir geliştiriciyim. PES 2021 için Sider 7 ve LuaJIT FFI kullanarak oyunun performansını (FPS) düşürmeyen, arka planda sıfır gecikmeyle çalışan doğrudan IPC çözümleri üretiyorum.
-          </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem;">
-            <span class="tag-pill">PES 2021 Modding</span>
-            <span class="tag-pill">Sider 7</span>
-            <span class="tag-pill">LuaJIT FFI</span>
-            <span class="tag-pill">Win32 Named Pipes</span>
-            <span class="tag-pill">Discord RPC</span>
-            <span class="tag-pill">C# / .NET</span>
+      <!-- Tab 2: Quick Installation -->
+      <div id="tab-install" class="tab-panel">
+        <div class="install-step-card">
+          <h3 data-i18n="step1_title">1. Arşivi İndirin</h3>
+          <p data-i18n="step1_desc">En güncel v1.0.11 sürümünü (.zip) indirin ve içindeki dosyaları klasöre çıkartın.</p>
+        </div>
+
+        <div class="install-step-card">
+          <h3 data-i18n="step2_title">2. Sider Modüllerine Kopyalayın</h3>
+          <p data-i18n="step2_desc">discord_rpc.lua dosyasını ve mapping dosyalarını Sider 7 klasörünüzün içindeki modules/ dizinine atın.</p>
+          <div class="copy-box">
+            <span>&lt;sider_klasorunuz&gt;\modules\discord_rpc.lua</span>
           </div>
+        </div>
+
+        <div class="install-step-card">
+          <h3 data-i18n="step3_title">3. sider.ini Dosyasına Ekleyin</h3>
+          <p data-i18n="step3_desc">sider.ini dosyasını açıp lua.module bölümünün altına şu satırı ekleyin:</p>
+          <div class="copy-box">
+            <span id="lua-code-snippet">lua.module = &quot;discord_rpc.lua&quot;</span>
+            <button type="button" class="copy-btn" id="copy-lua-btn" data-i18n="btn_copy">Kopyala</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Controls & Features -->
+      <div id="tab-controls" class="tab-panel">
+        <div class="key-grid">
+          <div class="key-card">
+            <span class="kbd-badge">F5</span>
+            <h3 data-i18n="ctrl_f5_title" style="margin-bottom: 0.25rem;">F5 Tuşu</h3>
+            <p data-i18n="ctrl_f5_desc" style="font-size: 0.875rem;">Discord oyundan sonra açıldıysa tek tuşla bağlantıyı anında yeniler.</p>
+          </div>
+
+          <div class="key-card">
+            <span class="kbd-badge">PgUp / PgDn</span>
+            <h3 data-i18n="ctrl_pg_title" style="margin-bottom: 0.25rem;">PgUp / PgDn</h3>
+            <p data-i18n="ctrl_pg_desc" style="font-size: 0.875rem;">Sider 7 arayüzündeki ayar menüsünde yukarı/aşağı gezinmenizi sağlar.</p>
+          </div>
+
+          <div class="key-card">
+            <span class="kbd-badge">Delete</span>
+            <h3 data-i18n="ctrl_del_title" style="margin-bottom: 0.25rem;">Delete Tuşu</h3>
+            <p data-i18n="ctrl_del_desc" style="font-size: 0.875rem;">Seçili ayarı (Discord Butonu, Görsel Hata Ayıklama) Açık/Kapalı olarak değiştirir.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+          <div class="install-step-card">
+            <h3 data-i18n="feat_zerogc_title">⚡ Zero-GC (Sıfır Bellek Çöpü)</h3>
+            <p data-i18n="feat_zerogc_desc" style="font-size: 0.875rem;">Önceden ayrılmış statik C bellek tamponları kullanır; maç esnasında oyun içi mikro takılma (stutter) yapmaz.</p>
+          </div>
+
+          <div class="install-step-card">
+            <h3 data-i18n="feat_ipc_title">🔌 Doğrudan Win32 IPC</h3>
+            <p data-i18n="feat_ipc_desc" style="font-size: 0.875rem;">Arka planda harici bir .exe çalıştırmaz, doğrudan Discord'un yerel pipe hattına bağlanır.</p>
+          </div>
+
+          <div class="install-step-card">
+            <h3 data-i18n="feat_patches_title">🛡️ Tüm Yamalarla Uyumlu</h3>
+            <p data-i18n="feat_patches_desc" style="font-size: 0.875rem;">Football Life (FL24/FL25), SmokePatch, EvoWeb ve VirtuaRED ile kusursuz çalışır.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Changelog -->
+      <div id="tab-changelog" class="tab-panel">
+        <div class="install-step-card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem;">
+            <h3 style="font-family: var(--font-mono); color: var(--text-primary);">v1.0.11</h3>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">2026-03-21</span>
+          </div>
+          <ul style="padding-left: 1.25rem; font-size: 0.9rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.4rem;">
+            <li>Sider 7 <code>overlay_on</code> ekranında canlı maç süresi ve gol olayı gösterimi eklendi.</li>
+            <li>Zero-GC statik bellek tamponları optimize edildi, arka plan bellek tüketimi düşürüldü.</li>
+            <li>F5 kısayol tuşu ile tek dokunuşla Discord IPC pipe bağlantı tazeleme eklendi.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -137,36 +376,88 @@
             <span>lkxex<span style="color: var(--text-muted); font-weight: normal;">.dev</span></span>
           </div>
           <p style="font-size: 0.85rem; max-width: 380px;" data-i18n="footer_desc">
-            Kişisel oyun modları, Sider eklentileri ve masaüstü yazılımları.
+            Lkxex - Bağımsız oyun modları, Sider eklentileri ve masaüstü yazılımları.
           </p>
         </div>
         <div>
-          <div class="footer-col-title" data-i18n="footer_nav">Navigasyon</div>
+          <div class="footer-col-title">Navigasyon</div>
           <ul class="footer-links">
-            <li><a href="./index.html" class="footer-link" data-i18n="nav_home">Ana Sayfa</a></li>
-            <li><a href="./projects.html" class="footer-link" data-i18n="nav_projects">Projeler</a></li>
-            <li><a href="./index.html#about-section" class="footer-link" data-i18n="nav_about">Hakkımda</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-col-title" data-i18n="footer_links">Bağlantılar</div>
-          <ul class="footer-links">
-            <li><a href="https://github.com/Lkxex" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Profilim</a></li>
-            <li><a href="https://github.com/Lkxex/pes2021-discord-rpc" target="_blank" rel="noopener noreferrer" class="footer-link">PES 2021 Discord RPC</a></li>
+            <li><a href="#overview" class="footer-link">Ana Sayfa</a></li>
+            <li><a href="https://github.com/Lkxex/pes2021-discord-rpc" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Reposu</a></li>
+            <li><a href="https://evoweb.uk/threads/pes-2021-discord-rpc-released.106568/" target="_blank" rel="noopener noreferrer" class="footer-link">EvoWeb</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
         <span>&copy; <span id="current-year">2026</span> Lkxex. <span data-i18n="footer_rights">Tüm hakları saklıdır.</span></span>
-        <span data-i18n="footer_static">Doğrudan İndirilebilir &amp; Açık Kaynak</span>
+        <span>eFootball PES 2021 Modding</span>
       </div>
     </div>
   </footer>
 
   <script type="module">
-    import { initIndexPage } from './assets/js/app.js';
-    document.addEventListener('DOMContentLoaded', initIndexPage);
+    import { initCommonUI } from './assets/js/app.js';
+    import { t } from './assets/js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initCommonUI();
+
+      // Tab switching logic
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      const navTriggers = document.querySelectorAll('.tab-nav-trigger');
+
+      function switchTab(tabId) {
+        tabButtons.forEach(btn => {
+          if (btn.getAttribute('data-tab') === tabId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+        tabPanels.forEach(panel => {
+          if (panel.id === tabId) {
+            panel.classList.add('active');
+          } else {
+            panel.classList.remove('active');
+          }
+        });
+      }
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.getAttribute('data-tab'));
+        });
+      });
+
+      navTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          const tabId = trigger.getAttribute('data-tab');
+          if (tabId) {
+            switchTab(tabId);
+          }
+        });
+      });
+
+      // Copy Lua code button
+      const copyBtn = document.getElementById('copy-lua-btn');
+      const codeSnippet = document.getElementById('lua-code-snippet');
+      if (copyBtn && codeSnippet) {
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(codeSnippet.textContent).then(() => {
+            copyBtn.textContent = t('btn_copied');
+            copyBtn.style.backgroundColor = 'var(--accent-emerald)';
+            copyBtn.style.color = '#fff';
+            setTimeout(() => {
+              copyBtn.textContent = t('btn_copy');
+              copyBtn.style.backgroundColor = '';
+              copyBtn.style.color = '';
+            }, 2000);
+          });
+        });
+      }
+    });
   </script>
 </body>
 </html>
