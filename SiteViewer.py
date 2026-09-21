@@ -11,7 +11,11 @@ import http.server
 import socketserver
 import webview
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, 'frozen', False):
+    BASE_DIR = os.path.dirname(os.path.abspath(sys.executable))
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 PROJECTS_DIR = os.path.join(BASE_DIR, "projects")
 MANIFEST_PATH = os.path.join(PROJECTS_DIR, "index.json")
 
