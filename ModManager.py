@@ -186,9 +186,26 @@ def inject_advanced_editor(window):
                         <div style="flex:1;">
                             <label style="display:block;font-weight:600;margin-bottom:4px;color:#94a3b8;">Küçük Resim / İkon:</label>
                             <div style="display:flex;gap:6px;">
-                                <input type="text" id="f-icon" style="flex:1;background:#090c12;border:1px solid #1f2738;border-radius:6px;padding:8px 10px;color:#fff;box-sizing:border-box;font-size:11px;" placeholder="./assets/images/projects/icon.svg" />
+                                <input type="text" id="f-icon" style="flex:1;background:#090c12;border:1px solid #1f2738;border-radius:6px;padding:8px 10px;color:#fff;box-sizing:border-box;font-size:11px;" placeholder="./assets/images/icons/..." />
                                 <button type="button" id="btn-pick-img" style="background:#1c2436;border:1px solid #313e59;color:#fff;padding:6px 10px;border-radius:6px;cursor:pointer;white-space:nowrap;font-size:11px;">📁 Gözat</button>
                             </div>
+                            <select id="preset-icon-select" style="width:100%;margin-top:5px;background:#090c12;border:1px solid #1f2738;border-radius:6px;padding:5px 8px;color:#94a3b8;font-size:11px;">
+                                <option value="">⚡ Hazır İkon Seç...</option>
+                                <option value="./assets/images/projects/pes2021-icon.svg">🎮 PES 2021 / Futbol</option>
+                                <option value="./assets/images/icons/minecraft.svg">⛏️ Minecraft (Çimen Blok)</option>
+                                <option value="./assets/images/icons/minecraft-pickaxe.svg">⛏️ Minecraft (Elmas Kazma)</option>
+                                <option value="./assets/images/icons/minecraft-cube.svg">📦 Minecraft (Küp)</option>
+                                <option value="./assets/images/icons/discord.svg">💬 Discord Clyde</option>
+                                <option value="./assets/images/icons/steam.svg">💨 Steam</option>
+                                <option value="./assets/images/icons/gamepad.svg">🕹️ Gamepad / Konsol</option>
+                                <option value="./assets/images/icons/lua.svg">🌙 Lua Modülü</option>
+                                <option value="./assets/images/icons/python.svg">🐍 Python</option>
+                                <option value="./assets/images/icons/csharp.svg">⚡ C# / .NET</option>
+                                <option value="./assets/images/icons/plugin.svg">🔌 Eklenti / Plugin</option>
+                                <option value="./assets/images/icons/tools.svg">🛠️ Araçlar / Wrench</option>
+                                <option value="./assets/images/icons/terminal.svg">💻 Terminal</option>
+                                <option value="./assets/images/icons/windows.svg">🪟 Windows</option>
+                            </select>
                         </div>
                     </div>
 
@@ -270,6 +287,13 @@ def inject_advanced_editor(window):
             const res = await window.pywebview.api.pick_image();
             if (res.success && res.path) {
                 document.getElementById('f-icon').value = res.path;
+            }
+        };
+
+        // Preset icon change handler
+        document.getElementById('preset-icon-select').onchange = (e) => {
+            if (e.target.value) {
+                document.getElementById('f-icon').value = e.target.value;
             }
         };
 
