@@ -1,0 +1,60 @@
+{
+  "id": "pes2021-discord-rpc",
+  "title": "PES 2021 Discord Rich Presence",
+  "tagline": "eFootball PES 2021 için Discord üzerinde anlık maç, takım ve skor durumunu gösteren Rich Presence eklentisi.",
+  "category": "Tools",
+  "type": "Application",
+  "status": "Active",
+  "version": "v1.0.11",
+  "featured": true,
+  "releaseDate": "2024-05-10",
+  "updatedDate": "2026-03-21",
+  "tags": ["PES 2021", "Discord", "RPC", "C#", "eFootball", "Windows"],
+  "coverImage": "./assets/images/projects/pes2021-rpc-cover.svg",
+  "links": {
+    "github": "https://github.com/Lkxex/pes2021-discord-rpc",
+    "download": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
+    "demo": "",
+    "docs": "https://github.com/Lkxex/pes2021-discord-rpc#readme"
+  },
+  "summary": "PES 2021 Discord Rich Presence (RPC), eFootball PES 2021 oynarken Discord profilinizde oynadığınız modu, ev sahibi ve deplasman takımlarını, anlık skoru ve maç süresini canlı olarak gösteren hafif bir Windows masaüstü aracıdır.",
+  "features": [
+    "Discord profilinde anlık takım isimleri, logoları ve skor entegrasyonu",
+    "Ana Menü, Dostluk Maçı, Ana Lig (Master League) ve Efsane Olun (BAL) mod desteği",
+    "Sistem tepsisinde (System Tray) ultra hafif çalışma ve otomatik oyun algılama",
+    "Tüm PES 2021 yamaları (FL24, SmokePatch, EvoWeb) ile tam uyumluluk",
+    "Otomatik başlama ve kapatma seçeneği"
+  ],
+  "requirements": {
+    "os": "Windows 10 / Windows 11 (64-bit)",
+    "game": "eFootball PES 2021 Season Update (Tüm yamalar desteklenir)",
+    "other": "Discord Masaüstü Uygulaması"
+  },
+  "screenshots": [
+    {
+      "url": "./assets/images/projects/pes2021-rpc-screen1.svg",
+      "caption": "Discord profilinde canlı maç durumu ve skor görünümü"
+    }
+  ],
+  "installation": "1. v1.0.11 sürüm arşivini (.zip) indirin.\n2. Zip içeriğini bilgisayarınızda dilediğiniz bir klasöre çıkartın.\n3. PES 2021 açıkken uygulamayı çalıştırın.\n4. Discord profilinizdeki oyun durumunu kontrol edin.",
+  "downloads": [
+    {
+      "name": "PES 2021 Discord RPC v1.0.11 (.zip)",
+      "filename": "pes2021-discord-rpc-v1.0.11.zip",
+      "size": "Kaynak Kodu &amp; Binary",
+      "version": "v1.0.11",
+      "url": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
+      "isDirect": true
+    }
+  ],
+  "changelog": [
+    {
+      "version": "v1.0.11",
+      "date": "2026-03-21",
+      "changes": [
+        "Discord RPC bağlantı güncellemeleri yapıldı.",
+        "Takım adı algılama ve skor senkronizasyonu iyileştirildi."
+      ]
+    }
+  ]
+}
