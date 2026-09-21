@@ -2,6 +2,7 @@
   "id": "pes2021-discord-rpc",
   "title": "PES 2021 Discord Rich Presence",
   "tagline": "eFootball PES 2021 için Discord üzerinde anlık maç, takım ve skor durumunu gösteren Rich Presence eklentisi.",
+  "tagline_en": "Discord Rich Presence tool for eFootball PES 2021 displaying live match stats, teams, and score on your profile.",
   "category": "Tools",
   "type": "Application",
   "status": "Active",
@@ -18,6 +19,7 @@
     "docs": "https://github.com/Lkxex/pes2021-discord-rpc#readme"
   },
   "summary": "PES 2021 Discord Rich Presence (RPC), eFootball PES 2021 oynarken Discord profilinizde oynadığınız modu, ev sahibi ve deplasman takımlarını, anlık skoru ve maç süresini canlı olarak gösteren hafif bir Windows masaüstü aracıdır.",
+  "summary_en": "PES 2021 Discord Rich Presence (RPC) is a lightweight Windows desktop application that displays your current game mode, home and away teams, live match score, and elapsed time directly on your Discord profile while playing eFootball PES 2021.",
   "features": [
     "Discord profilinde anlık takım isimleri, logoları ve skor entegrasyonu",
     "Ana Menü, Dostluk Maçı, Ana Lig (Master League) ve Efsane Olun (BAL) mod desteği",
@@ -25,23 +27,37 @@
     "Tüm PES 2021 yamaları (FL24, SmokePatch, EvoWeb) ile tam uyumluluk",
     "Otomatik başlama ve kapatma seçeneği"
   ],
+  "features_en": [
+    "Real-time team names, club badges, and live score integration on Discord",
+    "Support for Exhibition, Master League, Become a Legend (BAL), and Main Menu modes",
+    "Ultra-lightweight system tray operation with automatic game detection",
+    "Full compatibility with all major PES 2021 patches (FL24, SmokePatch, EvoWeb)",
+    "Auto-start and auto-exit options"
+  ],
   "requirements": {
     "os": "Windows 10 / Windows 11 (64-bit)",
     "game": "eFootball PES 2021 Season Update (Tüm yamalar desteklenir)",
     "other": "Discord Masaüstü Uygulaması"
   },
+  "requirements_en": {
+    "os": "Windows 10 / Windows 11 (64-bit)",
+    "game": "eFootball PES 2021 Season Update (All patches supported)",
+    "other": "Discord Desktop App"
+  },
   "screenshots": [
     {
       "url": "./assets/images/projects/pes2021-rpc-screen1.svg",
-      "caption": "Discord profilinde canlı maç durumu ve skor görünümü"
+      "caption": "Discord profilinde canlı maç durumu ve skor görünümü",
+      "caption_en": "Live match status and score display on Discord profile"
     }
   ],
   "installation": "1. v1.0.11 sürüm arşivini (.zip) indirin.\n2. Zip içeriğini bilgisayarınızda dilediğiniz bir klasöre çıkartın.\n3. PES 2021 açıkken uygulamayı çalıştırın.\n4. Discord profilinizdeki oyun durumunu kontrol edin.",
+  "installation_en": "1. Download the v1.0.11 release archive (.zip).\n2. Extract the archive contents into any folder on your PC.\n3. Launch the application while PES 2021 is running.\n4. Check your Discord profile for the live game activity.",
   "downloads": [
     {
       "name": "PES 2021 Discord RPC v1.0.11 (.zip)",
       "filename": "pes2021-discord-rpc-v1.0.11.zip",
-      "size": "Kaynak Kodu &amp; Binary",
+      "size": "Kaynak Kodu & Binary",
       "version": "v1.0.11",
       "url": "https://github.com/Lkxex/pes2021-discord-rpc/archive/refs/tags/v1.0.11.zip",
       "isDirect": true
@@ -54,6 +70,10 @@
       "changes": [
         "Discord RPC bağlantı güncellemeleri yapıldı.",
         "Takım adı algılama ve skor senkronizasyonu iyileştirildi."
+      ],
+      "changes_en": [
+        "Discord RPC protocol connectivity updates.",
+        "Improved team name recognition and live score synchronization."
       ]
     }
   ]

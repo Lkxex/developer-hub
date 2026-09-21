@@ -1,23 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
   <defs>
-    <linearGradient id="pesBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#090a10"/>
-      <stop offset="50%" stop-color="#141829"/>
-      <stop offset="100%" stop-color="#5865F2"/>
+    <!-- Dark Gaming Radial Background -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#1e1f38" />
+      <stop offset="45%" stop-color="#0e101f" />
+      <stop offset="100%" stop-color="#07080d" />
+    </radialGradient>
+    
+    <!-- Neon Discord Gradient -->
+    <linearGradient id="discordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7289da" />
+      <stop offset="100%" stop-color="#5865f2" />
     </linearGradient>
+
+    <!-- Emerald / Cyan Gaming Accent -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
   </defs>
-  <rect width="800" height="450" fill="url(#pesBg)"/>
-  <!-- Pitch Lines -->
-  <circle cx="400" cy="225" r="120" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="3"/>
-  <line x1="400" y1="0" x2="400" y2="450" stroke="#ffffff" stroke-opacity="0.1" stroke-width="3"/>
-  <!-- Discord Icon -->
-  <g transform="translate(340, 140)">
-    <path d="M100 0C84 0 70 8 60 20C40 10 20 10 0 20C-10 8 -24 0 -40 0" fill="none" stroke="#ffffff" stroke-width="4"/>
-    <path d="M 60 40 C 60 40, 50 20, 30 25 C 20 40, 20 70, 30 85 C 50 90, 60 75, 60 75" fill="#5865F2"/>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)" />
+
+  <!-- Subtle Tactical Football Pitch Grid -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1.5">
+    <circle cx="400" cy="225" r="140" fill="none" />
+    <circle cx="400" cy="225" r="4" fill="#ffffff" fill-opacity="0.1" />
+    <line x1="400" y1="0" x2="400" y2="450" />
+    <rect x="20" y="20" width="760" height="410" rx="12" fill="none" />
+    <rect x="20" y="115" width="140" height="220" fill="none" />
+    <rect x="640" y="115" width="140" height="220" fill="none" />
   </g>
-  <!-- Title Badge -->
-  <rect x="180" y="50" width="440" height="54" rx="10" fill="#0d1117" fill-opacity="0.9" stroke="#5865F2" stroke-width="2"/>
-  <text x="400" y="85" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" letter-spacing="1">PES 2021 DISCORD RPC</text>
-  <text x="400" y="380" fill="#5865F2" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">DISCORD RICH PRESENCE INTEGRATION</text>
-  <text x="400" y="415" fill="#94a3b8" font-family="monospace" font-size="12" text-anchor="middle">v1.0.11 • eFootball PES 2021 • Live Score &amp; Match Status</text>
+
+  <!-- Background Glow behind Discord Logo -->
+  <circle cx="400" cy="180" r="100" fill="#5865f2" opacity="0.18" filter="url(#glow)" />
+
+  <!-- Authentic Discord Logo (Official Clyde Path) -->
+  <g transform="translate(320, 95) scale(0.666)">
+    <!-- Discord Rounded Container -->
+    <rect width="240" height="240" rx="48" fill="url(#discordGrad)" />
+    <!-- Clyde Mascot Exact Vector -->
+    <path d="M197.3 64.9C182.2 57.9 166.1 53 149.3 50.1c-2 3.6-4.4 8.5-6 12.4-18-2.7-35.8-2.7-53.5 0-1.7-3.9-4.1-8.8-6.2-12.4-16.7 2.9-32.8 7.9-47.9 14.8-30.8 45.9-39.2 90.7-35.1 134.8 20.4 15.1 39.9 24.2 59.3 30.2 4.8-6.6 9.1-13.6 12.8-21.1-7.1-2.7-13.9-6.1-20.2-10.3 1.7-1.2 3.4-2.5 5-3.8 38.6 17.8 80.3 17.8 118.5 0 1.6 1.3 3.3 2.6 5 3.8-6.4 4.2-13.1 7.6-20.2 10.3 3.7 7.5 8 14.6 12.8 21.1 19.4-6 39-15.1 59.4-30.2 4.9-51-7.6-95.6-35.2-134.8zM83.2 165.7c-11.8 0-21.6-10.9-21.6-24.1 0-13.3 9.5-24.1 21.6-24.1 12.1 0 21.9 10.9 21.6 24.1 0 13.3-9.5 24.1-21.6 24.1zm73.6 0c-11.8 0-21.6-10.9-21.6-24.1 0-13.3 9.5-24.1 21.6-24.1 12.1 0 21.9 10.9 21.6 24.1 0 13.3-9.5 24.1-21.6 24.1z" fill="#ffffff" />
+  </g>
+
+  <!-- Game Badges & Pill -->
+  <g transform="translate(400, 290)">
+    <!-- PES Badge -->
+    <rect x="-190" y="0" width="380" height="42" rx="21" fill="#131728" stroke="#5865f2" stroke-width="1.5" />
+    <text x="0" y="27" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" letter-spacing="1.5" text-anchor="middle">eFootball PES 2021</text>
+  </g>
+
+  <!-- Bottom Title & Status -->
+  <text x="400" y="375" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" letter-spacing="2" text-anchor="middle">DISCORD RICH PRESENCE</text>
+  
+  <g transform="translate(400, 408)">
+    <rect x="-135" y="-14" width="270" height="26" rx="13" fill="#1e243b" />
+    <circle cx="-115" cy="-1" r="4" fill="#10b981" />
+    <text x="0" y="3" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12" font-weight="600" text-anchor="middle">v1.0.11 • LIVE MATCH &amp; SCORE</text>
+  </g>
 </svg>

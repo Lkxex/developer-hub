@@ -1,10 +1,11 @@
 /**
  * Catalog Controller (projects.html)
- * Handles client-side search, multi-faceted filtering, tag filtering, and sorting.
+ * Handles search, multi-faceted filtering, sorting and i18n.
  */
 
 import { loadAllProjects, getCategoryCounts, getTypeCounts } from './data-loader.js';
 import { initCommonUI, createProjectCardHTML, escapeHTML } from './app.js';
+import { getLanguage, t } from './i18n.js';
 
 let allProjects = [];
 
@@ -34,7 +35,6 @@ export async function initCatalogPage() {
   try {
     allProjects = await loadAllProjects();
 
-    // Read initial filters from URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('category')) state.category = urlParams.get('category');
     if (urlParams.has('type')) state.type = urlParams.get('type');
@@ -43,21 +43,24 @@ export async function initCatalogPage() {
     if (urlParams.has('q')) state.searchQuery = urlParams.get('q');
     if (urlParams.has('sort')) state.sortBy = urlParams.get('sort');
 
-    // Populate Category Dropdown and Tabs
-    populateCategoryOptions(categorySelect, categoryTabsContainer);
-    populateTypeOptions(typeSelect);
-    populateTagOptions(tagSelect);
+    function rebuildFilters() {
+      populateCategoryOptions(categorySelect, categoryTabsContainer);
+      populateTypeOptions(typeSelect);
+      populateStatusOptions(statusSelect);
+      populateSortOptions(sortSelect);
+      populateTagOptions(tagSelect);
+      if (searchInput) searchInput.placeholder = t('search_placeholder');
+      renderFilteredProjects(grid, resultsCountEl);
+    }
 
-    // Synchronize UI elements with state
-    if (searchInput) searchInput.value = state.searchQuery;
-    if (categorySelect) categorySelect.value = state.category;
-    if (typeSelect) typeSelect.value = state.type;
-    if (statusSelect) statusSelect.value = state.status;
-    if (sortSelect) sortSelect.value = state.sortBy;
-    if (tagSelect) tagSelect.value = state.tag;
+    // Populate initial
+    rebuildFilters();
 
-    // Event Listeners
+    // Listen for language change
+    window.addEventListener('languageChanged', rebuildFilters);
+
     if (searchInput) {
+      searchInput.value = state.searchQuery;
       searchInput.addEventListener('input', (e) => {
         state.searchQuery = e.target.value.trim().toLowerCase();
         updateURL();
@@ -111,14 +114,10 @@ export async function initCatalogPage() {
       });
     }
 
-    // Initial render
     renderFilteredProjects(grid, resultsCountEl);
 
   } catch (err) {
     console.error('Error initializing catalog page:', err);
-    if (grid) {
-      grid.innerHTML = '<div class="empty-state"><p>Projeler yüklenirken hata oluştu.</p></div>';
-    }
   }
 }
 
@@ -145,17 +144,18 @@ function populateCategoryOptions(selectEl, tabsContainer) {
   const categories = Object.keys(counts).sort();
 
   if (selectEl) {
-    selectEl.innerHTML = '<option value="all">Tüm Kategoriler</option>';
+    selectEl.innerHTML = `<option value="all">${t('all_categories')}</option>`;
     categories.forEach(cat => {
       const opt = document.createElement('option');
       opt.value = cat;
       opt.textContent = `${cat} (${counts[cat]})`;
+      if (state.category.toLowerCase() === cat.toLowerCase()) opt.selected = true;
       selectEl.appendChild(opt);
     });
   }
 
   if (tabsContainer) {
-    let tabsHTML = `<button type="button" class="category-tab-btn ${state.category === 'all' ? 'active' : ''}" data-category="all">Tümü</button>`;
+    let tabsHTML = `<button type="button" class="category-tab-btn ${state.category === 'all' ? 'active' : ''}" data-category="all">${t('all_tab')}</button>`;
     categories.forEach(cat => {
       const isActive = state.category.toLowerCase() === cat.toLowerCase();
       tabsHTML += `<button type="button" class="category-tab-btn ${isActive ? 'active' : ''}" data-category="${escapeHTML(cat)}">${escapeHTML(cat)} <span style="opacity:0.7">(${counts[cat]})</span></button>`;
@@ -178,13 +178,34 @@ function populateTypeOptions(selectEl) {
   const counts = getTypeCounts(allProjects);
   const types = Object.keys(counts).sort();
 
-  selectEl.innerHTML = '<option value="all">Tüm Türler</option>';
+  selectEl.innerHTML = `<option value="all">${t('all_types')}</option>`;
   types.forEach(type => {
     const opt = document.createElement('option');
     opt.value = type;
     opt.textContent = `${type} (${counts[type]})`;
+    if (state.type === type) opt.selected = true;
     selectEl.appendChild(opt);
   });
+}
+
+function populateStatusOptions(selectEl) {
+  if (!selectEl) return;
+  selectEl.innerHTML = `
+    <option value="all">${t('all_statuses')}</option>
+    <option value="Active" ${state.status === 'Active' ? 'selected' : ''}>Active</option>
+    <option value="In Development" ${state.status === 'In Development' ? 'selected' : ''}>In Development</option>
+    <option value="Archived" ${state.status === 'Archived' ? 'selected' : ''}>Archived</option>
+  `;
+}
+
+function populateSortOptions(selectEl) {
+  if (!selectEl) return;
+  selectEl.innerHTML = `
+    <option value="featured" ${state.sortBy === 'featured' ? 'selected' : ''}>${t('sort_featured')}</option>
+    <option value="newest" ${state.sortBy === 'newest' ? 'selected' : ''}>${t('sort_newest')}</option>
+    <option value="updated" ${state.sortBy === 'updated' ? 'selected' : ''}>${t('sort_updated')}</option>
+    <option value="alphabetical" ${state.sortBy === 'alphabetical' ? 'selected' : ''}>${t('sort_alpha')}</option>
+  `;
 }
 
 function populateTagOptions(selectEl) {
@@ -193,53 +214,52 @@ function populateTagOptions(selectEl) {
   allProjects.forEach(p => p.tags.forEach(t => tagSet.add(t)));
   const tags = Array.from(tagSet).sort();
 
-  selectEl.innerHTML = '<option value="all">Tüm Etiketler</option>';
+  selectEl.innerHTML = `<option value="all">${t('all_tags')}</option>`;
   tags.forEach(tag => {
     const opt = document.createElement('option');
     opt.value = tag;
     opt.textContent = tag;
+    if (state.tag === tag) opt.selected = true;
     selectEl.appendChild(opt);
   });
 }
 
 function renderFilteredProjects(grid, countEl) {
   if (!grid) return;
+  const lang = getLanguage();
 
   let filtered = allProjects.filter(project => {
-    // 1. Search Query
     if (state.searchQuery) {
       const q = state.searchQuery;
       const matchTitle = project.title.toLowerCase().includes(q);
-      const matchTagline = project.tagline.toLowerCase().includes(q);
-      const matchSummary = project.summary.toLowerCase().includes(q);
+      const matchTagline = (project.tagline || '').toLowerCase().includes(q);
+      const matchTaglineEn = (project.tagline_en || '').toLowerCase().includes(q);
+      const matchSummary = (project.summary || '').toLowerCase().includes(q);
+      const matchSummaryEn = (project.summary_en || '').toLowerCase().includes(q);
       const matchTags = project.tags.some(t => t.toLowerCase().includes(q));
-      if (!matchTitle && !matchTagline && !matchSummary && !matchTags) {
+      if (!matchTitle && !matchTagline && !matchTaglineEn && !matchSummary && !matchSummaryEn && !matchTags) {
         return false;
       }
     }
 
-    // 2. Category
     if (state.category !== 'all') {
       if (project.category.toLowerCase() !== state.category.toLowerCase()) {
         return false;
       }
     }
 
-    // 3. Type
     if (state.type !== 'all') {
       if (project.type.toLowerCase() !== state.type.toLowerCase()) {
         return false;
       }
     }
 
-    // 4. Status
     if (state.status !== 'all') {
       if (project.status.toLowerCase() !== state.status.toLowerCase()) {
         return false;
       }
     }
 
-    // 5. Tag
     if (state.tag !== 'all') {
       if (!project.tags.some(t => t.toLowerCase() === state.tag.toLowerCase())) {
         return false;
@@ -249,7 +269,6 @@ function renderFilteredProjects(grid, countEl) {
     return true;
   });
 
-  // Sorting
   filtered.sort((a, b) => {
     if (state.sortBy === 'featured') {
       if (a.featured && !b.featured) return -1;
@@ -268,12 +287,10 @@ function renderFilteredProjects(grid, countEl) {
     return 0;
   });
 
-  // Update count
   if (countEl) {
-    countEl.textContent = `${filtered.length} proje bulundu`;
+    countEl.textContent = `${filtered.length} ${t('results_found')}`;
   }
 
-  // Render Grid or Empty State
   if (filtered.length === 0) {
     grid.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1;">
@@ -281,9 +298,9 @@ function renderFilteredProjects(grid, countEl) {
           <circle cx="11" cy="11" r="8"/>
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
-        <h3 class="empty-state-title">Aramanızla eşleşen proje bulunamadı</h3>
-        <p class="empty-state-text">Arama kriterlerinizi veya seçtiğiniz filtreleri sıfırlayarak tekrar deneyebilirsiniz.</p>
-        <button type="button" class="btn btn-secondary" id="empty-state-reset-btn">Filtreleri Sıfırla</button>
+        <h3 class="empty-state-title">${t('empty_title')}</h3>
+        <p class="empty-state-text">${t('empty_desc')}</p>
+        <button type="button" class="btn btn-secondary" id="empty-state-reset-btn">${t('empty_reset')}</button>
       </div>
     `;
 

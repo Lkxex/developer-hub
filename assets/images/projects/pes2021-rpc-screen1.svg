@@ -1,24 +1,64 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
-  <rect width="800" height="450" fill="#0b0e14"/>
-  <rect x="20" y="20" width="760" height="410" rx="10" fill="#121722" stroke="#252f44" stroke-width="2"/>
-  <!-- Discord Profile Popup Mockup -->
-  <rect x="200" y="60" width="400" height="310" rx="12" fill="#18191c" stroke="#2f3136"/>
-  <rect x="200" y="60" width="400" height="70" rx="12" fill="#5865f2"/>
-  <circle cx="260" cy="130" r="36" fill="#202225" stroke="#18191c" stroke-width="4"/>
-  
-  <!-- Profile Text -->
-  <text x="310" y="150" fill="#ffffff" font-family="sans-serif" font-size="16" font-weight="bold">Lkxex</text>
-  
-  <!-- Rich Presence Box -->
-  <rect x="220" y="190" width="360" height="150" rx="8" fill="#2f3136"/>
-  <text x="240" y="215" fill="#b9bbbe" font-family="sans-serif" font-size="11" font-weight="bold" text-transform="uppercase">OYUN OYNUYOR</text>
-  
-  <rect x="240" y="230" width="60" height="60" rx="8" fill="#5865f2"/>
-  <text x="270" y="267" fill="#ffffff" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">PES</text>
-  
-  <text x="315" y="248" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">eFootball PES 2021</text>
-  <text x="315" y="268" fill="#dcddde" font-family="sans-serif" font-size="13">Barcelona 2 - 1 Real Madrid</text>
-  <text x="315" y="288" fill="#b9bbbe" font-family="sans-serif" font-size="12">Master League (74:12 geçildi)</text>
+  <defs>
+    <linearGradient id="screenBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0e17" />
+      <stop offset="100%" stop-color="#141828" />
+    </linearGradient>
+  </defs>
 
-  <text x="400" y="415" fill="#8b949e" font-family="sans-serif" font-size="13" text-anchor="middle">Ekran Görüntüsü 1: Discord Profilindeki Canlı Maç ve Skor Entegrasyonu</text>
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#screenBg)" />
+
+  <!-- Outer Window Container -->
+  <rect x="30" y="20" width="740" height="410" rx="14" fill="#1e1f22" stroke="#2b2d31" stroke-width="2" />
+  
+  <!-- Window Titlebar with Dots -->
+  <rect x="30" y="20" width="740" height="38" rx="14" fill="#2b2d31" />
+  <circle cx="55" cy="39" r="6" fill="#ed4245" />
+  <circle cx="75" cy="39" r="6" fill="#fee75c" />
+  <circle cx="95" cy="39" r="6" fill="#57f287" />
+  <text x="400" y="44" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Discord User Profile — Rich Presence Preview</text>
+
+  <!-- User Profile Card -->
+  <g transform="translate(180, 75)">
+    <!-- Discord Profile Box -->
+    <rect width="440" height="330" rx="12" fill="#232428" />
+    
+    <!-- Profile Banner -->
+    <rect width="440" height="100" rx="12" fill="#5865f2" />
+
+    <!-- Avatar with Online Status Indicator -->
+    <circle cx="65" cy="100" r="38" fill="#1e1f22" />
+    <circle cx="65" cy="100" r="34" fill="#2b2d31" />
+    <!-- Avatar Icon (Clyde mini) -->
+    <g transform="translate(47, 85) scale(0.15)">
+      <path d="M197.3 64.9C182.2 57.9 166.1 53 149.3 50.1c-2 3.6-4.4 8.5-6 12.4-18-2.7-35.8-2.7-53.5 0-1.7-3.9-4.1-8.8-6.2-12.4-16.7 2.9-32.8 7.9-47.9 14.8-30.8 45.9-39.2 90.7-35.1 134.8 20.4 15.1 39.9 24.2 59.3 30.2 4.8-6.6 9.1-13.6 12.8-21.1-7.1-2.7-13.9-6.1-20.2-10.3 1.7-1.2 3.4-2.5 5-3.8 38.6 17.8 80.3 17.8 118.5 0 1.6 1.3 3.3 2.6 5 3.8-6.4 4.2-13.1 7.6-20.2 10.3 3.7 7.5 8 14.6 12.8 21.1 19.4-6 39-15.1 59.4-30.2 4.9-51-7.6-95.6-35.2-134.8z" fill="#5865f2" />
+    </g>
+    <circle cx="92" cy="126" r="10" fill="#232428" />
+    <circle cx="92" cy="126" r="8" fill="#23a55a" />
+
+    <!-- Username Area -->
+    <text x="120" y="125" fill="#f2f3f5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700">Lkxex</text>
+    <text x="120" y="142" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12">lkxex</text>
+
+    <!-- Activity Box (Rich Presence) -->
+    <rect x="20" y="165" width="400" height="145" rx="8" fill="#111214" />
+    <text x="35" y="188" fill="#b5bac1" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="800" letter-spacing="0.5">PLAYING A GAME / OYUN OYNUYOR</text>
+
+    <!-- Game Icon Square -->
+    <rect x="35" y="202" width="75" height="75" rx="10" fill="#0f1422" stroke="#5865f2" stroke-width="1.5" />
+    <!-- Game Icon Graphics -->
+    <text x="72" y="240" fill="#5865f2" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="900" text-anchor="middle">PES</text>
+    <text x="72" y="258" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" text-anchor="middle">2021</text>
+    <!-- Little Discord Badge on Image -->
+    <circle cx="102" cy="270" r="11" fill="#5865f2" />
+    <!-- Mini Clyde -->
+    <path d="M98 266c1.5-.7 3.1-1.2 4.8-1.5-.2.4-.4.9-.6 1.2-1.8-.3-3.6-.3-5.3 0-.2-.4-.4-.8-.6-1.2 1.7.3 3.3.8 4.8 1.5-3.1 4.6-3.9 9.1-3.5 13.5 2 1.5 4 2.4 5.9 3 .5-.7.9-1.4 1.3-2.1-.7-.3-1.4-.6-2-.9.2-.1.3-.2.5-.4 3.9 1.8 8 1.8 11.9 0 .2.1.3.3.5.4-.7.3-1.3.6-2 .9.4.7.8 1.4 1.3 2.1 1.9-.6 3.9-1.5 5.9-3 .4-4.4-.4-8.9-3.5-13.5z" fill="#ffffff" transform="translate(1, -2) scale(0.6)" />
+
+    <!-- Rich Presence Details -->
+    <text x="125" y="222" fill="#f2f3f5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700">eFootball PES 2021</text>
+    <text x="125" y="242" fill="#dbdee1" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13">Real Madrid 3 - 1 Barcelona</text>
+    <text x="125" y="260" fill="#949ba4" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12">Master League (78:45 elapsed)</text>
+    <text x="125" y="278" fill="#57f287" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600">● Live Discord Status Synced</text>
+  </g>
 </svg>

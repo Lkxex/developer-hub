@@ -1,14 +1,27 @@
 /**
  * Main Application Script
- * Handles global interactions, navigation, and index page rendering.
+ * Handles global interactions, navigation, i18n, and index page rendering.
  */
 
 import { loadAllProjects, getCategoryCounts } from './data-loader.js';
+import { applyLanguage, getLanguage, setLanguage, t } from './i18n.js';
 
 /**
  * Initialize common layout behaviors
  */
 export function initCommonUI() {
+  // Apply language based on system or preference
+  applyLanguage();
+
+  // Language toggle button
+  const langBtn = document.getElementById('lang-toggle-btn');
+  if (langBtn) {
+    langBtn.addEventListener('click', () => {
+      const current = getLanguage();
+      setLanguage(current === 'tr' ? 'en' : 'tr');
+    });
+  }
+
   // Mobile navigation toggle
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
@@ -27,11 +40,12 @@ export function initCommonUI() {
 }
 
 /**
- * Generates HTML for a project card
+ * Generates HTML for a project card with i18n support
  * @param {Object} project
  * @returns {string} HTML string
  */
 export function createProjectCardHTML(project) {
+  const lang = getLanguage();
   const statusClass = 
     project.status.toLowerCase() === 'active' ? 'badge-status-active' :
     project.status.toLowerCase() === 'in development' ? 'badge-status-indev' : 'badge-status-archived';
@@ -41,7 +55,7 @@ export function createProjectCardHTML(project) {
   ).join('');
 
   const demoBadge = project.isDemoPlaceholder 
-    ? `<span class="badge badge-demo" title="Bu bir demo/örnek içeriktir">Demo / Örnek</span>` 
+    ? `<span class="badge badge-demo" title="Demo / Example">Demo / Örnek</span>` 
     : '';
 
   const githubBtn = project.links.github 
@@ -50,10 +64,12 @@ export function createProjectCardHTML(project) {
       </a>`
     : '';
 
+  const tagline = (lang === 'en' && project.tagline_en) ? project.tagline_en : project.tagline;
+
   return `
     <article class="project-card" data-id="${escapeHTML(project.id)}">
       <div class="card-media">
-        <img src="${escapeHTML(project.coverImage)}" alt="${escapeHTML(project.title)} kapak görseli" loading="lazy" />
+        <img src="${escapeHTML(project.coverImage)}" alt="${escapeHTML(project.title)} cover" loading="lazy" />
         <div class="card-badges-top">
           <span class="badge badge-category">${escapeHTML(project.category)}</span>
           <span class="badge badge-type">${escapeHTML(project.type)}</span>
@@ -70,19 +86,19 @@ export function createProjectCardHTML(project) {
           </h3>
           <span class="badge badge-status ${statusClass}">${escapeHTML(project.status)}</span>
         </div>
-        <p class="card-tagline">${escapeHTML(project.tagline)}</p>
+        <p class="card-tagline">${escapeHTML(tagline)}</p>
         <div class="card-tags">
           ${tagsHTML}
         </div>
       </div>
       <div class="card-footer">
-        <span class="card-meta-date" title="Son Güncelleme: ${escapeHTML(project.updatedDate)}">
-          Güncellendi: ${escapeHTML(project.updatedDate)}
+        <span class="card-meta-date" title="${t('updated_prefix')} ${escapeHTML(project.updatedDate)}">
+          ${t('updated_prefix')} ${escapeHTML(project.updatedDate)}
         </span>
         <div class="card-actions">
           ${githubBtn}
           <a href="project.html?id=${encodeURIComponent(project.id)}" class="btn btn-sm btn-primary">
-            İncele
+            ${t('btn_inspect')}
             <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
           </a>
         </div>
@@ -115,63 +131,61 @@ export async function initIndexPage() {
   const categoryGrid = document.getElementById('category-cards-grid');
   const totalCountEl = document.getElementById('total-projects-count');
 
-  try {
-    const projects = await loadAllProjects();
+  async function renderIndex() {
+    try {
+      const projects = await loadAllProjects();
 
-    if (totalCountEl) {
-      totalCountEl.textContent = `${projects.length} Proje`;
-    }
+      if (totalCountEl) {
+        totalCountEl.textContent = `${projects.length} ${t('projects_count_suffix')}`;
+      }
 
-    // 1. Featured projects
-    if (featuredGrid) {
-      const featured = projects.filter(p => p.featured);
-      const displayProjects = featured.length > 0 ? featured : projects.slice(0, 3);
-      featuredGrid.innerHTML = displayProjects.map(p => createProjectCardHTML(p)).join('');
-    }
+      // 1. Featured projects
+      if (featuredGrid) {
+        const featured = projects.filter(p => p.featured);
+        const displayProjects = featured.length > 0 ? featured : projects;
+        featuredGrid.innerHTML = displayProjects.map(p => createProjectCardHTML(p)).join('');
+      }
 
-    // 2. Categories with count
-    if (categoryGrid) {
-      const categoryCounts = getCategoryCounts(projects);
-      const categoryIcons = {
-        'Games': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4m-2-2v4m10-2h.01m-3-2h.01"/></svg>',
-        'Minecraft': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
-        'Mods': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
-        'Plugins': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
-        'Tools': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
-        'Applications': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
-        'Web Projects': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
-        'Other': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>'
-      };
+      // 2. Categories with count
+      if (categoryGrid) {
+        const categoryCounts = getCategoryCounts(projects);
+        const categoryIcons = {
+          'Games': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4m-2-2v4m10-2h.01m-3-2h.01"/></svg>',
+          'Minecraft': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+          'Tools': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+          'Applications': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+          'Other': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>'
+        };
 
-      // Standard category order
-      const standardCategories = ['Games', 'Minecraft', 'Mods', 'Plugins', 'Tools', 'Applications', 'Web Projects', 'Other'];
-      const allCategories = Array.from(new Set([...standardCategories, ...Object.keys(categoryCounts)]));
+        const categories = Object.keys(categoryCounts);
+        categoryGrid.innerHTML = categories.map(cat => {
+          const count = categoryCounts[cat] || 0;
+          const icon = categoryIcons[cat] || categoryIcons['Other'];
+          return `
+            <a href="projects.html?category=${encodeURIComponent(cat)}" class="category-card" title="${escapeHTML(cat)}">
+              <div class="category-card-icon">${icon}</div>
+              <div class="category-card-title">${escapeHTML(cat)}</div>
+              <div class="category-card-count">${count} ${t('projects_count_suffix')}</div>
+            </a>
+          `;
+        }).join('');
+      }
 
-      categoryGrid.innerHTML = allCategories.map(cat => {
-        const count = categoryCounts[cat] || 0;
-        const icon = categoryIcons[cat] || categoryIcons['Other'];
-        return `
-          <a href="projects.html?category=${encodeURIComponent(cat)}" class="category-card" title="${escapeHTML(cat)} kategorisindeki projelere git">
-            <div class="category-card-icon">${icon}</div>
-            <div class="category-card-title">${escapeHTML(cat)}</div>
-            <div class="category-card-count">${count} Proje</div>
-          </a>
-        `;
-      }).join('');
-    }
+      // 3. Recently updated projects
+      if (recentGrid) {
+        const sortedByUpdate = [...projects].sort((a, b) => 
+          new Date(b.updatedDate).getTime() - new Date(a.updatedDate).getTime()
+        );
+        recentGrid.innerHTML = sortedByUpdate.slice(0, 3).map(p => createProjectCardHTML(p)).join('');
+      }
 
-    // 3. Recently updated projects
-    if (recentGrid) {
-      const sortedByUpdate = [...projects].sort((a, b) => 
-        new Date(b.updatedDate).getTime() - new Date(a.updatedDate).getTime()
-      );
-      recentGrid.innerHTML = sortedByUpdate.slice(0, 3).map(p => createProjectCardHTML(p)).join('');
-    }
-
-  } catch (err) {
-    console.error('Error rendering index page:', err);
-    if (featuredGrid) {
-      featuredGrid.innerHTML = '<div class="empty-state"><p>Projeler yüklenirken bir sorun oluştu.</p></div>';
+    } catch (err) {
+      console.error('Error rendering index page:', err);
     }
   }
+
+  // Re-render when language changes
+  window.addEventListener('languageChanged', renderIndex);
+
+  await renderIndex();
 }
