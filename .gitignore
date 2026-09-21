@@ -1,0 +1,5 @@
+HubManager.exe
+build/
+dist/
+*.spec
+__pycache__/
