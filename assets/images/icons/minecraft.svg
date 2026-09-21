@@ -1,15 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="12" fill="#161b26" stroke="#30363d" stroke-width="2"/>
-  <!-- Minecraft Grass Block Isometric -->
-  <g transform="translate(12, 10)">
-    <!-- Top Face (Grass Green) -->
-    <polygon points="20,2 38,12 20,22 2,12" fill="#5b8731" stroke="#466924" stroke-width="1.5"/>
-    <polygon points="12,7 20,11 16,13 8,9" fill="#72a83d"/>
-    <!-- Left Face (Dirt + Grass Hang) -->
-    <polygon points="2,12 20,22 20,42 2,32" fill="#866043" stroke="#60432c" stroke-width="1.5"/>
-    <polygon points="2,12 20,22 20,28 16,26 14,29 10,27 6,30 2,24" fill="#5b8731"/>
-    <!-- Right Face (Dirt Dark) -->
-    <polygon points="20,22 38,12 38,32 20,42" fill="#6d4c33" stroke="#503522" stroke-width="1.5"/>
-    <polygon points="20,22 38,12 38,24 34,26 30,24 26,29 20,28" fill="#4d7429"/>
+  <rect width="64" height="64" rx="14" fill="#1b2416" stroke="#2e4225" stroke-width="1.5"/>
+  <!-- Minecraft Creeper Face Icon -->
+  <g transform="translate(14, 14)">
+    <rect width="36" height="36" rx="4" fill="#4fa83d"/>
+    <!-- Eyes -->
+    <rect x="5" y="7" width="9" height="9" fill="#131c0e"/>
+    <rect x="22" y="7" width="9" height="9" fill="#131c0e"/>
+    <!-- Nose & Mouth -->
+    <rect x="14" y="16" width="8" height="11" fill="#131c0e"/>
+    <rect x="9" y="21" width="5" height="11" fill="#131c0e"/>
+    <rect x="22" y="21" width="5" height="11" fill="#131c0e"/>
   </g>
 </svg>
