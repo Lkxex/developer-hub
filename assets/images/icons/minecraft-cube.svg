@@ -1,13 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="14" fill="#141820" stroke="#262f3f" stroke-width="1.5"/>
   <g transform="translate(12, 10)">
-    <!-- Top (Grass) -->
-    <polygon points="20,2 38,12 20,22 2,12" fill="#5c8e32"/>
-    <!-- Left (Dirt + Grass Fringe) -->
-    <polygon points="2,12 20,22 20,40 2,30" fill="#755034"/>
-    <polygon points="2,12 20,22 20,27 16,25 14,28 10,26 6,28 2,23" fill="#4d7728"/>
-    <!-- Right (Dirt Shadow) -->
-    <polygon points="20,22 38,12 38,30 20,40" fill="#5c3e28"/>
-    <polygon points="20,22 38,12 38,22 34,25 30,23 26,27 20,27" fill="#3f621f"/>
+    <!-- Top Face (Grass) -->
+    <polygon points="20,2 38,12 20,22 2,12" fill="#5db338" stroke="#3b822f" stroke-width="1"/>
+    <!-- Left Face (Dirt) -->
+    <polygon points="2,12 20,22 20,42 2,32" fill="#866043" stroke="#5c4028" stroke-width="1"/>
+    <!-- Right Face (Dirt shaded) -->
+    <polygon points="38,12 20,22 20,42 38,32" fill="#69482f" stroke="#48311f" stroke-width="1"/>
+    <!-- Grass Overhang Left -->
+    <polygon points="2,12 20,22 20,27 16,25 14,27 10,24 6,26 2,17" fill="#4fa441"/>
+    <!-- Grass Overhang Right -->
+    <polygon points="38,12 20,22 20,27 24,25 27,27 31,24 35,26 38,17" fill="#3b822f"/>
   </g>
 </svg>

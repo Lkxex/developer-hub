@@ -1,9 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#141820" stroke="#262f3f" stroke-width="1.5"/>
-  <g transform="translate(15, 15)">
-    <rect x="2" y="2" width="14" height="14" fill="#0078d4" rx="1.5"/>
-    <rect x="18" y="2" width="14" height="14" fill="#0078d4" rx="1.5"/>
-    <rect x="2" y="18" width="14" height="14" fill="#0078d4" rx="1.5"/>
-    <rect x="18" y="18" width="14" height="14" fill="#0078d4" rx="1.5"/>
-  </g>
+  <rect width="64" height="64" rx="14" fill="#0f1924" stroke="#1d3047" stroke-width="1.5"/>
+  <svg x="14" y="14" width="36" height="36" viewBox="0 0 128 128">
+    <ns0:path xmlns:ns0="http://www.w3.org/2000/svg" fill="#00ADEF" d="M126 1.637l-67 9.834v49.831l67-.534zM1.647 66.709l.003 42.404 50.791 6.983-.04-49.057zm56.82.68l.094 49.465 67.376 9.509.016-58.863zM1.61 19.297l.047 42.383 50.791-.289-.023-49.016z" />
+  </svg>
 </svg>

@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="14" fill="#141820" stroke="#262f3f" stroke-width="1.5"/>
   <svg x="14" y="14" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M9 2v6"/>
-    <path d="M15 2v6"/>
-    <path d="M6 8h12v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4Z" fill="rgba(56, 189, 248, 0.12)"/>
-    <path d="M12 17v5"/>
+    <ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M9 2v6" />
+  <ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M15 2v6" />
+  <ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M12 17v5" />
+  <ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M5 8h14" />
+  <ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M6 11V8h12v3a6 6 0 1 1-12 0Z" />
+
   </svg>
 </svg>
