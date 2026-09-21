@@ -1,0 +1,98 @@
+{
+  "id": "cosmic-drift",
+  "title": "Cosmic Drift",
+  "tagline": "Fütüristik retro synthwave estetiğinde hızlı tempolu arcade uzay yarışı oyunu.",
+  "category": "Games",
+  "type": "Game",
+  "status": "Active",
+  "version": "v1.2.0",
+  "featured": true,
+  "isDemoPlaceholder": true,
+  "releaseDate": "2025-08-14",
+  "updatedDate": "2026-02-18",
+  "tags": ["Godot", "Arcade", "Retro", "WebGL", "Space"],
+  "coverImage": "./assets/images/projects/cosmic-drift-cover.svg",
+  "links": {
+    "github": "https://github.com/example/cosmic-drift",
+    "download": "https://github.com/example/cosmic-drift/releases/latest",
+    "demo": "https://example.itch.io/cosmic-drift",
+    "docs": "https://github.com/example/cosmic-drift#readme"
+  },
+  "summary": "Cosmic Drift, neon ışıklı uzay koridorlarında yüksek hızda refleks gerektiren bir 2D arcade oyunudur. Çeşitli uzay gemisi modifikasyonları, dinamik ritim tabanlı müzikler ve küresel skor tablosu içerir.",
+  "features": [
+    "Dinamik Synthwave ses efektleri ve reaktif müzikler",
+    "WebGL desteği ile doğrudan tarayıcı üzerinden anında oynanabilirlik",
+    "Özelleştirilebilir 12 farklı uzay gemisi ve motor yükseltmeleri",
+    "Gamepad ve dokunmatik ekran tam kontrol desteği",
+    "Yerel ve küresel skor tablosu"
+  ],
+  "requirements": {
+    "os": "Windows 10/11 (64-bit), Linux veya macOS",
+    "memory": "4 GB RAM",
+    "graphics": "OpenGL 3.3 / WebGL 2.0 destekli GPU",
+    "storage": "250 MB boş alan"
+  },
+  "screenshots": [
+    {
+      "url": "./assets/images/projects/cosmic-drift-screen1.svg",
+      "caption": "Neon uzay koridoru ve yarış başlangıç anı"
+    },
+    {
+      "url": "./assets/images/projects/cosmic-drift-screen2.svg",
+      "caption": "Gemi özelleştirme ve atölye ekranı"
+    }
+  ],
+  "installation": "1. Sürüm sayfasından işletim sisteminize uygun (.zip veya .exe) dosyayı indirin.\n2. Arşivi dilediğiniz bir klasöre çıkartın.\n3. CosmicDrift.exe dosyasını çalıştırarak oyuna başlayın.",
+  "downloads": [
+    {
+      "name": "Cosmic Drift - Windows x64",
+      "filename": "CosmicDrift-v1.2.0-win64.zip",
+      "size": "78.4 MB",
+      "version": "v1.2.0",
+      "url": "https://github.com/example/cosmic-drift/releases/download/v1.2.0/CosmicDrift-win64.zip",
+      "isDirect": true
+    },
+    {
+      "name": "Cosmic Drift - Linux x86_64",
+      "filename": "CosmicDrift-v1.2.0-linux.tar.gz",
+      "size": "82.1 MB",
+      "version": "v1.2.0",
+      "url": "https://github.com/example/cosmic-drift/releases/download/v1.2.0/CosmicDrift-linux.tar.gz",
+      "isDirect": true
+    },
+    {
+      "name": "Web Demo (Tarayıcıda Oyna)",
+      "filename": "HTML5 WebGL",
+      "size": "Web",
+      "version": "v1.2.0",
+      "url": "https://example.itch.io/cosmic-drift",
+      "isDirect": false
+    }
+  ],
+  "changelog": [
+    {
+      "version": "v1.2.0",
+      "date": "2026-02-18",
+      "changes": [
+        "Yeni 'Hyper Sector' haritası ve 3 yeni gemi eklendi.",
+        "Godot 4.3 motoruna yükseltildi ve WebGL performansında %35 artış sağlandı.",
+        "Gamepad titreşim ve deadzone ayarları eklendi."
+      ]
+    },
+    {
+      "version": "v1.1.0",
+      "date": "2025-11-05",
+      "changes": [
+        "Skor tablosu senkronizasyonu eklendi.",
+        "Ses ayarları ve grafik kalite modları genişletildi."
+      ]
+    },
+    {
+      "version": "v1.0.0",
+      "date": "2025-08-14",
+      "changes": [
+        "İlk genel sürüm yayınlandı."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="avatarBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="codeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38ef7d"/>
+      <stop offset="100%" stop-color="#11998e"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="url(#avatarBg)" stroke="#334155" stroke-width="2"/>
+  <!-- Terminal code glyphs -->
+  <path d="M 38 45 L 53 60 L 38 75" fill="none" stroke="url(#codeGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="58" y1="75" x2="80" y2="75" stroke="#38ef7d" stroke-width="4.5" stroke-linecap="round"/>
+</svg>

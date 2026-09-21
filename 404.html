@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sayfa Bulunamadı (404) - Developer Hub</title>
+  <meta name="description" content="Aradığınız sayfa bulunamadı." />
+  
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+</head>
+<body>
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="./index.html" class="brand" aria-label="Ana Sayfa">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <span>DEV<span class="brand-text-accent">HUB</span></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="./index.html" class="nav-link">Ana Sayfa</a></li>
+        <li><a href="./projects.html" class="nav-link">Tüm Projeler</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="site-main" style="display: flex; align-items: center; justify-content: center; min-height: 55vh;">
+    <div class="container">
+      <div class="empty-state" style="max-width: 600px; margin: 0 auto; padding: 3.5rem 2rem;">
+        <span style="font-size: 4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-emerald); line-height: 1;">404</span>
+        <h1 style="font-size: 1.6rem; margin-top: 0.5rem;">Sayfa Bulunamadı</h1>
+        <p class="empty-state-text">
+          Aradığınız sayfa silinmiş, adı değiştirilmiş veya geçici olarak kullanım dışı kalmış olabilir.
+        </p>
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+          <a href="./index.html" class="btn btn-primary">Ana Sayfaya Dön</a>
+          <a href="./projects.html" class="btn btn-outline">Projelere Göz At</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <span>&copy; <span id="current-year">2026</span> Developer Hub.</span>
+        <span>404 - Sayfa Bulunamadı</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
